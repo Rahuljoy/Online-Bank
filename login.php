@@ -15,7 +15,6 @@ if (isset($_POST['login'])) {
         } else {
             echo 'Incorrect Password!';
         }
-
     } else {
         echo 'User not registered!';
     }
