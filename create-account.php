@@ -31,11 +31,10 @@ if (isset($_POST['submit'])) {
     $password = $_POST['password'];
     $time = date("Y-m-d H:i:s");
 
-    DB::query(' INSERT INTO bank_user_temps  VALUES (\'\', :user_name, :user_password, :type_id,
-        :user_create_date, :user_active)', array ( ':user_name' => $username, ':user_password' => $password,
-        ':type_id' => 2, ':user_create_date' => $time, ':user_active' => false));
-//    DB::query("INSERT INTO `bank_user_temps`(`user_name`, `user_password`,
-//`type_id`, `user_create_date`, `user_active`) VALUES ('$username','$password', 2, '$time', false)");
+
+//    DB::query('INSERT INTO bank_user_temps VALUES (\'\', :user_name, :user_password, :type_id, :user_create_date, :user_active)', array(':user_name' => $username, ':user_password' => $password, ':type_id' => 2, ':user_create_date' => $time, ':user_active' => false));
+    DB::query("INSERT INTO `bank_user_temps`(`user_name`, `user_password`, `type_id`, `user_create_date`, `user_active`) VALUES ('$username','$password', 2, '$time', false)");
+    DB::query('INSERT INTO `test` (`user_id`) VALUES (LAST_INSERT_ID())');
 //    echo $user_id;
 //        if (strlen($username) >= 3 && strlen($username) <= 32) {
 //
@@ -83,7 +82,7 @@ if (isset($_POST['submit'])) {
     <title>Online Bank</title>
     <!-- Bootstrap -->
     <link href="assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="assets/datetimepicker/build/css/bootstrap-datetimepicker.min.css" />
+    <link rel="stylesheet" href="assets/datetimepicker/build/css/bootstrap-datetimepicker.min.css"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="assets/moment/min/moment.min.js"></script>
@@ -136,7 +135,8 @@ if (isset($_POST['submit'])) {
                         <div class="form-group">
                             <label for="inputFirstName" class="col-lg-2 control-label">Firs tname</label>
                             <div class="col-lg-10">
-                                <input class="form-control" name="firstname" id="inputFirstName" placeholder="First Name"
+                                <input class="form-control" name="firstname" id="inputFirstName"
+                                       placeholder="First Name"
                                        type="text">
                             </div>
                         </div><!--First Name-->
@@ -168,7 +168,8 @@ if (isset($_POST['submit'])) {
                         <div class="form-group">
                             <label for="dateOfBirth" class="col-lg-2 control-label">Date of Birth</label>
                             <div class='input-group date col-lg-10' id='datetimepicker1'>
-                                <input name="dateofbirth" type='text' class="form-control" placeholder="Input Date of Birth" />
+                                <input name="dateofbirth" type='text' class="form-control"
+                                       placeholder="Input Date of Birth"/>
                                 <span class="input-group-addon">
                         <span class="glyphicon glyphicon-calendar"></span>
                     </span>
@@ -177,7 +178,8 @@ if (isset($_POST['submit'])) {
                         <div class="form-group">
                             <label for="inputContactNumber" class="col-lg-2 control-label">Contact Number</label>
                             <div class="col-lg-10">
-                                <input class="form-control" name="contactnumber" id="inputContactNumber" placeholder="Contact Number"
+                                <input class="form-control" name="contactnumber" id="inputContactNumber"
+                                       placeholder="Contact Number"
                                        type="text">
                             </div>
                         </div><!--Contact Number-->
@@ -265,7 +267,8 @@ if (isset($_POST['submit'])) {
                         <div class="form-group">
                             <label for="inputOccupation" class="col-lg-2 control-label">Occupation</label>
                             <div class="col-lg-10">
-                                <input class="form-control" name="Occupation" id="inputOccupation" placeholder="Occupation"
+                                <input class="form-control" name="Occupation" id="inputOccupation"
+                                       placeholder="Occupation"
                                        type="text">
                             </div>
                         </div>
@@ -279,21 +282,24 @@ if (isset($_POST['submit'])) {
                         <div class="form-group">
                             <label for="inputOfficeAddress" class="col-lg-2 control-label">Office address</label>
                             <div class="col-lg-10">
-                                <input class="form-control" name="officeaddress" id="inputOfficeAddress" placeholder="Office address"
+                                <input class="form-control" name="officeaddress" id="inputOfficeAddress"
+                                       placeholder="Office address"
                                        type="text">
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="inputPresentAddress" class="col-lg-2 control-label">Present address</label>
                             <div class="col-lg-10">
-                                <input class="form-control" name="presentaddress" id="inputPresentAddress" placeholder="Present address"
+                                <input class="form-control" name="presentaddress" id="inputPresentAddress"
+                                       placeholder="Present address"
                                        type="text">
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="inputPermanentAddress" class="col-lg-2 control-label">Permanent address</label>
                             <div class="col-lg-10">
-                                <input class="form-control" name="permanentaddress" id="inputPermanentAddress" placeholder="Permanent address"
+                                <input class="form-control" name="permanentaddress" id="inputPermanentAddress"
+                                       placeholder="Permanent address"
                                        type="text">
                             </div>
                         </div>
@@ -310,7 +316,8 @@ if (isset($_POST['submit'])) {
                         <div class="form-group">
                             <label for="n_dateOfBirth" class="col-lg-2 control-label">Date of Birth</label>
                             <div class='input-group date col-lg-10' id='datetimepicker2'>
-                                <input name="n_dateofbirth" type='text' class="form-control" placeholder="Input Date of Birth" />
+                                <input name="n_dateofbirth" type='text' class="form-control"
+                                       placeholder="Input Date of Birth"/>
                                 <span class="input-group-addon">
                         <span class="glyphicon glyphicon-calendar"></span>
                     </span>
@@ -337,7 +344,8 @@ if (isset($_POST['submit'])) {
                         <div class="form-group">
                             <label for="inputNImage" class="col-lg-2 control-label">Nominee Image</label>
                             <div class="col-lg-10">
-                                <input class="form-control-file" name="nimage" id="inputNImage" placeholder="Nominee Image"
+                                <input class="form-control-file" name="nimage" id="inputNImage"
+                                       placeholder="Nominee Image"
                                        type="file">
                             </div>
                         </div>
