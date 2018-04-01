@@ -1,98 +1,28 @@
 <?php
-
 include('classes/DB.php');
 
 if (isset($_POST['login'])) {
     $username = $_POST['username'];
     $password = $_POST['password'];
-//    echo $username . $password;
-    if (DB::query('SELECT user_name FROM b_user WHERE user_name=:username', array(':username'=>$username))) {
-        $passwordFromDB = DB::query('SELECT user_password FROM b_user WHERE user_name=:username', array(':username'=>$username))[0]['user_password'];
+    $type_id ="";
 
+    if (DB::query('SELECT user_name FROM bank_users WHERE user_name=:username', array(':username'=>$username))) {
+        $passwordFromDB = DB::query('SELECT user_password FROM bank_users WHERE user_name=:username', array(':username'=>$username))[0]['user_password'];
         if ($password == $passwordFromDB) {
-            echo 'Logged in!';
-            header('Location: index.php');
+            $type_idFromDB = DB::query('SELECT type_id FROM bank_users WHERE user_name=:username', array(':username'=>$username))[0]['type_id'];
+            if($type_idFromDB == 1) {
+                header("location: admin.php");
+            } else if ($type_idFromDB == 2) {
+                header("location: user.php");
+            }
         } else {
             echo 'Incorrect Password!';
         }
     } else {
         echo 'User not registered!';
     }
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-include('DB_Connection/DBConnection.php');
-
-// Creating DBConnection object
-$DBConnect = new DBConnection;
-
-// Creating connection to database
-$DBConnect->createConnection();
-
-// Getting connection variable
-$connection = $DBConnect->getConnection();
-
-// Getting result by SQL Query
-$result = $DBConnect->read("SELECT * from `b_user`", $connection);
-
-if (isset($_POST['submit'])) {
-    $user_name = $_POST['user_name'];
-    $user_password = $_POST['user_password'];
-    $type_id = "";
-
-    // Printing Result
-    if ($result->num_rows > 0) {
-        // output data of each row
-        while ($row = $result->fetch_assoc()) {
-            if ($row["user_name"] == $user_name && $row["user_password"] == $user_password) {
-                //echo "welcome" . " " . $user_name;
-                if ($row['type_id'] == 1) {
-                   // echo "welcome" . " admin " . $user_name;
-                    header("Location: /D_bank/admin.php");
-                    die();
-                } else if ($row['type_id'] == 2) {
-                   // echo "welcome" . " user " . $user_name;
-                    header("Location: /D_bank/loginUser.php");
-                    die();
-                }
-            }
-        }
-    } else {
-        echo "0 results";
-    }
-}
-
-$DBConnect->closeConnection();
-*/
 ?>
-
-
-
-
-
-
-
 
 
 <!DOCTYPE html>
@@ -140,7 +70,7 @@ $DBConnect->closeConnection();
     <fieldset class="login-form">
         <legend>Login</legend>
         <div class="form-group">
-            <label for="inputUser" class="col-lg-2 control-label">Username</label>
+            <label for="inputUser" class="col-lg-2 control-label">User name</label>
             <div class="col-lg-10">
                 <input class="form-control" name="username" id="inputUser" placeholder="Username" type="text">
             </div>

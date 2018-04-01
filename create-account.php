@@ -1,46 +1,74 @@
 <?php
-
 include('classes/DB.php');
 
-if (isset($_POST['createaccount'])) {
+date_default_timezone_set("Asia/Dhaka");
+
+if (isset($_POST['submit'])) {
+//    $firstname = $_POST['firstname'];
+//    $middlename = $_POST['middlename'];
+//    $lastname = $_POST['lastname'];
+//    $gender = $_POST['gender'];
+//    $dateofbirth = $_POST['dateofbirth'];
+//    $contactnumber = $_POST['contactnumber'];
+//    $email = $_POST['email'];
+//    $address = $_POST['address'];
+//    $addressType = $_POST['addressType'];
+//    $state = $_POST['state'];
+//    $city = $_POST['city'];
+//    $country = $_POST['country'];
+//    $zipcode = $_POST['zipcode'];
+//    $fullname = $_POST['fullname'];
+//    $occupation = $_POST['occupation'];
+//    $relation = $_POST['relation'];
+//    $officeaddress = $_POST['officeaddress'];
+//    $presentaddress = $_POST['presentaddress'];
+//    $permanentaddress = $_POST['permanentaddress'];
+//    $n_gender = $_POST['n_gendre'];
+//    $n_dateofbirth = $_POST['n_dateofbirth'];
+//    $image = $_POST['image'];
+//    $nimage = $_POST['nimage'];
     $username = $_POST['username'];
     $password = $_POST['password'];
-    $email = $_POST['email'];
+    $time = date("Y-m-d H:i:s");
 
-    if (!DB::query('SELECT username FROM users WHERE username=:username', array(':username' => $username))) {
-
-        if (strlen($username) >= 3 && strlen($username) <= 32) {
-
-            if (preg_match('/[a-zA-Z0-9_]+/', $username)) {
-
-                if (strlen($password) >= 6 && strlen($password) <= 60) {
-
-                    if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
-
-                        if (!DB::query('SELECT email FROM users WHERE email=:email', array(':email' => $email))) {
-
-                            DB::query('INSERT INTO users VALUES (\'\', :username, :password, :email, \'0\', \'\')', array(':username' => $username, ':password' => password_hash($password, PASSWORD_BCRYPT), ':email' => $email));
-                            Mail::sendMail('Welcome to The Circle!', 'Your account has been created!', $email);
-                            header('Location: http://localhost/the_circle/login.php');
-                        } else {
-                            echo 'Email in use!';
-                        }
-                    } else {
-                        echo 'Invalid email!';
-                    }
-                } else {
-                    echo 'Invalid password!';
-                }
-            } else {
-                echo 'Invalid username';
-            }
-        } else {
-            echo 'Invalid username';
-        }
-
-    } else {
-        echo 'User already exists!';
-    }
+    DB::query(' INSERT INTO bank_user_temps  VALUES (\'\', :user_name, :user_password, :type_id,
+        :user_create_date, :user_active)', array ( ':user_name' => $username, ':user_password' => $password,
+        ':type_id' => 2, ':user_create_date' => $time, ':user_active' => false));
+//    DB::query("INSERT INTO `bank_user_temps`(`user_name`, `user_password`,
+//`type_id`, `user_create_date`, `user_active`) VALUES ('$username','$password', 2, '$time', false)");
+//    echo $user_id;
+//        if (strlen($username) >= 3 && strlen($username) <= 32) {
+//
+//            if (preg_match('/[a-zA-Z0-9_]+/', $username)) {
+//
+//                if (strlen($password) >= 6 && strlen($password) <= 60) {
+//
+//                    if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
+//
+//                        if (!DB::query('SELECT email FROM users WHERE email=:email', array(':email' => $email))) {
+//
+//                            DB::query('INSERT INTO users VALUES (\'\', :username, :password, :email, \'0\', \'\')', array(':username' => $username, ':password' => password_hash($password, PASSWORD_BCRYPT), ':email' => $email));
+//                            Mail::sendMail('Welcome to The Circle!', 'Your account has been created!', $email);
+//                            header('Location: http://localhost/the_circle/login.php');
+//                        } else {
+//                            echo 'Email in use!';
+//                        }
+//                    } else {
+//                        echo 'Invalid email!';
+//                    }
+//                } else {
+//                    echo 'Invalid password!';
+//                }
+//            } else {
+//                echo 'Invalid username';
+//            }
+//        } else {
+//            echo 'Invalid username';
+//        }
+//
+//    } else {
+//        echo 'User already exists!';
+//    }
 }
 ?>
 
@@ -93,7 +121,7 @@ if (isset($_POST['createaccount'])) {
         </div>
     </div>
 </nav>
-<form class="form-horizontal" action="login.php" method="post">
+<form class="form-horizontal" action="create-account.php" method="post" enctype="multipart/form-data">
     <fieldset class="login-form">
         <legend>Create Account</legend>
         <div class="panel-group" id="accordion">
@@ -106,14 +134,14 @@ if (isset($_POST['createaccount'])) {
                 <div id="collapse1" class="panel-collapse collapse in">
                     <div class="panel-body">
                         <div class="form-group">
-                            <label for="inputFirstName" class="col-lg-2 control-label">Firstname</label>
+                            <label for="inputFirstName" class="col-lg-2 control-label">Firs tname</label>
                             <div class="col-lg-10">
                                 <input class="form-control" name="firstname" id="inputFirstName" placeholder="First Name"
                                        type="text">
                             </div>
                         </div><!--First Name-->
                         <div class="form-group">
-                            <label for="inputMiddleName" class="col-lg-2 control-label">Middlename</label>
+                            <label for="inputMiddleName" class="col-lg-2 control-label">Middle name</label>
                             <div class="col-lg-10">
                                 <input class="form-control" name="middlename" id="inputMiddleName"
                                        placeholder="Middle Name"
@@ -121,7 +149,7 @@ if (isset($_POST['createaccount'])) {
                             </div>
                         </div><!--Middle Name-->
                         <div class="form-group">
-                            <label for="inputLastName" class="col-lg-2 control-label">Lastname</label>
+                            <label for="inputLastName" class="col-lg-2 control-label">Last name</label>
                             <div class="col-lg-10">
                                 <input class="form-control" name="lastname" id="inputLastName" placeholder="Last Name"
                                        type="text">
@@ -179,41 +207,41 @@ if (isset($_POST['createaccount'])) {
                             </div>
                         </div><!--Address-->
                         <div class="form-group">
-                            <label for="addressState" class="col-lg-2 control-label">Present/Permanent</label>
+                            <label for="addressType" class="col-lg-2 control-label">Address type</label>
                             <div class="col-lg-10">
-                                <select name="addressState" class="form-control" id="select">
+                                <select name="addressType" class="form-control" id="select">
                                     <option>Present</option>
                                     <option>Permanent</option>
                                 </select>
                             </div>
                         </div><!--Present or Permanent-->
                         <div class="form-group">
-                            <label for="inputMiddleName" class="col-lg-2 control-label">Middlename</label>
+                            <label for="inputState" class="col-lg-2 control-label">State</label>
                             <div class="col-lg-10">
-                                <input class="form-control" name="middlename" id="inputMiddleName"
-                                       placeholder="Middle Name"
+                                <input class="form-control" name="state" id="inputState"
+                                       placeholder="State"
                                        type="text">
                             </div>
                         </div><!--State-->
                         <div class="form-group">
-                            <label for="inputLastName" class="col-lg-2 control-label">Lastname</label>
+                            <label for="inputCity" class="col-lg-2 control-label">City</label>
                             <div class="col-lg-10">
-                                <input class="form-control" name="lastname" id="inputLastName" placeholder="Last Name"
+                                <input class="form-control" name="city" id="inputCity" placeholder="City"
                                        type="text">
                             </div>
                         </div><!--City-->
                         <div class="form-group">
-                            <label for="inputContactNumber" class="col-lg-2 control-label">Contact Number</label>
+                            <label for="inputCountry" class="col-lg-2 control-label">Country</label>
                             <div class="col-lg-10">
-                                <input class="form-control" name="contactnumber" id="inputContactNumber" placeholder="Contact Number"
+                                <input class="form-control" name="country" id="inputCountry" placeholder="Country"
                                        type="text">
                             </div>
                         </div><!--Country-->
                         <div class="form-group">
-                            <label for="inputEmail" class="col-lg-2 control-label">Email</label>
+                            <label for="inputZipCode" class="col-lg-2 control-label">Zip code</label>
                             <div class="col-lg-10">
-                                <input class="form-control" name="email" id="inputEmail" placeholder="Email"
-                                       type="email">
+                                <input class="form-control" name="zipcode" id="inputZipCode" placeholder="Zip code"
+                                       type="text">
                             </div>
                         </div><!--Zip code-->
                     </div>
@@ -228,17 +256,64 @@ if (isset($_POST['createaccount'])) {
                 <div id="collapse3" class="panel-collapse collapse">
                     <div class="panel-body">
                         <div class="form-group">
-                            <label for="inputUser" class="col-lg-2 control-label">Username</label>
+                            <label for="inputFullName" class="col-lg-2 control-label">Full name</label>
                             <div class="col-lg-10">
-                                <input class="form-control" name="username" id="inputUser" placeholder="Username"
+                                <input class="form-control" name="fullname" id="inputFullName" placeholder="Full name"
                                        type="text">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="inputPassword" class="col-lg-2 control-label">Password</label>
+                            <label for="inputOccupation" class="col-lg-2 control-label">Occupation</label>
                             <div class="col-lg-10">
-                                <input class="form-control" name="password" id="inputPassword" placeholder="Password"
-                                       type="password">
+                                <input class="form-control" name="Occupation" id="inputOccupation" placeholder="Occupation"
+                                       type="text">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputRelation" class="col-lg-2 control-label">Relation</label>
+                            <div class="col-lg-10">
+                                <input class="form-control" name="relation" id="inputRelation" placeholder="Relation"
+                                       type="text">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputOfficeAddress" class="col-lg-2 control-label">Office address</label>
+                            <div class="col-lg-10">
+                                <input class="form-control" name="officeaddress" id="inputOfficeAddress" placeholder="Office address"
+                                       type="text">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputPresentAddress" class="col-lg-2 control-label">Present address</label>
+                            <div class="col-lg-10">
+                                <input class="form-control" name="presentaddress" id="inputPresentAddress" placeholder="Present address"
+                                       type="text">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputPermanentAddress" class="col-lg-2 control-label">Permanent address</label>
+                            <div class="col-lg-10">
+                                <input class="form-control" name="permanentaddress" id="inputPermanentAddress" placeholder="Permanent address"
+                                       type="text">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="n_gender" class="col-lg-2 control-label">Gender</label>
+                            <div class="col-lg-10">
+                                <select name="n_gender" class="form-control" id="select">
+                                    <option>Male</option>
+                                    <option>Female</option>
+                                    <option>Not want to mention</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="n_dateOfBirth" class="col-lg-2 control-label">Date of Birth</label>
+                            <div class='input-group date col-lg-10' id='datetimepicker2'>
+                                <input name="n_dateofbirth" type='text' class="form-control" placeholder="Input Date of Birth" />
+                                <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
                             </div>
                         </div>
                     </div>
@@ -253,9 +328,34 @@ if (isset($_POST['createaccount'])) {
                 <div id="collapse4" class="panel-collapse collapse">
                     <div class="panel-body">
                         <div class="form-group">
-                            <label for="inputUser" class="col-lg-2 control-label">Username</label>
+                            <label for="inputImage" class="col-lg-2 control-label">Your Image</label>
                             <div class="col-lg-10">
-                                <input class="form-control" name="username" id="inputUser" placeholder="Username"
+                                <input class="form-control-file" name="image" id="inputImage" placeholder="Your Image"
+                                       type="file">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputNImage" class="col-lg-2 control-label">Nominee Image</label>
+                            <div class="col-lg-10">
+                                <input class="form-control-file" name="nimage" id="inputNImage" placeholder="Nominee Image"
+                                       type="file">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse5">provide User & Password</a>
+                    </h4>
+                </div>
+                <div id="collapse5" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <label for="inputUserName" class="col-lg-2 control-label">User name</label>
+                            <div class="col-lg-10">
+                                <input class="form-control" name="username" id="inputUserName" placeholder="User name"
                                        type="text">
                             </div>
                         </div>
@@ -269,234 +369,19 @@ if (isset($_POST['createaccount'])) {
                     </div>
                 </div>
             </div>
+            <br/>
             <div class="col-lg-10 col-lg-offset-2 submit">
-                <button type="reset" class="btn btn-default">Cancel</button>
-                <button type="submit" class="btn btn-primary" name="login">Submit</button>
+                <button type="reset" class="btn btn-default" name="cancel">Cancel</button>
+                <button type="submit" class="btn btn-primary" name="submit">Submit</button>
             </div>
         </div>
+        <br/>
     </fieldset>
 </form>
-<!--<form class="form-horizontal" action="login.php" method="post">-->
-<!--    <fieldset>-->
-<!--        <legend>Login</legend>-->
-<!--<!--        <form name="UserProcessForm" action="userProcess.php" method="post">-->
-<!--            <div class="row">-->
-<!--                <div class="col-md-4"></div>-->
-<!--                <div class="col-md-4">-->
-<!--                    <div class="panel-group" style="margin: 8px">-->
-<!--                        <div class="panel panel-default">-->
-<!--                            <div class="panel-heading">-->
-<!--                                <h2 class="panel-title">-->
-<!--                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse1"><strong>..Details..</strong></a>-->
-<!--                                </h2>-->
-<!--                            </div>-->
-<!--                            <div id ="collapse1" class="panel-collapse collapse in">-->
-<!--                                <div class="panel-body">-->
-<!--                                    <div class="row" style="margin:5px">-->
-<!--                                        <div class="form-group">-->
-<!--                                            <label for="first_name">First Name</label>-->
-<!--                                            <input type="text" class="form-control" id="first_name" name="first_name">-->
-<!--                                        </div>-->
-<!--                                    </div>-->
-<!--                                    <div class="row" style="margin:5px">-->
-<!--                                        <div class="form-group">-->
-<!--                                            <label for="middle_name">Middle Name</label>-->
-<!--                                            <input type="text" class="form-control" id="middle_name" name="middle_name">-->
-<!--                                        </div>-->
-<!--                                    </div>-->
-<!--                                    <div class="row" style="margin:5px">-->
-<!--                                        <div class="form-group">-->
-<!--                                            <label for="last_name">Last Name</label>-->
-<!--                                            <input type="text" class="form-control" id="last_name" name="last_name">-->
-<!--                                        </div>-->
-<!--                                    </div>-->
-<!--                                    <div class="row" style="margin:5px">-->
-<!--                                        <div class="form-group">-->
-<!--                                            <label for="gender">Gender</label>-->
-<!--                                            <input type="text" class="form-control" id="gender" name="gender">-->
-<!--                                        </div>-->
-<!--                                    </div>-->
-<!--                                    <div class="row" style="margin:5px">-->
-<!--                                        <div class="form-group">-->
-<!--                                            <label for="date_of_birth">Date of Birth</label>-->
-<!--                                            <input type="text" class="form-control" id="date_of_birth" name="date_of_birth">-->
-<!--                                        </div>-->
-<!--                                    </div>-->
-<!--                                    <div class="row" style="margin:5px">-->
-<!--                                        <div class="form-group">-->
-<!--                                            <label for="contact_no">Contact No.</label>-->
-<!--                                            <input type="text" class="form-control" id="contact_no" name="contact_no">-->
-<!--                                        </div>-->
-<!--                                    </div>-->
-<!--                                    <div class="row" style="margin:5px">-->
-<!--                                        <div class="form-group">-->
-<!--                                            <label for="e_mail">E mail</label>-->
-<!--                                            <input type="text" class="form-control" id="e_mail" name="e_mail">-->
-<!--                                        </div>-->
-<!--                                    </div>-->
-<!---->
-<!--                                </div>-->
-<!---->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                    <div class ="panel-group" style="margin: 8px">-->
-<!--                        <div class="panel panel-default">-->
-<!--                            <div class="panel-heading">-->
-<!--                                <h2 class="panel-title">-->
-<!--                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse2"><strong>..Address..</strong></a>-->
-<!--                                </h2>-->
-<!--                            </div>-->
-<!--                            <div id ="collapse2" class="panel-collapse collapse in">-->
-<!--                                <div class="panel-body">-->
-<!--                                    <div class="row" style="margin:5px">-->
-<!--                                        <div class="form-group">-->
-<!--                                            <label for="address">Address</label>-->
-<!--                                            <input type="text" class="form-control" id="address" name="address">-->
-<!--                                        </div>-->
-<!--                                    </div>-->
-<!--                                    <div class="row" style="margin:5px">-->
-<!--                                        <div class="form-group">-->
-<!--                                            <label for="type">Address Type</label>-->
-<!--                                            <input type="text" class="form-control" id="type" name="type" placeholder="Present OR Permanent">-->
-<!--                                        </div>-->
-<!--                                    </div>-->
-<!--                                    <div class="row" style="margin:5px">-->
-<!--                                        <div class="form-group">-->
-<!--                                            <label for="state">State</label>-->
-<!--                                            <input type="text" class="form-control" id="state" name="state">-->
-<!--                                        </div>-->
-<!--                                    </div>-->
-<!--                                    <div class="row" style="margin:5px">-->
-<!--                                        <div class="form-group">-->
-<!--                                            <label for="city">City</label>-->
-<!--                                            <input type="text" class="form-control" id="city" name="city">-->
-<!--                                        </div>-->
-<!--                                    </div>-->
-<!--                                    <div class="row" style="margin:5px">-->
-<!--                                        <div class="form-group">-->
-<!--                                            <label for="country">Country</label>-->
-<!--                                            <input type="text" class="form-control" id="country" name="country">-->
-<!--                                        </div>-->
-<!--                                    </div>-->
-<!--                                    <div class="row" style="margin:5px">-->
-<!--                                        <div class="form-group">-->
-<!--                                            <label for="zip_code">Zip code</label>-->
-<!--                                            <input type="text" class="form-control" id="zip_code" name="zip_code">-->
-<!--                                        </div>-->
-<!--                                    </div>-->
-<!---->
-<!--                                </div>-->
-<!---->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                    <div class ="panel-group" style="margin: 8px">-->
-<!--                        <div class="panel panel-default">-->
-<!--                            <div class="panel-heading">-->
-<!--                                <h2 class="panel-title">-->
-<!--                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse3"><strong>..Nominee Information..</strong></a>-->
-<!--                                </h2>-->
-<!--                            </div>-->
-<!--                            <div id ="collapse3" class="panel-collapse collapse in">-->
-<!--                                <div class="panel-body">-->
-<!--                                    <div class="row" style="margin:5px">-->
-<!--                                        <div class="form-group">-->
-<!--                                            <label for="full_name">Full Name</label>-->
-<!--                                            <input type="text" class="form-control" id="full_name" name="full_name">-->
-<!--                                        </div>-->
-<!--                                    </div>-->
-<!--                                    <div class="row" style="margin:5px">-->
-<!--                                        <div class="form-group">-->
-<!--                                            <label for="occupation">Occupation</label>-->
-<!--                                            <input type="text" class="form-control" id="occupation" name="occupation">-->
-<!--                                        </div>-->
-<!--                                    </div>-->
-<!--                                    <div class="row" style="margin:5px">-->
-<!--                                        <div class="form-group">-->
-<!--                                            <label for="relationship">Relation</label>-->
-<!--                                            <input type="text" class="form-control" id="relationship" name="relationship">-->
-<!--                                        </div>-->
-<!--                                    </div>-->
-<!--                                    <div class="row" style="margin:5px">-->
-<!--                                        <div class="form-group">-->
-<!--                                            <label for="n_gender">Gender</label>-->
-<!--                                            <input type="text" class="form-control" id="n_gender" name="n_gender">-->
-<!--                                        </div>-->
-<!--                                    </div>-->
-<!--                                    <div class="row" style="margin:5px">-->
-<!--                                        <div class="form-group">-->
-<!--                                            <label for="n_date_of_birth">Date of Birth</label>-->
-<!--                                            <input type="text" class="form-control" id="n_date_of_birth" name="n_date_of_birth">-->
-<!--                                        </div>-->
-<!--                                    </div>-->
-<!--                                    <div class="row" style="margin:5px">-->
-<!--                                        <div class="form-group">-->
-<!--                                            <label for="present_address">Present Address</label>-->
-<!--                                            <input type="text" class="form-control" id="present_address" name="present_address">-->
-<!--                                        </div>-->
-<!--                                    </div>-->
-<!--                                    <div class="row" style="margin:5px">-->
-<!--                                        <div class="form-group">-->
-<!--                                            <label for="permanent_address">Permanent Address</label>-->
-<!--                                            <input type="text" class="form-control" id="permanent_address" name="permanent_address">-->
-<!--                                        </div>-->
-<!--                                    </div>-->
-<!--                                    <div class="row" style="margin:5px">-->
-<!--                                        <div class="form-group">-->
-<!--                                            <label for="office_address">Office Address</label>-->
-<!--                                            <input type="text" class="form-control" id="office_address" name="office_address">-->
-<!--                                        </div>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!---->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                    <div class ="panel-group" style="margin: 8px">-->
-<!--                        <div class="panel panel-default">-->
-<!--                            <div class="panel-heading">-->
-<!--                                <h2 class="panel-title">-->
-<!--                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse4"><strong>..Image..</strong></a>-->
-<!--                                </h2>-->
-<!--                            </div>-->
-<!--                            <div id ="collapse4" class="panel-collapse collapse in">-->
-<!--                                <div class="panel-body">-->
-<!--                                    <div class="row" style="margin:5px">-->
-<!--                                        <div class="form-group">-->
-<!--                                            <label for="u_image">Your Image</label>-->
-<!--                                            <input type="file" class="form-control-file" id="u_image" name="u_image">-->
-<!--                                        </div>-->
-<!--                                    </div>-->
-<!--                                    <div class="row" style="margin:5px">-->
-<!--                                        <div class="form-group">-->
-<!--                                            <label for="n_image">Nominee Image</label>-->
-<!--                                            <input type="file" class="form-control-file" id="n_image" name="n_image">-->
-<!--                                        </div>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!---->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--                <div class="col-md-4"></div>-->
-<!---->
-<!--            </div>-->
-<!--            <br/>-->
-<!--            <div class="row">-->
-<!--                <div class="col-md-4"></div>-->
-<!--                <div class="col-md-4"></div>-->
-<!--                <div class="col-md-4">-->
-<!--                    <input type="submit" class="btn btn-primary" name="submit" id="submit" value="Submit"/>-->
-<!--                </div>-->
-<!--            </div>-->
-
-<!--    </fieldset>-->
-<!--</form>-->
 <script type="text/javascript">
     $(function () {
         $('#datetimepicker1').datetimepicker();
+        $('#datetimepicker2').datetimepicker();
     });
 </script>
 </body>
