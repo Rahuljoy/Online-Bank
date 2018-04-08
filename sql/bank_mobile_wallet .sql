@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 28, 2018 at 11:19 PM
+-- Generation Time: Apr 03, 2018 at 10:45 PM
 -- Server version: 10.1.30-MariaDB
 -- PHP Version: 7.2.1
 
@@ -275,71 +275,62 @@ CREATE TABLE `user_informations_temps` (
 -- Indexes for table `addresses`
 --
 ALTER TABLE `addresses`
-  ADD PRIMARY KEY (`address_id`),
-  ADD KEY `user_id` (`user_id`);
+  ADD PRIMARY KEY (`address_id`);
 
 --
 -- Indexes for table `address_temps`
 --
 ALTER TABLE `address_temps`
-  ADD PRIMARY KEY (`address_id`),
-  ADD KEY `user_id` (`user_id`);
+  ADD PRIMARY KEY (`address_id`);
 
 --
 -- Indexes for table `balances`
 --
 ALTER TABLE `balances`
-  ADD PRIMARY KEY (`balance_id`),
-  ADD KEY `user_id` (`user_id`);
+  ADD PRIMARY KEY (`balance_id`);
 
 --
 -- Indexes for table `bank_users`
 --
 ALTER TABLE `bank_users`
-  ADD PRIMARY KEY (`user_id`),
-  ADD KEY `type_id` (`type_id`);
+  ADD PRIMARY KEY (`user_id`);
 
 --
 -- Indexes for table `bank_user_temps`
 --
 ALTER TABLE `bank_user_temps`
   ADD PRIMARY KEY (`user_id`),
-  ADD KEY `type_id` (`type_id`);
+  ADD UNIQUE KEY `user_name` (`user_name`);
 
 --
 -- Indexes for table `cards`
 --
 ALTER TABLE `cards`
-  ADD PRIMARY KEY (`card_id`),
-  ADD KEY `user_id` (`user_id`);
+  ADD PRIMARY KEY (`card_id`);
 
 --
 -- Indexes for table `logs`
 --
 ALTER TABLE `logs`
-  ADD PRIMARY KEY (`transactions_id`),
-  ADD KEY `user_id` (`user_id`);
+  ADD PRIMARY KEY (`transactions_id`);
 
 --
 -- Indexes for table `nominees`
 --
 ALTER TABLE `nominees`
-  ADD PRIMARY KEY (`nominee_id`),
-  ADD KEY `user_id` (`user_id`);
+  ADD PRIMARY KEY (`nominee_id`);
 
 --
 -- Indexes for table `nominee_temps`
 --
 ALTER TABLE `nominee_temps`
-  ADD PRIMARY KEY (`nominee_id`),
-  ADD KEY `user_id` (`user_id`);
+  ADD PRIMARY KEY (`nominee_id`);
 
 --
 -- Indexes for table `transactions`
 --
 ALTER TABLE `transactions`
-  ADD PRIMARY KEY (`transactions_id`),
-  ADD KEY `user_id` (`user_id`);
+  ADD PRIMARY KEY (`transactions_id`);
 
 --
 -- Indexes for table `types`
@@ -351,19 +342,13 @@ ALTER TABLE `types`
 -- Indexes for table `user_informations`
 --
 ALTER TABLE `user_informations`
-  ADD PRIMARY KEY (`user_informations_id`),
-  ADD KEY `user_id` (`user_id`),
-  ADD KEY `nominee_id` (`nominee_id`),
-  ADD KEY `address_id` (`address_id`);
+  ADD PRIMARY KEY (`user_informations_id`);
 
 --
 -- Indexes for table `user_informations_temps`
 --
 ALTER TABLE `user_informations_temps`
-  ADD PRIMARY KEY (`user_informations_id`),
-  ADD KEY `user_id` (`user_id`),
-  ADD KEY `nominee_id` (`nominee_id`),
-  ADD KEY `address_id` (`address_id`);
+  ADD PRIMARY KEY (`user_informations_id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -446,86 +431,6 @@ ALTER TABLE `user_informations`
 --
 ALTER TABLE `user_informations_temps`
   MODIFY `user_informations_id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- Constraints for dumped tables
---
-
---
--- Constraints for table `addresses`
---
-ALTER TABLE `addresses`
-  ADD CONSTRAINT `addresses_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `bank_users` (`user_id`);
-
---
--- Constraints for table `address_temps`
---
-ALTER TABLE `address_temps`
-  ADD CONSTRAINT `address_temps_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `bank_users` (`user_id`);
-
---
--- Constraints for table `balances`
---
-ALTER TABLE `balances`
-  ADD CONSTRAINT `balances_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `bank_users` (`user_id`);
-
---
--- Constraints for table `bank_users`
---
-ALTER TABLE `bank_users`
-  ADD CONSTRAINT `bank_users_ibfk_1` FOREIGN KEY (`type_id`) REFERENCES `types` (`type_id`);
-
---
--- Constraints for table `bank_user_temps`
---
-ALTER TABLE `bank_user_temps`
-  ADD CONSTRAINT `bank_user_temps_ibfk_1` FOREIGN KEY (`type_id`) REFERENCES `types` (`type_id`);
-
---
--- Constraints for table `cards`
---
-ALTER TABLE `cards`
-  ADD CONSTRAINT `cards_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `bank_users` (`user_id`);
-
---
--- Constraints for table `logs`
---
-ALTER TABLE `logs`
-  ADD CONSTRAINT `logs_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `bank_users` (`user_id`);
-
---
--- Constraints for table `nominees`
---
-ALTER TABLE `nominees`
-  ADD CONSTRAINT `nominees_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `bank_users` (`user_id`);
-
---
--- Constraints for table `nominee_temps`
---
-ALTER TABLE `nominee_temps`
-  ADD CONSTRAINT `nominee_temps_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `bank_users` (`user_id`);
-
---
--- Constraints for table `transactions`
---
-ALTER TABLE `transactions`
-  ADD CONSTRAINT `transactions_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `bank_users` (`user_id`);
-
---
--- Constraints for table `user_informations`
---
-ALTER TABLE `user_informations`
-  ADD CONSTRAINT `user_informations_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `bank_users` (`user_id`),
-  ADD CONSTRAINT `user_informations_ibfk_2` FOREIGN KEY (`nominee_id`) REFERENCES `nominees` (`nominee_id`),
-  ADD CONSTRAINT `user_informations_ibfk_3` FOREIGN KEY (`address_id`) REFERENCES `addresses` (`address_id`);
-
---
--- Constraints for table `user_informations_temps`
---
-ALTER TABLE `user_informations_temps`
-  ADD CONSTRAINT `user_informations_temps_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `bank_users` (`user_id`),
-  ADD CONSTRAINT `user_informations_temps_ibfk_2` FOREIGN KEY (`nominee_id`) REFERENCES `nominees` (`nominee_id`),
-  ADD CONSTRAINT `user_informations_temps_ibfk_3` FOREIGN KEY (`address_id`) REFERENCES `addresses` (`address_id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

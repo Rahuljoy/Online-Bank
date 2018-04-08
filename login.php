@@ -50,15 +50,9 @@ if (isset($_POST['login'])) {
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
             <ul class="nav navbar-nav">
                 <li ><a href="index.php">Home</a></li>
-                <li><a href="#">Services</a></li>
-                <li><a href="#">Contact Us</a></li>
+                <li><a href="service.php">Services</a></li>
+                <li><a href="contactUs.php">Contact Us</a></li>
             </ul>
-            <form class="navbar-form navbar-left" role="search">
-                <div class="form-group">
-                    <input class="form-control" placeholder="Search" type="text">
-                </div>
-                <button type="submit" class="btn btn-default">Submit</button>
-            </form>
             <ul class="nav navbar-nav navbar-right">
                 <li class="active"><a href="login.php">Login<span class="sr-only">(current)</span></a></li>
                 <li><a href="create-account.php">Open Account</a></li>
@@ -83,10 +77,14 @@ if (isset($_POST['login'])) {
         </div>
             <div class="col-lg-10 col-lg-offset-2">
                 <button type="reset" class="btn btn-default">Cancel</button>
-                <button type="submit" class="btn btn-primary" name="login">Submit</button>
+                <button type="submit" class="btn btn-primary" name="login">LogIn</button>
             </div>
     </fieldset>
 </form>
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="assets/bootstrap/js/bootstrap.min.js"></script>
 </body>
 </html>
 

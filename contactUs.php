@@ -1,3 +1,7 @@
+<?php
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -24,30 +28,21 @@
             <ul class="nav navbar-nav">
                 <li><a href="index.php">Home<span class="sr-only">(current)</span></a></li>
                 <li><a href="service.php">Services</a></li>
-                <li><a href="contactUs.php">Contact Us</a></li>
+                <li class="active"><a href="contactUs.php">Contact Us</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                    <li class="dropdown">
-                        <a class="dropdown-toggle" href="#"  data-toggle="dropdown"  aria-expanded="false">
-                            Admin <span class="caret"></span>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a href="admin.php">Home</a></li>
-                            <li><a href="account-approve.php">Account Approve</a></li>
-                            <li><a href="#">Card Management</a></li>
-                            <li class="divider"></li>
-                            <li><a href="login.php">Log Out</a></li>
-                        </ul>
-                    </li>
+                <li><a href="login.php">Login</a></li>
+                <li><a href="create-account.php">Open Account</a></li>
             </ul>
         </div>
     </div>
 </nav>
 <h6>by rafi</h6>
-<p class="lead">home design</p>
+<p class="lead">contactUs design</p>
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="assets/bootstrap/js/bootstrap.min.js"></script>
 </body>
 </html>
+

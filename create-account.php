@@ -4,72 +4,63 @@ include('classes/DB.php');
 date_default_timezone_set("Asia/Dhaka");
 
 if (isset($_POST['submit'])) {
-//    $firstname = $_POST['firstname'];
-//    $middlename = $_POST['middlename'];
-//    $lastname = $_POST['lastname'];
-//    $gender = $_POST['gender'];
-//    $dateofbirth = $_POST['dateofbirth'];
-//    $contactnumber = $_POST['contactnumber'];
-//    $email = $_POST['email'];
-//    $address = $_POST['address'];
-//    $addressType = $_POST['addressType'];
-//    $state = $_POST['state'];
-//    $city = $_POST['city'];
-//    $country = $_POST['country'];
-//    $zipcode = $_POST['zipcode'];
-//    $fullname = $_POST['fullname'];
-//    $occupation = $_POST['occupation'];
-//    $relation = $_POST['relation'];
-//    $officeaddress = $_POST['officeaddress'];
-//    $presentaddress = $_POST['presentaddress'];
-//    $permanentaddress = $_POST['permanentaddress'];
-//    $n_gender = $_POST['n_gendre'];
-//    $n_dateofbirth = $_POST['n_dateofbirth'];
-//    $image = $_POST['image'];
-//    $nimage = $_POST['nimage'];
+    $firstname = $_POST['firstname'];
+    $middlename = $_POST['middlename'];
+    $lastname = $_POST['lastname'];
+    $gender = $_POST['gender'];
+    $dateofbirth = $_POST['dateofbirth'];
+    $contactnumber = $_POST['contactnumber'];
+    $email = $_POST['email'];
+    $address = $_POST['address'];
+    $addressType = $_POST['addressType'];
+    $state = $_POST['state'];
+    $city = $_POST['city'];
+    $country = $_POST['country'];
+    $zipcode = $_POST['zipcode'];
+    $fullname = $_POST['fullname'];
+    $occupation = $_POST['occupation'];
+    $relation = $_POST['relation'];
+    $officeaddress = $_POST['officeaddress'];
+    $presentaddress = $_POST['presentaddress'];
+    $permanentaddress = $_POST['permanentaddress'];
+    $n_gender = $_POST['n_gender'];
+    $n_dateofbirth = $_POST['n_dateofbirth'];
+    $uimage = $_FILES['uimage']['tmp_name'];
+    $nimage = $_FILES['nimage']['tmp_name'];;
     $username = $_POST['username'];
     $password = $_POST['password'];
-    $time = date("Y-m-d H:i:s");
+    $time = date("m-d-y h:m:s");
 
+
+    // Insert user
     DB::query(' INSERT INTO bank_user_temps  VALUES (\'\', :user_name, :user_password, :type_id,
-        :user_create_date, :user_active)', array ( ':user_name' => $username, ':user_password' => $password,
+        :user_create_date, :user_active)', array(':user_name' => $username, ':user_password' => $password,
         ':type_id' => 2, ':user_create_date' => $time, ':user_active' => false));
-//    DB::query("INSERT INTO `bank_user_temps`(`user_name`, `user_password`,
-//`type_id`, `user_create_date`, `user_active`) VALUES ('$username','$password', 2, '$time', false)");
-//    echo $user_id;
-//        if (strlen($username) >= 3 && strlen($username) <= 32) {
-//
-//            if (preg_match('/[a-zA-Z0-9_]+/', $username)) {
-//
-//                if (strlen($password) >= 6 && strlen($password) <= 60) {
-//
-//                    if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
-//
-//                        if (!DB::query('SELECT email FROM users WHERE email=:email', array(':email' => $email))) {
-//
-//                            DB::query('INSERT INTO users VALUES (\'\', :username, :password, :email, \'0\', \'\')', array(':username' => $username, ':password' => password_hash($password, PASSWORD_BCRYPT), ':email' => $email));
-//                            Mail::sendMail('Welcome to The Circle!', 'Your account has been created!', $email);
-//                            header('Location: http://localhost/the_circle/login.php');
-//                        } else {
-//                            echo 'Email in use!';
-//                        }
-//                    } else {
-//                        echo 'Invalid email!';
-//                    }
-//                } else {
-//                    echo 'Invalid password!';
-//                }
-//            } else {
-//                echo 'Invalid username';
-//            }
-//        } else {
-//            echo 'Invalid username';
-//        }
-//
-//    } else {
-//        echo 'User already exists!';
-//    }
+    // user last insert id
+    $lastId = DB::query('SELECT user_id FROM bank_user_temps WHERE user_name=:username', array(':username' => $username))[0]['user_id'];
+     //echo $lastId;
+
+    //  Insert nominee
+    DB::query(' INSERT INTO nominee_temps VALUES (\'\',:full_name,:occupation,:relationship,:office_address,:present_address,:permanent_address,:gender,:date_of_birth,:image,:user_id)',array(':full_name' => $fullname,':occupation' => $occupation,':relationship' => $relation,':office_address' => $officeaddress,':present_address' => $presentaddress,':permanent_address' => $permanentaddress,':gender' => $n_gender,':date_of_birth'=>$n_dateofbirth,':image'=>$nimage,':user_id' => $lastId));
+    //nominee last insert id
+    $nomineeLastId = DB::query('SELECT nominee_id FROM nominee_temps WHERE user_id=:user_id',array(':user_id'=>$lastId))[0]['nominee_id'];
+   // echo $nomineeLastId;
+
+    //address insert
+    DB::query(' INSERT INTO address_temps VALUES (\'\',:address,:type,:state,:city,:country,:zip_code,:user_id)',array(':address' => $address,':type' => $addressType,':state' => $state,':city' => $city,':country' => $country,':zip_code' => $zipcode,':user_id' => $lastId));
+    //address last insert id
+    $addressLastId = DB::query('SELECT address_id FROM address_temps WHERE user_id=:user_id',array(':user_id'=>$lastId))[0]['address_id'];
+    //echo $addressLastId;
+
+    //Insert user information
+    DB::query(' INSERT INTO user_information_temps VALUES (\'\',:first_name,:middle_name,:last_name,:e_mail,:contact_no,:gender,:date_of_birth,:image,:user_id,:nominee_id,:address_id)',array(':first_name' => $firstname,':middle_name' => $middlename,':last_name' => $lastname,':e_mail' => $email,':contact_no' => $contactnumber,':gender' => $gender,':date_of_birth' => $dateofbirth,':image' => $uimage,':user_id' => $lastId,':nominee_id' => $nomineeLastId,':address_id' => $addressLastId));
+
+
 }
+//echo $fullname.' '. $occupation.' '. $relation.' '.$officeaddress.' '.$presentaddress.' ' .$permanentaddress.' '.$n_gender.' '.$n_dateofbirth;
+//    DB::getLastInsertId(' SELECT $user_id FROM bank_user_temps where user_name=:username');
+//    DB::query("INSERT INTO `bank_user_temps`(`user_name`, `user_password`);
+//`type_id`, `user_create_date`, `user_active`) VALUES ('$username','$password', 2, '$time', false)");
 ?>
 
 
@@ -83,7 +74,7 @@ if (isset($_POST['submit'])) {
     <title>Online Bank</title>
     <!-- Bootstrap -->
     <link href="assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="assets/datetimepicker/build/css/bootstrap-datetimepicker.min.css" />
+    <link rel="stylesheet" href="assets/datetimepicker/build/css/bootstrap-datetimepicker.min.css"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="assets/moment/min/moment.min.js"></script>
@@ -104,15 +95,9 @@ if (isset($_POST['submit'])) {
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
             <ul class="nav navbar-nav">
                 <li><a href="index.php">Home</a></li>
-                <li><a href="#">Services</a></li>
-                <li><a href="#">Contact Us</a></li>
+                <li><a href="service.php">Services</a></li>
+                <li><a href="contactUs.php">Contact Us</a></li>
             </ul>
-            <form class="navbar-form navbar-left" role="search">
-                <div class="form-group">
-                    <input class="form-control" placeholder="Search" type="text">
-                </div>
-                <button type="submit" class="btn btn-default">Submit</button>
-            </form>
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="login.php">Login</a></li>
                 <li class="active"><a href="create-account.php">Open Account<span class="sr-only">(current)</span></a>
@@ -134,9 +119,10 @@ if (isset($_POST['submit'])) {
                 <div id="collapse1" class="panel-collapse collapse in">
                     <div class="panel-body">
                         <div class="form-group">
-                            <label for="inputFirstName" class="col-lg-2 control-label">Firs tname</label>
+                            <label for="inputFirstName" class="col-lg-2 control-label">First name</label>
                             <div class="col-lg-10">
-                                <input class="form-control" name="firstname" id="inputFirstName" placeholder="First Name"
+                                <input class="form-control" name="firstname" id="inputFirstName"
+                                       placeholder="First Name"
                                        type="text">
                             </div>
                         </div><!--First Name-->
@@ -167,17 +153,19 @@ if (isset($_POST['submit'])) {
                         </div><!--Gender-->
                         <div class="form-group">
                             <label for="dateOfBirth" class="col-lg-2 control-label">Date of Birth</label>
-                            <div class='input-group date col-lg-10' id='datetimepicker1'>
-                                <input name="dateofbirth" type='text' class="form-control" placeholder="Input Date of Birth" />
-                                <span class="input-group-addon">
-                        <span class="glyphicon glyphicon-calendar"></span>
-                    </span>
+                            <div class='col-lg-10'>
+                                <input name="dateofbirth" type='date' class="form-control"
+                                       placeholder="Input Date of Birth"/>
+                                <!--                                <span class="input-group-addon">-->
+                                <!--                        <span class="glyphicon glyphicon-calendar"></span>-->
+                                <!--                    </span>-->
                             </div>
                         </div><!--Date of Birth-->
                         <div class="form-group">
                             <label for="inputContactNumber" class="col-lg-2 control-label">Contact Number</label>
                             <div class="col-lg-10">
-                                <input class="form-control" name="contactnumber" id="inputContactNumber" placeholder="Contact Number"
+                                <input class="form-control" name="contactnumber" id="inputContactNumber"
+                                       placeholder="Contact Number"
                                        type="text">
                             </div>
                         </div><!--Contact Number-->
@@ -265,7 +253,8 @@ if (isset($_POST['submit'])) {
                         <div class="form-group">
                             <label for="inputOccupation" class="col-lg-2 control-label">Occupation</label>
                             <div class="col-lg-10">
-                                <input class="form-control" name="Occupation" id="inputOccupation" placeholder="Occupation"
+                                <input class="form-control" name="occupation" id="inputOccupation"
+                                       placeholder="Occupation"
                                        type="text">
                             </div>
                         </div>
@@ -279,21 +268,24 @@ if (isset($_POST['submit'])) {
                         <div class="form-group">
                             <label for="inputOfficeAddress" class="col-lg-2 control-label">Office address</label>
                             <div class="col-lg-10">
-                                <input class="form-control" name="officeaddress" id="inputOfficeAddress" placeholder="Office address"
+                                <input class="form-control" name="officeaddress" id="inputOfficeAddress"
+                                       placeholder="Office address"
                                        type="text">
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="inputPresentAddress" class="col-lg-2 control-label">Present address</label>
                             <div class="col-lg-10">
-                                <input class="form-control" name="presentaddress" id="inputPresentAddress" placeholder="Present address"
+                                <input class="form-control" name="presentaddress" id="inputPresentAddress"
+                                       placeholder="Present address"
                                        type="text">
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="inputPermanentAddress" class="col-lg-2 control-label">Permanent address</label>
                             <div class="col-lg-10">
-                                <input class="form-control" name="permanentaddress" id="inputPermanentAddress" placeholder="Permanent address"
+                                <input class="form-control" name="permanentaddress" id="inputPermanentAddress"
+                                       placeholder="Permanent address"
                                        type="text">
                             </div>
                         </div>
@@ -309,11 +301,12 @@ if (isset($_POST['submit'])) {
                         </div>
                         <div class="form-group">
                             <label for="n_dateOfBirth" class="col-lg-2 control-label">Date of Birth</label>
-                            <div class='input-group date col-lg-10' id='datetimepicker2'>
-                                <input name="n_dateofbirth" type='text' class="form-control" placeholder="Input Date of Birth" />
-                                <span class="input-group-addon">
-                        <span class="glyphicon glyphicon-calendar"></span>
-                    </span>
+                            <div class='col-lg-10'>
+                                <input name="n_dateofbirth" type='date' class="form-control"
+                                       placeholder="Input Date of Birth"/>
+                                <!--                                <span class="input-group-addon">-->
+                                <!--                        <span class="glyphicon glyphicon-calendar"></span>-->
+                                <!--                    </span>-->
                             </div>
                         </div>
                     </div>
@@ -330,14 +323,15 @@ if (isset($_POST['submit'])) {
                         <div class="form-group">
                             <label for="inputImage" class="col-lg-2 control-label">Your Image</label>
                             <div class="col-lg-10">
-                                <input class="form-control-file" name="image" id="inputImage" placeholder="Your Image"
+                                <input class="form-control-file" name="uimage" id="inputImage" placeholder="Your Image"
                                        type="file">
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="inputNImage" class="col-lg-2 control-label">Nominee Image</label>
                             <div class="col-lg-10">
-                                <input class="form-control-file" name="nimage" id="inputNImage" placeholder="Nominee Image"
+                                <input class="form-control-file" name="nimage" id="inputNImage"
+                                       placeholder="Nominee Image"
                                        type="file">
                             </div>
                         </div>
@@ -378,12 +372,10 @@ if (isset($_POST['submit'])) {
         <br/>
     </fieldset>
 </form>
-<script type="text/javascript">
-    $(function () {
-        $('#datetimepicker1').datetimepicker();
-        $('#datetimepicker2').datetimepicker();
-    });
-</script>
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="assets/bootstrap/js/bootstrap.min.js"></script>
 </body>
 </html>
 
