@@ -229,18 +229,6 @@ date_default_timezone_set( "Asia/Dhaka" );
             <div class="modal-footer">
                 <button type="submit" name="submit" onclick="submit(';
 		echo $userIdForPrint;
-
-//		DB::query( 'INSERT INTO bank_users VALUES (\'\', :user_name, :user_password, :type_id,
-//        :user_create_date, :user_active)', array(
-//			':user_name'        => $result[ $i ]['user_name'],
-//			':user_password'    => $result[ $i ]['user_password'],
-//			':type_id'          => 2,
-//			':user_create_date' => $time,
-//			':user_active'      => true
-//		) );
-//         user last insert id
-//        $lastId = DB::query('SELECT user_id FROM bank_user_temps WHERE user_name=:username', array(':username' => $username))[0]['user_id'];
-
 		echo ')" class="btn btn-success">Approve</button>
                 <button type="reset" class="btn btn-warning">Reject</button>
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
@@ -268,6 +256,7 @@ date_default_timezone_set( "Asia/Dhaka" );
             error: function (response) {
             }
         });
+        //alert(id);
     }
 </script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
@@ -275,8 +264,3 @@ date_default_timezone_set( "Asia/Dhaka" );
 
 </body>
 </html>
-
-<?php
-//$userid = $_POST['user_id'];
-//echo $userid;
-//?>

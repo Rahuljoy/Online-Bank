@@ -83,7 +83,6 @@ include('classes/DB.php');
         echo '">
            Generate Card
             </button>
-           
                 <button type="button" class="btn btn-danger">Delete</button>
             </td>
         </tr>
@@ -134,23 +133,6 @@ include('classes/DB.php');
       </div>
     </div>
     <div class="form-group">
-      <label class="col-lg-2 control-label">Radios</label>
-      <div class="col-lg-10">
-        <div class="radio">
-          <label>
-            <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked="">
-            Option one is this
-        </label>
-        </div>
-        <div class="radio">
-          <label>
-            <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
-            Option two can be something else
-          </label>
-        </div>
-      </div>
-    </div>
-    <div class="form-group">
       <label for="select" class="col-lg-2 control-label">Selects</label>
       <div class="col-lg-10">
         <select class="form-control" id="select">
@@ -177,7 +159,6 @@ include('classes/DB.php');
 <br/>
             <div class="modal-footer">
                 <button type="button" class="btn btn-success">Generate</button>
-                <button type="reset" class="btn btn-warning">Reject</button>
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
             </div>
         </div>
