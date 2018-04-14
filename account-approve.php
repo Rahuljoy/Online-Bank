@@ -1,6 +1,6 @@
 <?php
-include('classes/DB.php');
-
+include( 'classes/DB.php' );
+date_default_timezone_set( "Asia/Dhaka" );
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -60,34 +60,33 @@ include('classes/DB.php');
     </thead>
     <tbody>
 
-    <?php
-    date_default_timezone_set("Asia/Dhaka");
-    $time = date("m-d-y h:m:s");
-    $userIdForPrint = 0;
-    $result = DB::query('SELECT * FROM bank_user_temps', array());
+	<?php
+	$time           = date( "m-d-y h:m:s" );
+	$userIdForPrint = 0;
+	$result         = DB::query( 'SELECT * FROM bank_user_temps', array() );
 
-    for ($i = 0; $i < sizeof($result); $i++) {
-        echo '<tr> <td>';
-        $userIdForPrint = $result[$i]['user_id'];
-        print_r($userIdForPrint);
-        echo '</td>
+	for ( $i = 0; $i < sizeof( $result ); $i ++ ) {
+		echo '<tr> <td>';
+		$userIdForPrint = $result[ $i ]['user_id'];
+		print_r( $userIdForPrint );
+		echo '</td>
             <td>';
-        print_r($result[$i]['user_name']);
-        echo '</td>
+		print_r( $result[ $i ]['user_name'] );
+		echo '</td>
             <td>';
-        print_r($result[$i]['user_password']);
-        echo '</td>
+		print_r( $result[ $i ]['user_password'] );
+		echo '</td>
             <td>';
-        $informationResult = DB::query('SELECT contact_no FROM user_information_temps WHERE user_id= :user_id', array('user_id' => $userIdForPrint));
-        if ($informationResult == null) {
-            print_r("none");
-        } else {
-            print_r($informationResult[0]['contact_no']);
-        }
-        echo '</td>
+		$informationResult = DB::query( 'SELECT contact_no FROM user_information_temps WHERE user_id= :user_id', array( 'user_id' => $userIdForPrint ) );
+		if ( $informationResult == null ) {
+			print_r( "none" );
+		} else {
+			print_r( $informationResult[0]['contact_no'] );
+		}
+		echo '</td>
             <td><button id="showModal" type="button" class="btn btn-info" data-toggle="modal" data-target="#';
-        echo $result[$i]['user_id'];
-        echo '">
+		echo $result[ $i ]['user_id'];
+		echo '">
             View
             </button>
            
@@ -98,8 +97,8 @@ include('classes/DB.php');
         
         <!-- Modal -->
 <div class="modal fade" id="';
-        echo $result[$i]['user_id'];
-        echo '" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+		echo $result[ $i ]['user_id'];
+		echo '" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -115,57 +114,57 @@ include('classes/DB.php');
                     <div class="panel-body">';
 
 
-        $informationForPrint = DB::query('SELECT * FROM user_information_temps WHERE user_id= :user_id', array('user_id' => $userIdForPrint));
-        $addressInformationForPrint = DB::query('SELECT * FROM address_temps WHERE user_id= :user_id', array('user_id' => $userIdForPrint));
-        $nomineeInformationForPrint = DB::query('SELECT * FROM nominee_temps WHERE user_id= :user_id', array('user_id' => $userIdForPrint));
-        echo '<ul class="list-group">
-                                                    <img src="data:image/jpeg;base64,' . base64_encode('image') . '" height="100" width="100"/>';
-        echo(($informationForPrint[0]["image"]));
-        echo '
+		$informationForPrint        = DB::query( 'SELECT * FROM user_information_temps WHERE user_id= :user_id', array( 'user_id' => $userIdForPrint ) );
+		$addressInformationForPrint = DB::query( 'SELECT * FROM address_temps WHERE user_id= :user_id', array( 'user_id' => $userIdForPrint ) );
+		$nomineeInformationForPrint = DB::query( 'SELECT * FROM nominee_temps WHERE user_id= :user_id', array( 'user_id' => $userIdForPrint ) );
+		echo '<ul class="list-group">
+                                                    <img src="data:image/jpeg;base64,' . base64_encode( 'image' ) . '" height="100" width="100"/>';
+		echo( ( $informationForPrint[0]["image"] ) );
+		echo '
                             </li>
                             <li class="list-group-item">
                                 <b>First Name : </b>';
-        print_r($informationForPrint[0]["first_name"]);
-        echo '
+		print_r( $informationForPrint[0]["first_name"] );
+		echo '
                             </li>
                             <li class="list-group-item">
                                 <b>Middle Name : </b>';
-        print_r($informationForPrint[0]["middle_name"]);
-        echo '
+		print_r( $informationForPrint[0]["middle_name"] );
+		echo '
                             </li>
                             <li class="list-group-item">
                                 <b>Last Name : </b>';
-        print_r($informationForPrint[0]["last_name"]);
-        echo '          
+		print_r( $informationForPrint[0]["last_name"] );
+		echo '          
                             </li>
                             <li class="list-group-item">
                                 <b>Address :</b>';
-        print_r($addressInformationForPrint[0]["address"] . ',');
-        print_r($addressInformationForPrint[0]["state"] . ',');
-        print_r($addressInformationForPrint[0]["city"] . ',');
-        print_r($addressInformationForPrint[0]["country"] . ',' . 'zip code:');
-        print_r($addressInformationForPrint[0]["zip_code"] . '');
-        echo '
+		print_r( $addressInformationForPrint[0]["address"] . ',' );
+		print_r( $addressInformationForPrint[0]["state"] . ',' );
+		print_r( $addressInformationForPrint[0]["city"] . ',' );
+		print_r( $addressInformationForPrint[0]["country"] . ',' . 'zip code:' );
+		print_r( $addressInformationForPrint[0]["zip_code"] . '' );
+		echo '
                             </li>
                             <li class="list-group-item">
                                 <b>Type :</b>';
-        print_r($addressInformationForPrint[0]["type"]);
-        echo '
+		print_r( $addressInformationForPrint[0]["type"] );
+		echo '
                             </li>
                             <li class="list-group-item">
                                 <b>Gender :</b>';
-        print_r($informationForPrint[0]["gender"]);
-        echo '
+		print_r( $informationForPrint[0]["gender"] );
+		echo '
                             </li>
                             <li class="list-group-item">
                                 <b>Date Of Birth :</b>';
-        print_r($informationForPrint[0]["date_of_birth"]);
-        echo '
+		print_r( $informationForPrint[0]["date_of_birth"] );
+		echo '
                             </li>
                             <li class="list-group-item">
                                 <b>Email :</b>';
-        print_r($informationForPrint[0]["e_mail"]);
-        echo '
+		print_r( $informationForPrint[0]["e_mail"] );
+		echo '
                             </li>
                         </ul>
                     </div>
@@ -175,88 +174,102 @@ include('classes/DB.php');
                         <h3 class="panel-title">Nominee information</h3>
                     </div>
                     <div class="panel-body">';
-        echo '
+		echo '
                         <ul class="list-group">
                             <li class="list-group-item">
                                <img src="" alt="Image" width="200" height="220"/>';
-        echo '
+		echo '
                             </li>
                             <li class="list-group-item">
                                 <b>Full Name :</b>';
-        print_r($nomineeInformationForPrint[0]["full_name"]);
-        echo '
+		print_r( $nomineeInformationForPrint[0]["full_name"] );
+		echo '
                             </li>
                             <li class="list-group-item">
                                 <b>Office Address :</b>';
-        print_r($nomineeInformationForPrint[0]["office_address"]);
-        echo '
+		print_r( $nomineeInformationForPrint[0]["office_address"] );
+		echo '
                             </li>
                             <li class="list-group-item">
                                 <b>Present Address :</b>';
-        print_r($nomineeInformationForPrint[0]["present_address"]);
-        echo '
+		print_r( $nomineeInformationForPrint[0]["present_address"] );
+		echo '
                             </li>
                             <li class="list-group-item">
                                 <b>Permanent Address :</b>';
-        print_r($nomineeInformationForPrint[0]["permanent_address"]);
-        echo '
+		print_r( $nomineeInformationForPrint[0]["permanent_address"] );
+		echo '
                             </li>
                             <li class="list-group-item">
                                 <b>Gender :</b>';
-        print_r($nomineeInformationForPrint[0]["gender"]);
-        echo '
+		print_r( $nomineeInformationForPrint[0]["gender"] );
+		echo '
                             </li>
                             <li class="list-group-item">
                                 <b>Occupation :</b>';
-        print_r($nomineeInformationForPrint[0]["occupation"]);
-        echo '
+		print_r( $nomineeInformationForPrint[0]["occupation"] );
+		echo '
                             </li>
                             <li class="list-group-item">
                                 <b>Relation :</b>';
-        print_r($nomineeInformationForPrint[0]["relationship"]);
-        echo '
+		print_r( $nomineeInformationForPrint[0]["relationship"] );
+		echo '
                             </li>
                             <li class="list-group-item">
                                 <b>Date Of Birth :</b>';
-        print_r($nomineeInformationForPrint[0]["date_of_birth"]);
-        echo '
+		print_r( $nomineeInformationForPrint[0]["date_of_birth"] );
+		echo '
                             </li>
                         </ul>
                     </div>
                 </div>
             </div>';
-        echo '
+		echo '
 
             <div class="modal-footer">
                 <button type="submit" name="submit" onclick="submit(';
-       echo $userIdForPrint;
+		echo $userIdForPrint;
 
-//        DB::query(' INSERT INTO bank_users  VALUES (:user_id, :user_name, :user_password, :type_id,
-//        :user_create_date, :user_active)', array(':user_id'=> $userIdForPrint, ':type_id' => 2,':user_create_date'=>$time,':user_active' => true));
-        // user last insert id
+//		DB::query( 'INSERT INTO bank_users VALUES (\'\', :user_name, :user_password, :type_id,
+//        :user_create_date, :user_active)', array(
+//			':user_name'        => $result[ $i ]['user_name'],
+//			':user_password'    => $result[ $i ]['user_password'],
+//			':type_id'          => 2,
+//			':user_create_date' => $time,
+//			':user_active'      => true
+//		) );
+//         user last insert id
 //        $lastId = DB::query('SELECT user_id FROM bank_user_temps WHERE user_name=:username', array(':username' => $username))[0]['user_id'];
 
-        echo ')" class="btn btn-success">Approve</button>
+		echo ')" class="btn btn-success">Approve</button>
                 <button type="reset" class="btn btn-warning">Reject</button>
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
 </div>';
-    }
-    ?>
+	}
+	?>
     </tbody>
 </table>
-<script>
-    function submit(id) {
-        // $.post('account-approve.php', {user_id: id}, function (data) {
-        //
-        // });
-        alert(id);
-    }
-</script>
+
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script type="text/javascript">
+    function submit(id) {
+        $.ajax({
+            type: 'post',
+            url: 'ajax.php',
+            data: {
+                user_id: id
+            },
+            success: function (response) {
+            },
+            error: function (response) {
+            }
+        });
+    }
+</script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="assets/bootstrap/js/bootstrap.min.js"></script>
 
