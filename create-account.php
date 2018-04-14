@@ -25,8 +25,8 @@ if (isset($_POST['submit'])) {
     $permanentaddress = $_POST['permanentaddress'];
     $n_gender = $_POST['n_gender'];
     $n_dateofbirth = $_POST['n_dateofbirth'];
-    $uimage = $_FILES['uimage']['tmp_name'];
-    $nimage = $_FILES['nimage']['tmp_name'];;
+    $uimage = addslashes(file_get_contents($_FILES['uimage']['tmp_name']));
+    $nimage = addslashes(file_get_contents($_FILES['nimage']['tmp_name']));
     $username = $_POST['username'];
     $password = $_POST['password'];
     $time = date("m-d-y h:m:s");
@@ -57,10 +57,7 @@ if (isset($_POST['submit'])) {
 
 
 }
-//echo $fullname.' '. $occupation.' '. $relation.' '.$officeaddress.' '.$presentaddress.' ' .$permanentaddress.' '.$n_gender.' '.$n_dateofbirth;
-//    DB::getLastInsertId(' SELECT $user_id FROM bank_user_temps where user_name=:username');
-//    DB::query("INSERT INTO `bank_user_temps`(`user_name`, `user_password`);
-//`type_id`, `user_create_date`, `user_active`) VALUES ('$username','$password', 2, '$time', false)");
+
 ?>
 
 
@@ -156,9 +153,7 @@ if (isset($_POST['submit'])) {
                             <div class='col-lg-10'>
                                 <input name="dateofbirth" type='date' class="form-control"
                                        placeholder="Input Date of Birth"/>
-                                <!--                                <span class="input-group-addon">-->
-                                <!--                        <span class="glyphicon glyphicon-calendar"></span>-->
-                                <!--                    </span>-->
+
                             </div>
                         </div><!--Date of Birth-->
                         <div class="form-group">
@@ -166,14 +161,14 @@ if (isset($_POST['submit'])) {
                             <div class="col-lg-10">
                                 <input class="form-control" name="contactnumber" id="inputContactNumber"
                                        placeholder="Contact Number"
-                                       type="text">
+                                       type="text" required>
                             </div>
                         </div><!--Contact Number-->
                         <div class="form-group">
                             <label for="inputEmail" class="col-lg-2 control-label">Email</label>
                             <div class="col-lg-10">
                                 <input class="form-control" name="email" id="inputEmail" placeholder="Email"
-                                       type="email">
+                                       type="email" required>
                             </div>
                         </div><!--Email-->
                     </div>
@@ -304,13 +299,10 @@ if (isset($_POST['submit'])) {
                             <div class='col-lg-10'>
                                 <input name="n_dateofbirth" type='date' class="form-control"
                                        placeholder="Input Date of Birth"/>
-                                <!--                                <span class="input-group-addon">-->
-                                <!--                        <span class="glyphicon glyphicon-calendar"></span>-->
-                                <!--                    </span>-->
-                            </div>
                         </div>
                     </div>
                 </div>
+            </div>
             </div>
             <div class="panel panel-default">
                 <div class="panel-heading">
@@ -350,14 +342,14 @@ if (isset($_POST['submit'])) {
                             <label for="inputUserName" class="col-lg-2 control-label">User name</label>
                             <div class="col-lg-10">
                                 <input class="form-control" name="username" id="inputUserName" placeholder="User name"
-                                       type="text">
+                                       type="text" required>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="inputPassword" class="col-lg-2 control-label">Password</label>
                             <div class="col-lg-10">
                                 <input class="form-control" name="password" id="inputPassword" placeholder="Password"
-                                       type="password">
+                                       type="password" required>
                             </div>
                         </div>
                     </div>

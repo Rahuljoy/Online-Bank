@@ -252,7 +252,7 @@ CREATE TABLE `user_informations` (
 -- Table structure for table `user_informations_temps`
 --
 
-CREATE TABLE `user_informations_temps` (
+CREATE TABLE `user_information_temps` (
   `user_informations_id` int(11) NOT NULL,
   `first_name` varchar(255) NOT NULL,
   `middle_name` varchar(255) NOT NULL,
@@ -347,7 +347,7 @@ ALTER TABLE `user_informations`
 --
 -- Indexes for table `user_informations_temps`
 --
-ALTER TABLE `user_informations_temps`
+ALTER TABLE `user_information_temps`
   ADD PRIMARY KEY (`user_informations_id`);
 
 --

@@ -1,5 +1,6 @@
 <?php
 include('classes/DB.php');
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -38,7 +39,7 @@ include('classes/DB.php');
                     <ul class="dropdown-menu">
                         <li><a href="admin.php">Home</a></li>
                         <li><a href="account-approve.php">Account Approve</a></li>
-                        <li><a href="#">Card Management</a></li>
+                        <li><a href="card-create.php">Card Management</a></li>
                         <li class="divider"></li>
                         <li><a href="login.php">Log Out</a></li>
                     </ul>
@@ -60,6 +61,9 @@ include('classes/DB.php');
     <tbody>
 
     <?php
+    date_default_timezone_set("Asia/Dhaka");
+    $time = date("m-d-y h:m:s");
+    $userIdForPrint = 0;
     $result = DB::query('SELECT * FROM bank_user_temps', array());
 
     for ($i = 0; $i < sizeof($result); $i++) {
@@ -81,54 +85,87 @@ include('classes/DB.php');
             print_r($informationResult[0]['contact_no']);
         }
         echo '</td>
-            <td><button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">View</button></a>
+            <td><button id="showModal" type="button" class="btn btn-info" data-toggle="modal" data-target="#';
+        echo $result[$i]['user_id'];
+        echo '">
+            View
+            </button>
+           
                 <button type="button" class="btn btn-danger">Delete</button>
             </td>
-        </tr>';
-    }
-    ?>
-
-    </tbody>
-</table>
-
-<!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        </tr>
+        
+        
+        <!-- Modal -->
+<div class="modal fade" id="';
+        echo $result[$i]['user_id'];
+        echo '" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                </button>
                 <h4 class="modal-title" id="myModalLabel">Applied User Information</h4>
             </div>
-            <div class="modal-body" >
+            <div class="modal-body">
                 <div class="panel panel-info">
                     <div class="panel-heading">
                         <h3 class="panel-title">User information</h3>
                     </div>
-                    <div class="panel-body">
-                        <ul class="list-group">
-                            <li class="list-group-item">
-                                <b>Image :</b>
+                    <div class="panel-body">';
+
+
+        $informationForPrint = DB::query('SELECT * FROM user_information_temps WHERE user_id= :user_id', array('user_id' => $userIdForPrint));
+        $addressInformationForPrint = DB::query('SELECT * FROM address_temps WHERE user_id= :user_id', array('user_id' => $userIdForPrint));
+        $nomineeInformationForPrint = DB::query('SELECT * FROM nominee_temps WHERE user_id= :user_id', array('user_id' => $userIdForPrint));
+        echo '<ul class="list-group">
+                                                    <img src="data:image/jpeg;base64,' . base64_encode('image') . '" height="100" width="100"/>';
+        echo(($informationForPrint[0]["image"]));
+        echo '
                             </li>
                             <li class="list-group-item">
-                                <b>First Name :</b>
+                                <b>First Name : </b>';
+        print_r($informationForPrint[0]["first_name"]);
+        echo '
                             </li>
                             <li class="list-group-item">
-                                <b>Middle Name :</b>
+                                <b>Middle Name : </b>';
+        print_r($informationForPrint[0]["middle_name"]);
+        echo '
                             </li>
                             <li class="list-group-item">
-                                <b>Last Name :</b>
+                                <b>Last Name : </b>';
+        print_r($informationForPrint[0]["last_name"]);
+        echo '          
                             </li>
                             <li class="list-group-item">
-                                <b>Address :</b>
+                                <b>Address :</b>';
+        print_r($addressInformationForPrint[0]["address"] . ',');
+        print_r($addressInformationForPrint[0]["state"] . ',');
+        print_r($addressInformationForPrint[0]["city"] . ',');
+        print_r($addressInformationForPrint[0]["country"] . ',' . 'zip code:');
+        print_r($addressInformationForPrint[0]["zip_code"] . '');
+        echo '
                             </li>
                             <li class="list-group-item">
-                                <b>Gender :</b>
+                                <b>Type :</b>';
+        print_r($addressInformationForPrint[0]["type"]);
+        echo '
                             </li>
                             <li class="list-group-item">
-                                <b>Date Of Birth :</b>
+                                <b>Gender :</b>';
+        print_r($informationForPrint[0]["gender"]);
+        echo '
                             </li>
                             <li class="list-group-item">
-                            <b>Email :</b>
+                                <b>Date Of Birth :</b>';
+        print_r($informationForPrint[0]["date_of_birth"]);
+        echo '
+                            </li>
+                            <li class="list-group-item">
+                                <b>Email :</b>';
+        print_r($informationForPrint[0]["e_mail"]);
+        echo '
                             </li>
                         </ul>
                     </div>
@@ -137,54 +174,96 @@ include('classes/DB.php');
                     <div class="panel-heading">
                         <h3 class="panel-title">Nominee information</h3>
                     </div>
-                    <div class="panel-body">
+                    <div class="panel-body">';
+        echo '
                         <ul class="list-group">
                             <li class="list-group-item">
-                                <b>Image :</b>
+                               <img src="" alt="Image" width="200" height="220"/>';
+        echo '
                             </li>
                             <li class="list-group-item">
-                                <b>Full Name :</b>
+                                <b>Full Name :</b>';
+        print_r($nomineeInformationForPrint[0]["full_name"]);
+        echo '
                             </li>
                             <li class="list-group-item">
-                                <b>Office Address :</b>
+                                <b>Office Address :</b>';
+        print_r($nomineeInformationForPrint[0]["office_address"]);
+        echo '
                             </li>
                             <li class="list-group-item">
-                                <b>Present Address :</b>
+                                <b>Present Address :</b>';
+        print_r($nomineeInformationForPrint[0]["present_address"]);
+        echo '
                             </li>
                             <li class="list-group-item">
-                                <b>Permanent Address :</b>
+                                <b>Permanent Address :</b>';
+        print_r($nomineeInformationForPrint[0]["permanent_address"]);
+        echo '
                             </li>
                             <li class="list-group-item">
-                                <b>Gender :</b>
+                                <b>Gender :</b>';
+        print_r($nomineeInformationForPrint[0]["gender"]);
+        echo '
                             </li>
                             <li class="list-group-item">
-                                <b>Occupation :</b>
+                                <b>Occupation :</b>';
+        print_r($nomineeInformationForPrint[0]["occupation"]);
+        echo '
                             </li>
                             <li class="list-group-item">
-                                <b>Relation :</b>
+                                <b>Relation :</b>';
+        print_r($nomineeInformationForPrint[0]["relationship"]);
+        echo '
                             </li>
                             <li class="list-group-item">
-                                <b>Date Of Birth :</b>
-                            </li>
-                            <li class="list-group-item">
-                                <b>Email :</b>
+                                <b>Date Of Birth :</b>';
+        print_r($nomineeInformationForPrint[0]["date_of_birth"]);
+        echo '
                             </li>
                         </ul>
                     </div>
                 </div>
-            </div>
+            </div>';
+        echo '
 
             <div class="modal-footer">
-                <button type="button" class="btn btn-success">Approve</button>
-                <button type="button" class="btn btn-warning">Reject</button>
+                <button type="submit" name="submit" onclick="submit(';
+       echo $userIdForPrint;
+
+//        DB::query(' INSERT INTO bank_users  VALUES (:user_id, :user_name, :user_password, :type_id,
+//        :user_create_date, :user_active)', array(':user_id'=> $userIdForPrint, ':type_id' => 2,':user_create_date'=>$time,':user_active' => true));
+        // user last insert id
+//        $lastId = DB::query('SELECT user_id FROM bank_user_temps WHERE user_name=:username', array(':username' => $username))[0]['user_id'];
+
+        echo ')" class="btn btn-success">Approve</button>
+                <button type="reset" class="btn btn-warning">Reject</button>
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
-</div>
+</div>';
+    }
+    ?>
+    </tbody>
+</table>
+<script>
+    function submit(id) {
+        // $.post('account-approve.php', {user_id: id}, function (data) {
+        //
+        // });
+        alert(id);
+    }
+</script>
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+
 </body>
 </html>
+
+<?php
+//$userid = $_POST['user_id'];
+//echo $userid;
+//?>

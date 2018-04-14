@@ -34,7 +34,7 @@
                         <ul class="dropdown-menu">
                             <li><a href="admin.php">Home</a></li>
                             <li><a href="account-approve.php">Account Approve</a></li>
-                            <li><a href="#">Card Management</a></li>
+                            <li><a href="card-create.php">Card Management</a></li>
                             <li class="divider"></li>
                             <li><a href="login.php">Log Out</a></li>
                         </ul>
