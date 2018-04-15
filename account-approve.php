@@ -1,6 +1,5 @@
 <?php
 include( 'classes/DB.php' );
-date_default_timezone_set( "Asia/Dhaka" );
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -61,7 +60,6 @@ date_default_timezone_set( "Asia/Dhaka" );
     <tbody>
 
 	<?php
-	$time           = date( "m-d-y h:m:s" );
 	$userIdForPrint = 0;
 	$result         = DB::query( 'SELECT * FROM bank_user_temps', array() );
 
@@ -119,7 +117,7 @@ date_default_timezone_set( "Asia/Dhaka" );
 		$nomineeInformationForPrint = DB::query( 'SELECT * FROM nominee_temps WHERE user_id= :user_id', array( 'user_id' => $userIdForPrint ) );
 		echo '<ul class="list-group">
                                                     <img src="data:image/jpeg;base64,' . base64_encode( 'image' ) . '" height="100" width="100"/>';
-		echo( ( $informationForPrint[0]["image"] ) );
+//print_r($informationForPrint[0]["image"]);
 		echo '
                             </li>
                             <li class="list-group-item">

@@ -29,7 +29,7 @@ if (isset($_POST['submit'])) {
     $nimage = addslashes(file_get_contents($_FILES['nimage']['tmp_name']));
     $username = $_POST['username'];
     $password = $_POST['password'];
-    $time = date("m-d-y h:m:s");
+    $time = date("y-m-d h:m:s");
 
 
     // Insert user
@@ -356,7 +356,7 @@ if (isset($_POST['submit'])) {
                 </div>
             </div>
             <br/>
-            <div class="col-lg-10 col-lg-offset-2 submit">
+            <div class="col-lg-10 col-lg-offset-2 ">
                 <button type="reset" class="btn btn-default" name="cancel">Cancel</button>
                 <button type="submit" class="btn btn-primary" name="submit">Submit</button>
             </div>
