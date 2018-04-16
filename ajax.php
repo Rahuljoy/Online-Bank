@@ -5,9 +5,19 @@ date_default_timezone_set( "Asia/Dhaka" );
 $userId = $_POST['user_id'];
 $time           = date( "y-m-d h:m:s" );
 
-DB::query(' INSERT INTO bank_users  VALUES (\'\', :user_name, :user_password, :type_id,
-        :user_create_date, :user_active)', array(':user_name' => "user_name" , ':user_password' => $userId,
-    ':type_id' => 2, ':user_create_date' => $time, ':user_active' => true));
 
+$userForPrint = DB::query( 'SELECT * FROM bank_user_temps WHERE user_id= :user_id', array('user_id' => $userId ) );
+$informationForPrint = DB::query( 'SELECT * FROM user_information_temps WHERE user_id= :user_id', array( 'user_id' => $userId ) );
+$addressInformationForPrint = DB::query( 'SELECT * FROM address_temps WHERE user_id= :user_id', array( 'user_id' => $userId ) );
+$nomineeInformationForPrint = DB::query( 'SELECT * FROM nominee_temps WHERE user_id= :user_id', array( 'user_id' => $userId ) );
+
+//$first_name = $informationForPrint[0]["first_name"];
+//$first_name = $informationForPrint[0]["first_name"];
+//$first_name = $informationForPrint[0]["first_name"];
+//$first_name = $informationForPrint[0]["first_name"];
+//$first_name = $informationForPrint[0]["first_name"];
+//$first_name = $informationForPrint[0]["first_name"];
+//$first_name = $informationForPrint[0]["first_name"];
+//$first_name = $informationForPrint[0]["first_name"];
 
 ?>

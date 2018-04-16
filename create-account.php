@@ -356,7 +356,7 @@ if (isset($_POST['submit'])) {
                 </div>
             </div>
             <br/>
-            <div class="col-lg-10 col-lg-offset-2 ">
+            <div class="col-lg-10 col-lg-offset-2">
                 <button type="reset" class="btn btn-default" name="cancel">Cancel</button>
                 <button type="submit" class="btn btn-primary" name="submit">Submit</button>
             </div>
