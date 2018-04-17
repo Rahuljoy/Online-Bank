@@ -254,7 +254,7 @@ include( 'classes/DB.php' );
             error: function (response) {
             }
         });
-        //alert(id);
+        alert(id);
     }
 </script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
