@@ -57,7 +57,6 @@ include('classes/DB.php');
     </tr>
     </thead>
     <tbody>
-
     <?php
     $userIdForPrint = 0;
     $result = DB::query('SELECT * FROM bank_users', array());
@@ -78,95 +77,17 @@ include('classes/DB.php');
             print_r($informationResult[0]['e_mail']);
         }
         echo '</td>
-            <td><button id="showModal" type="button" class="btn btn-info" data-toggle="modal" data-target="#';
+            <td><a href="card.php"><button type="button" class="btn btn-primary"';
         echo $result[$i]['user_id'];
         echo '">
            Generate Card
-            </button>
+            </button><a/>
                 <button type="button" class="btn btn-danger">Delete</button>
             </td>
-        </tr>
-        
-        
-        <!-- Modal -->
-<div class="modal fade" id="';
-        echo $result[$i]['user_id'];
-        echo '" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
-                </button>
-                <h4 class="modal-title" id="myModalLabel">Card For Applied User</h4>
-            </div>
-            <div class="modal-body">
-                <div class="panel panel-info">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">Card Create</h3>
-                    </div>
-                    <div class="panel-body">';
-        echo '
-        <form class="form-horizontal" action="card-create.php" method="post">
-  <fieldset class="card-form">
-    <div class="form-group">
-      <label for="inputEmail" class="col-lg-2 control-label">Email</label>
-      <div class="col-lg-10">
-        <input type="text" class="form-control" id="inputEmail" placeholder="Email">
-      </div>
-    </div>
-    <div class="form-group">
-      <label for="inputPassword" class="col-lg-2 control-label">Password</label>
-      <div class="col-lg-10">
-        <input type="password" class="form-control" id="inputPassword" placeholder="Password">
-        <div class="checkbox">
-          <label>
-            <input type="checkbox"> Checkbox
-          </label>
-        </div>
-      </div>
-    </div>
-    <div class="form-group">
-      <label for="textArea" class="col-lg-2 control-label">Textarea</label>
-      <div class="col-lg-10">
-        <textarea class="form-control" rows="3" id="textArea"></textarea>
-        <span class="help-block">A longer block of help text that breaks onto a new line and may extend beyond one line.</span>
-      </div>
-    </div>
-    <div class="form-group">
-      <label for="select" class="col-lg-2 control-label">Selects</label>
-      <div class="col-lg-10">
-        <select class="form-control" id="select">
-          <option>1</option>
-          <option>2</option>
-          <option>3</option>
-          <option>4</option>
-          <option>5</option>
-        </select>
-        <br>
-        <select multiple="" class="form-control">
-          <option>1</option>
-          <option>2</option>
-          <option>3</option>
-          <option>4</option>
-          <option>5</option>
-        </select>
-      </div>
-    </div>
-  </fieldset>
-</form>';
-
-        echo '
-<br/>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-success">Generate</button>
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-</div>';
+        </tr>';
     }
     ?>
-    </tbody>
+        </tbody>
 </table>
 
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->

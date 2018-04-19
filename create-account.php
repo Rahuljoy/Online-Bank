@@ -71,11 +71,6 @@ if (isset($_POST['submit'])) {
     <title>Online Bank</title>
     <!-- Bootstrap -->
     <link href="assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="assets/datetimepicker/build/css/bootstrap-datetimepicker.min.css"/>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="assets/moment/min/moment.min.js"></script>
-    <script type="text/javascript" src="assets/datetimepicker/src/js/bootstrap-datetimepicker.js"></script>
     <link href="assets/css/style.css" rel="stylesheet">
 </head>
 <body>
