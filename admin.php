@@ -48,42 +48,17 @@
 
         <div id="myCarousel" class="carousel slide" data-ride="carousel">
             <ol class="carousel-indicators">
-                <li data-target="#myCarousel" data-slide-to="0"></li>
-                <li data-target="#myCarousel" data-slide-to="1" class="active"></li>
-                <li data-target="#myCarousel" data-slide-to="2"></li>
-                <li data-target="#myCarousel" data-slide-to="3"></li>
-                <li data-target="#myCarousel" data-slide-to="4"></li>
-                <li data-target="#myCarousel" data-slide-to="5"></li>
-                <li data-target="#myCarousel" data-slide-to="6"></li>
-                <li data-target="#myCarousel" data-slide-to="7"></li>
+                <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                <li data-target="#myCarousel" data-slide-to="1"></li>
 
             </ol>
             <div class="carousel-inner">
-                <div class="item">
-                    <img src="assets/images/bank_banner.png" alt="bank_banner" style="width:100%;">
-                </div>
-
                 <div class="item active">
-                    <img src="assets/images/banner.png" alt="banner" style="width: 100%">
+                    <img src="assets/images/admin/admin.jpg" alt="bank_banner" style="width:100%;">
                 </div>
 
                 <div class="item">
-                    <img src="assets/images/banner3.png" alt="" style="width:100%;">
-                </div>
-                <div class="item">
-                    <img src="assets/images/banner2.png" alt="" style="width:100%;">
-                </div>
-                <div class="item">
-                    <img src="assets/images/service%201.png" alt="" style="width:100%;">
-                </div>
-                <div class="item">
-                    <img src="assets/images/service4.jpg" alt="" style="width:100%;">
-                </div>
-                <div class="item">
-                    <img src="assets/images/mobileBanking.jpg" alt="" style="width: 100%" >
-                </div>
-                <div class="item">
-                    <img src="assets/images/user1.jpg" alt="" style="width: 100%" >
+                    <img src="assets/images/admin/admin0.jpg" alt="banner" style="width: 100%">
                 </div>
                 <a class="left carousel-control" href="#myCarousel" data-slide="prev">
                     <span class="glyphicon glyphicon-chevron-left"></span>
@@ -97,14 +72,13 @@
         </div>
     </div>
     <br/>
-    <table height="200px" width="100%">
-        <tr>
-            <td width="50%">
-                <div style="text-align: center;">
-                    <figure>
-                        <img src="assets/images/admin.gif" height="750px" width="100%">
-                    </figure>
-        </tr>
+    <div class="row">
+        <div style="text-align: center;">
+            <figure>
+                <img src="assets/images/admin/admin.gif" height="750px" width="100%">
+            </figure>
+        </div>
+    </div>
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->

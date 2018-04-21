@@ -29,12 +29,12 @@
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
                     <a class="dropdown-toggle" href="#"  data-toggle="dropdown"  aria-expanded="false">
-                        Admin <span class="caret"></span>
+                        User <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a href="admin.php">Home</a></li>
-                        <li><a href="account-approve.php">Account Approve</a></li>
-                        <li><a href="card-create.php">Card Management</a></li>
+                        <li><a href="user.php">Home</a></li>
+                        <li><a href="#">Profile</a></li>
+                        <li><a href="#">Activity</a></li>
                         <li class="divider"></li>
                         <li><a href="login.php">Log Out</a></li>
                     </ul>
@@ -48,42 +48,17 @@
 
         <div id="myCarousel" class="carousel slide" data-ride="carousel">
             <ol class="carousel-indicators">
-                <li data-target="#myCarousel" data-slide-to="0"></li>
+                <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
                 <li data-target="#myCarousel" data-slide-to="1"></li>
-                <li data-target="#myCarousel" data-slide-to="2"></li>
-                <li data-target="#myCarousel" data-slide-to="3"></li>
-                <li data-target="#myCarousel" data-slide-to="4"></li>
-                <li data-target="#myCarousel" data-slide-to="5"></li>
-                <li data-target="#myCarousel" data-slide-to="6"></li>
-                <li data-target="#myCarousel" data-slide-to="7" class="active"></li>
 
             </ol>
             <div class="carousel-inner">
-                <div class="item">
-                    <img src="assets/images/bank_banner.png" alt="bank_banner" style="width:100%;">
-                </div>
-
-                <div class="item">
-                    <img src="assets/images/banner.png" alt="banner" style="width: 100%">
-                </div>
-
-                <div class="item">
-                    <img src="assets/images/banner3.png" alt="" style="width:100%;">
-                </div>
-                <div class="item">
-                    <img src="assets/images/banner2.png" alt="" style="width:100%;">
-                </div>
-                <div class="item">
-                    <img src="assets/images/service%201.png" alt="" style="width:100%;">
-                </div>
-                <div class="item">
-                    <img src="assets/images/service4.jpg" alt="" style="width:100%;">
-                </div>
-                <div class="item">
-                    <img src="assets/images/mobileBanking.jpg" alt="" style="width: 100%" >
-                </div>
                 <div class="item active">
-                    <img src="assets/images/user1.jpg" alt="" style="width: 100%" >
+                    <img src="assets/images/user/user.jpg" alt="bank_banner" style="width:100%;">
+                </div>
+
+                <div class="item">
+                    <img src="assets/images/user/user0.jpg" alt="banner" style="width: 100%">
                 </div>
                 <a class="left carousel-control" href="#myCarousel" data-slide="prev">
                     <span class="glyphicon glyphicon-chevron-left"></span>
@@ -97,22 +72,20 @@
         </div>
     </div>
     <br/>
-    <table height="200px" width="100%">
-        <tr>
-            <td width="50%">
-                <div style="text-align: center;">
-
-                    <h1 class="oblique">Bank When You Want, Where You Want.</h1>
-                    <h3 class="italic">Online Banking is simple and convenient, where you can:</h3>
-                    <ul>
-                        <h4 class="italic" style="color: #122b40">View Profile</h4>
-                        <h4 class="italic" style="color: #122b40">View Account</h4>
-                        <h4 class="italic" style="color: #122b40">Transfer fund</h4>
-                        <h4 class="italic" style="color: #122b40">Stop Payments</h4>
-                    </ul>
-                </div>
-            </td>
-        </tr>
+    <div class="row">
+        <div style="text-align: center;">
+            <figure>
+                <img src="assets/images/user/user.gif" height="450px" width="950px">
+            </figure>
+        </div>
+    </div>
+    <br/>
+    <div class="row">
+        <div style="text-align: center;">
+            <i><h2 style="color: #204d74">"For Existing Users"</h2></i>
+            <p1>Here we can provide you all of your Online Bank Statement.Here you can access all of your activity .</p1>
+        </div>
+    </div>
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         <!-- Include all compiled plugins (below), or include individual files as needed -->
