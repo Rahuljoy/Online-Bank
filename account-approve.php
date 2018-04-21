@@ -60,7 +60,7 @@ include( 'classes/DB.php' );
     <tbody>
 
 	<?php
-	$userIdForPrint = 0;
+	//$userIdForPrint = 0;
 	$result         = DB::query( 'SELECT * FROM bank_user_temps', array() );
 
 	for ( $i = 0; $i < sizeof( $result ); $i ++ ) {
@@ -116,7 +116,9 @@ include( 'classes/DB.php' );
 		$addressInformationForPrint = DB::query( 'SELECT * FROM address_temps WHERE user_id= :user_id', array( 'user_id' => $userIdForPrint ) );
 		$nomineeInformationForPrint = DB::query( 'SELECT * FROM nominee_temps WHERE user_id= :user_id', array( 'user_id' => $userIdForPrint ) );
 		echo '<ul class="list-group">
-                                                    <img src="data:image/jpeg;base64,' . base64_encode( 'image' ) . '" height="100" width="100"/>';
+                                                    <img src="';
+		echo ($informationForPrint[0]['picture_path']);
+		echo '" height="100" width="100"/>';
 //print_r($informationForPrint[0]["image"]);
 		echo '
                             </li>
@@ -173,9 +175,10 @@ include( 'classes/DB.php' );
                     </div>
                     <div class="panel-body">';
 		echo '
-                        <ul class="list-group">
-                            <li class="list-group-item">
-                               <img src="" alt="Image" width="200" height="220"/>';
+                       <ul class="list-group">
+                                                    <img src="';
+		echo ($nomineeInformationForPrint[0]['picture_path']);
+		echo '" height="100" width="100"/>';
 		echo '
                             </li>
                             <li class="list-group-item">
@@ -244,8 +247,8 @@ include( 'classes/DB.php' );
 <script type="text/javascript">
     function submit(id) {
         $.ajax({
-            type: 'post',
-            url: 'ajax.php',
+            type: 'POST',
+            url: 'approve.php',
             data: {
                 user_id: id
             },

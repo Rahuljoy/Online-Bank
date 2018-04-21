@@ -101,8 +101,8 @@
                     <h1 > Our Bank</h1>
 
                     <ul>
-                        <h5 >Our relationships are built on trust that we build every day through every interaction. Our employees are empowered to do the right thing to ensure they share our customers’ vision for success. We work as a partner to provide financial products and services that make banking safe, simple and convenient. We’re here to help navigate important milestones and strengthen futures together.
-                        </h5>
+                        <h4 >Our relationships are built on trust that we build every day through every interaction. Our employees are empowered to do the right thing to ensure they share our customers’ vision for success. We work as a partner to provide financial products and services that make banking safe, simple and convenient. We’re here to help navigate important milestones and strengthen futures together.
+                        </h4>
                     </ul>
                 </div>
             </td>

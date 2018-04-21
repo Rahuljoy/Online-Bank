@@ -1,18 +1,31 @@
 <?php
-include ('classes/DB.php');
+include('classes/DB.php');
+date_default_timezone_set( "Asia/Dhaka" );
+//$cookie_name = 'user_id';
+//if (!isset($_COOKIE[$cookie_name])) {
+//    echo "Cookie named '" . $cookie_name . "' is not set!";
+//} else {
+//    $user_id = $_COOKIE[$cookie_name];
+//    echo "$user_id";
+//}
+$userId =$_GET['id'];
+echo $userId . '<br/>';
 if (isset($_POST['submit'])) {
-    $firstname = $_POST['firstname'];
-    $middlename = $_POST['middlename'];
-    $lastname = $_POST['lastname'];
-    $gender = $_POST['gender'];
-    $dateofbirth = $_POST['dateofbirth'];
-    $contactnumber = $_POST['contactnumber'];
-    $email = $_POST['email'];
-    $address = $_POST['address'];
+    $type = $_POST['type'];
+    $number = $_POST['number'];
+    $name = $_POST['name'];
+    $expiry = $_POST['expiry'];
+    $pin = $_POST['pin'];
+    $balance = $_POST['balance'];
+    $cvc = $_POST['cvc'];
+    $time = date( "y-m-d h:m:s" );
+
+
+    //insert card
+    DB::query(' INSERT INTO cards  VALUES (\'\', :card_type, :card_no, :balance, :card_pin,:expair_date,:c_v_s_code,:create_date,:user_id,:full_name)', array(':card_type' => $type, ':card_no' => $number,
+        ':balance' => $balance, ':card_pin' =>$pin , ':expair_date'=>$expiry,':c_v_s_code'=>$cvc, ':create_date' => $time, ':user_id'=>$userId,':full_name'=>$name));
 }
 ?>
-
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -61,9 +74,9 @@ if (isset($_POST['submit'])) {
 </nav>
 <div class="container">
     <div class="card-wrapper"></div>
-<br/>
+    <br/>
     <div class="form-container active">
-        <form class="form-horizontal" action="card.php" method="post">
+        <form class="form-horizontal" action="card.php?id=<?php echo $userId; ?>" method="post">
             <fieldset class="card-form">
                 <div class="form-group">
                     <label for="type" class="col-lg-2 control-label">Card Type</label>
@@ -72,18 +85,18 @@ if (isset($_POST['submit'])) {
                             <option>Select One</option>
                             <option style="color: indigo">Visa => (4.....)</option>
                             <option style="color: royalblue">MasterCard => (5{1,2,3,4,5}.....)</option>
-<!--                            <option style="color: lightskyblue">Discover => (6011.....)</option>-->
-<!--                            <option style="color: darkslategray">American Express => (37.....)</option>-->
-<!--                            <option style="color: darkorange">JCB => (35.....)</option>-->
+                            <option style="color: lightskyblue">Discover => (6011.....)</option>
+                            <option style="color: darkslategray">American Express => (37.....)</option>
+                            <option style="color: darkorange">JCB => (35.....)</option>
                         </select>
                     </div>
                 </div>
-            <div class="form-group">
-                <label for="inputCardNo" class="col-lg-2 control-label">Card number</label>
-                <div class="col-lg-10">
-                    <input class="form-control" name="number" id="inputCardNo" placeholder="Card number"
-                           type="tel" required>
-                </div>
+                <div class="form-group">
+                    <label for="inputCardNo" class="col-lg-2 control-label">Card number</label>
+                    <div class="col-lg-10">
+                        <input class="form-control" name="number" id="inputCardNo" placeholder="Card number"
+                               type="tel" required>
+                    </div>
                 </div>
                 <div class="form-group">
                     <label for="inputFullName" class="col-lg-2 control-label">Full Name</label>
@@ -103,14 +116,14 @@ if (isset($_POST['submit'])) {
                     <label for="inputCardPin" class="col-lg-2 control-label">Card Pin</label>
                     <div class="col-lg-10">
                         <input class="form-control" name="pin" id="inputCardPin" placeholder="Card pin"
-                        type="number" required>
+                               type="number" required>
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="inputBalance" class="col-lg-2 control-label">Balance</label>
                     <div class="col-lg-10">
                         <input class="form-control" name="balance" id="inputBalance" placeholder="Balance"
-                        type="number" required>
+                               type="number" required>
                     </div>
                 </div>
                 <div class="form-group">
@@ -127,7 +140,7 @@ if (isset($_POST['submit'])) {
                         <button type="button" name="button" class="btn btn-danger">Back</button>
                     </a>
                 </div>
-                </fieldset>
+            </fieldset>
         </form>
     </div>
 

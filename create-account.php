@@ -25,8 +25,26 @@ if (isset($_POST['submit'])) {
     $permanentaddress = $_POST['permanentaddress'];
     $n_gender = $_POST['n_gender'];
     $n_dateofbirth = $_POST['n_dateofbirth'];
-    $uimage = addslashes(file_get_contents($_FILES['uimage']['tmp_name']));
-    $nimage = addslashes(file_get_contents($_FILES['nimage']['tmp_name']));
+    //user image data collect
+    $ufiletmp= $_FILES["uimage"]["tmp_name"];
+
+    $ufilename = $_FILES["uimage"]["name"];
+    $ufiletype = $_FILES["uimage"]["type"];
+
+    $ufilepath= "assets/images/files/".$ufilename;
+
+    move_uploaded_file($ufiletmp,$ufilepath);
+
+    //Nominee image data collect
+    $nfiletmp= $_FILES["nimage"]["tmp_name"];
+
+    $nfilename = $_FILES["nimage"]["name"];
+    $nfiletype = $_FILES["nimage"]["type"];
+
+    $nfilepath= "assets/images/files/".$nfilename;
+
+    move_uploaded_file($nfiletmp,$nfilepath);
+
     $username = $_POST['username'];
     $password = $_POST['password'];
     $time = date("y-m-d h:m:s");
@@ -41,7 +59,8 @@ if (isset($_POST['submit'])) {
      //echo $lastId;
 
     //  Insert nominee
-    DB::query(' INSERT INTO nominee_temps VALUES (\'\',:full_name,:occupation,:relationship,:office_address,:present_address,:permanent_address,:gender,:date_of_birth,:image,:user_id)',array(':full_name' => $fullname,':occupation' => $occupation,':relationship' => $relation,':office_address' => $officeaddress,':present_address' => $presentaddress,':permanent_address' => $permanentaddress,':gender' => $n_gender,':date_of_birth'=>$n_dateofbirth,':image'=>$nimage,':user_id' => $lastId));
+    DB::query(' INSERT INTO nominee_temps VALUES (\'\',:full_name,:occupation,:relationship,:office_address,:present_address,:permanent_address,:gender,:date_of_birth,:image,:picture_type, :picture_path,:user_id)',array(':full_name' => $fullname,':occupation' => $occupation,':relationship' => $relation,':office_address' => $officeaddress,':present_address' => $presentaddress,':permanent_address' => $permanentaddress,':gender' => $n_gender,':date_of_birth'=>$n_dateofbirth,':image' => $nfilename, ':picture_type' => $nfiletype,
+        ':picture_path' => $nfilepath,':user_id' => $lastId));
     //nominee last insert id
     $nomineeLastId = DB::query('SELECT nominee_id FROM nominee_temps WHERE user_id=:user_id',array(':user_id'=>$lastId))[0]['nominee_id'];
    // echo $nomineeLastId;
@@ -53,7 +72,8 @@ if (isset($_POST['submit'])) {
     //echo $addressLastId;
 
     //Insert user information
-    DB::query(' INSERT INTO user_information_temps VALUES (\'\',:first_name,:middle_name,:last_name,:e_mail,:contact_no,:gender,:date_of_birth,:image,:user_id,:nominee_id,:address_id)',array(':first_name' => $firstname,':middle_name' => $middlename,':last_name' => $lastname,':e_mail' => $email,':contact_no' => $contactnumber,':gender' => $gender,':date_of_birth' => $dateofbirth,':image' => $uimage,':user_id' => $lastId,':nominee_id' => $nomineeLastId,':address_id' => $addressLastId));
+    DB::query(' INSERT INTO user_information_temps VALUES (\'\',:first_name,:middle_name,:last_name,:e_mail,:contact_no,:gender,:date_of_birth,:image,:picture_type, :picture_path,:user_id,:nominee_id,:address_id)',array(':first_name' => $firstname,':middle_name' => $middlename,':last_name' => $lastname,':e_mail' => $email,':contact_no' => $contactnumber,':gender' => $gender,':date_of_birth' => $dateofbirth,':image' => $ufilename, ':picture_type' => $ufiletype,
+        ':picture_path' => $ufilepath,':user_id' => $lastId,':nominee_id' => $nomineeLastId,':address_id' => $addressLastId));
 
 
 }
@@ -74,7 +94,7 @@ if (isset($_POST['submit'])) {
     <link href="assets/css/style.css" rel="stylesheet">
 </head>
 <body>
-<nav class="navbar navbar-default">
+<nav class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
@@ -98,6 +118,10 @@ if (isset($_POST['submit'])) {
         </div>
     </div>
 </nav>
+<div class="row">
+    <h4>Applied From</h4>
+</div>
+<br/>
 <form class="form-horizontal" action="create-account.php" method="post" enctype="multipart/form-data">
     <fieldset class="login-form">
         <legend>Create Account</legend>

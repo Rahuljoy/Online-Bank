@@ -58,13 +58,17 @@ include('classes/DB.php');
     </thead>
     <tbody>
     <?php
-    $userIdForPrint = 0;
+    //$userIdForPrint = 0;
     $result = DB::query('SELECT * FROM bank_users', array());
 
     for ($i = 0; $i < sizeof($result); $i++) {
         echo '<tr> <td>';
         $userIdForPrint = $result[$i]['user_id'];
+//        $cookie_name = "user_id";
+//        $cookie_value = $userIdForPrint;
+//        setcookie($cookie_name, $cookie_value, time() + (86400 * 30), "/");
         print_r($userIdForPrint);
+
         echo '</td>
             <td>';
         print_r($result[$i]['user_name']);
@@ -77,21 +81,46 @@ include('classes/DB.php');
             print_r($informationResult[0]['e_mail']);
         }
         echo '</td>
-            <td><a href="card.php"><button type="button" class="btn btn-primary"';
-        echo $result[$i]['user_id'];
-        echo '">
-           Generate Card
-            </button><a/>
+            <td>
+            <a href="card.php?id=';
+        print_r($userIdForPrint);
+        echo'"><button type="button" class="btn btn-info">
+           Generate
+            </button> 
+            </a>
                 <button type="button" class="btn btn-danger">Delete</button>
             </td>
-        </tr>';
+        </tr>
+            ';
+
     }
     ?>
         </tbody>
 </table>
 
+<!--<a href="card.php?id="' . $userIdForPrint . '><button class="btn btn-info" onclick="submit('.$userIdForPrint.')">
+    Generate
+</button>
+</a> -->
+
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<!--<script type="text/javascript">
+    function submit(id) {
+        $.ajax({
+            type: 'POST',
+            url: 'card.php',
+            data: {
+                user_id: id
+            },
+            success: function (response) {
+            },
+            error: function (response) {
+            }
+        });
+        alert(id);
+    }
+</script>-->
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="assets/bootstrap/js/bootstrap.min.js"></script>
 
