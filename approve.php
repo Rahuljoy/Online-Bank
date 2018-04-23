@@ -1,5 +1,6 @@
 <?php
 include( 'classes/DB.php' );
+include( 'classes/Mail.php' );
 date_default_timezone_set( "Asia/Dhaka" );
 
 $userId = $_POST['user_id'];
@@ -86,5 +87,8 @@ $addressLastId = DB::query('SELECT address_id FROM addresses WHERE user_id=:user
 //Insert user information
 DB::query(' INSERT INTO user_informations VALUES (\'\',:first_name,:middle_name,:last_name,:e_mail,:contact_no,:gender,:date_of_birth,:image,:picture_type, :picture_path,:user_id,:nominee_id,:address_id)',array(':first_name' => $first_name,':middle_name' => $middle_name,':last_name' => $last_name,':e_mail' => $e_mail,':contact_no' => $contact_no,':gender' => $user_gender,':date_of_birth' => $user_date_of_birth,':image' => $ufilename, ':picture_type' => $ufiletype,
     ':picture_path' => $ufilepath,':user_id' => $lastId,':nominee_id' => $nomineeLastId,':address_id' => $addressLastId));
+
+
+Mail::sendMail('Welcome to The Online Bank!', 'Your account has been created! Will send "User name , User Account number , User Id" after create the card',$e_mail);
 
 ?>
