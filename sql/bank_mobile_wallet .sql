@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 19, 2018 at 06:52 PM
+-- Generation Time: Apr 23, 2018 at 04:02 PM
 -- Server version: 10.1.30-MariaDB
 -- PHP Version: 7.2.1
 
@@ -30,8 +30,8 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `addresses` (
   `address_id` int(11) NOT NULL,
-  `address` varchar(255) NOT NULL,
-  `type` varchar(255) NOT NULL,
+  `present_address` varchar(255) NOT NULL,
+  `permanent_address` varchar(255) NOT NULL,
   `state` varchar(255) NOT NULL,
   `city` varchar(255) NOT NULL,
   `country` varchar(255) NOT NULL,
@@ -47,8 +47,8 @@ CREATE TABLE `addresses` (
 
 CREATE TABLE `address_temps` (
   `address_id` int(11) NOT NULL,
-  `address` varchar(255) NOT NULL,
-  `type` varchar(255) NOT NULL,
+  `present_address` varchar(255) NOT NULL,
+  `permanent_address` varchar(255) NOT NULL,
   `state` varchar(255) NOT NULL,
   `city` varchar(255) NOT NULL,
   `country` varchar(255) NOT NULL,
@@ -116,13 +116,15 @@ CREATE TABLE `bank_user_temps` (
 
 CREATE TABLE `cards` (
   `card_id` int(11) NOT NULL,
-  `Card_no` varchar(255) NOT NULL,
+  `card_type` varchar(255) NOT NULL,
+  `card_no` varchar(255) NOT NULL,
   `balance` double NOT NULL,
   `card_pin` int(50) NOT NULL,
-  `expair_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `expair_date` varchar(255) NOT NULL,
   `c_v_s_code` varchar(255) NOT NULL,
-  `create_date` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `user_id` int(11) NOT NULL
+  `create_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `user_id` int(11) NOT NULL,
+  `full_name` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -308,7 +310,8 @@ ALTER TABLE `bank_user_temps`
 -- Indexes for table `cards`
 --
 ALTER TABLE `cards`
-  ADD PRIMARY KEY (`card_id`);
+  ADD PRIMARY KEY (`card_id`),
+  ADD UNIQUE KEY `card_no` (`card_no`);
 
 --
 -- Indexes for table `logs`
@@ -360,13 +363,13 @@ ALTER TABLE `user_information_temps`
 -- AUTO_INCREMENT for table `addresses`
 --
 ALTER TABLE `addresses`
-  MODIFY `address_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `address_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `address_temps`
 --
 ALTER TABLE `address_temps`
-  MODIFY `address_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `address_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `balances`
@@ -378,19 +381,19 @@ ALTER TABLE `balances`
 -- AUTO_INCREMENT for table `bank_users`
 --
 ALTER TABLE `bank_users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `bank_user_temps`
 --
 ALTER TABLE `bank_user_temps`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT for table `cards`
 --
 ALTER TABLE `cards`
-  MODIFY `card_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `card_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `logs`
@@ -402,13 +405,13 @@ ALTER TABLE `logs`
 -- AUTO_INCREMENT for table `nominees`
 --
 ALTER TABLE `nominees`
-  MODIFY `nominee_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `nominee_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `nominee_temps`
 --
 ALTER TABLE `nominee_temps`
-  MODIFY `nominee_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `nominee_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT for table `transactions`
@@ -426,13 +429,13 @@ ALTER TABLE `types`
 -- AUTO_INCREMENT for table `user_informations`
 --
 ALTER TABLE `user_informations`
-  MODIFY `user_informations_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `user_informations_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `user_information_temps`
 --
 ALTER TABLE `user_information_temps`
-  MODIFY `user_informations_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `user_informations_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

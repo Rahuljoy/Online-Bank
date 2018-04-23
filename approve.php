@@ -36,8 +36,8 @@ $nfilepath= $nomineeInformationForPrint[0]["picture_path"];
 
 $addressInformationForPrint = DB::query( 'SELECT * FROM address_temps WHERE user_id= :user_id', array( 'user_id' => $userId ) );
 
-$address = $addressInformationForPrint[0]["address"];
-$type = $addressInformationForPrint[0]["type"];
+$u_present_address = $addressInformationForPrint[0]["present_address"];
+$u_permanent_address = $addressInformationForPrint[0]["permanent_address"];
 $state = $addressInformationForPrint[0]["state"];
 $city = $addressInformationForPrint[0]["city"];
 $country = $addressInformationForPrint[0]["country"];
@@ -79,7 +79,7 @@ $nomineeLastId = DB::query('SELECT nominee_id FROM nominees WHERE user_id=:user_
 // echo $nomineeLastId;
 
 //address insert
-DB::query(' INSERT INTO addresses VALUES (\'\',:address,:type,:state,:city,:country,:zip_code,:user_id)',array(':address' => $address,':type' => $type,':state' => $state,':city' => $city,':country' => $country,':zip_code' => $zip_code,':user_id' => $lastId));
+DB::query(' INSERT INTO addresses VALUES (\'\',:present_address,:permanent_address,:state,:city,:country,:zip_code,:user_id)',array(':present_address' => $u_present_address,':permanent_address' => $u_permanent_address,':state' => $state,':city' => $city,':country' => $country,':zip_code' => $zip_code,':user_id' => $lastId));
 //address last insert id
 $addressLastId = DB::query('SELECT address_id FROM addresses WHERE user_id=:user_id',array(':user_id'=>$lastId))[0]['address_id'];
 //echo $addressLastId;
@@ -89,6 +89,6 @@ DB::query(' INSERT INTO user_informations VALUES (\'\',:first_name,:middle_name,
     ':picture_path' => $ufilepath,':user_id' => $lastId,':nominee_id' => $nomineeLastId,':address_id' => $addressLastId));
 
 
-Mail::sendMail('Welcome to The Online Bank!', 'Your account has been created! Will send "User name , User Account number , User Id" after create the card',$e_mail);
+Mail::sendMail('Welcome to The Online Bank!', 'Your account has been created!'.'Account Name:'.$user_name.','.'Account Id:'.$userId,$e_mail);
 
 ?>

@@ -11,8 +11,8 @@ if (isset($_POST['submit'])) {
     $dateofbirth = $_POST['dateofbirth'];
     $contactnumber = $_POST['contactnumber'];
     $email = $_POST['email'];
-    $address = $_POST['address'];
-    $addressType = $_POST['addressType'];
+    $u_presentaddress = $_POST['u_presentaddress'];
+    $u_permanentaddress = $_POST['u_permanentaddress'];
     $state = $_POST['state'];
     $city = $_POST['city'];
     $country = $_POST['country'];
@@ -66,7 +66,7 @@ if (isset($_POST['submit'])) {
    // echo $nomineeLastId;
 
     //address insert
-    DB::query(' INSERT INTO address_temps VALUES (\'\',:address,:type,:state,:city,:country,:zip_code,:user_id)',array(':address' => $address,':type' => $addressType,':state' => $state,':city' => $city,':country' => $country,':zip_code' => $zipcode,':user_id' => $lastId));
+    DB::query(' INSERT INTO address_temps VALUES (\'\',:present_address,:permanent_address,:state,:city,:country,:zip_code,:user_id)',array(':present_address' => $u_presentaddress,':permanent_address' => $u_permanentaddress,':state' => $state,':city' => $city,':country' => $country,':zip_code' => $zipcode,':user_id' => $lastId));
     //address last insert id
     $addressLastId = DB::query('SELECT address_id FROM address_temps WHERE user_id=:user_id',array(':user_id'=>$lastId))[0]['address_id'];
     //echo $addressLastId;
@@ -202,21 +202,21 @@ if (isset($_POST['submit'])) {
                 <div id="collapse2" class="panel-collapse collapse">
                     <div class="panel-body">
                         <div class="form-group">
-                            <label for="inputAddress" class="col-lg-2 control-label">Address</label>
+                            <label for="inputPresentAddress" class="col-lg-2 control-label">Present address</label>
                             <div class="col-lg-10">
-                                <input class="form-control" name="address" id="inputAddress" placeholder="Address"
+                                <input class="form-control" name="u_presentaddress" id="inputPresentAddress"
+                                       placeholder="Present address"
                                        type="text">
                             </div>
-                        </div><!--Address-->
+                        </div>
                         <div class="form-group">
-                            <label for="addressType" class="col-lg-2 control-label">Address type</label>
+                            <label for="inputPermanentAddress" class="col-lg-2 control-label">Permanent address</label>
                             <div class="col-lg-10">
-                                <select name="addressType" class="form-control" id="select">
-                                    <option>Present</option>
-                                    <option>Permanent</option>
-                                </select>
+                                <input class="form-control" name="u_permanentaddress" id="inputPermanentAddress"
+                                       placeholder="Permanent address"
+                                       type="text">
                             </div>
-                        </div><!--Present or Permanent-->
+                        </div>
                         <div class="form-group">
                             <label for="inputState" class="col-lg-2 control-label">State</label>
                             <div class="col-lg-10">

@@ -138,17 +138,17 @@ include( 'classes/DB.php' );
 		echo '          
                             </li>
                             <li class="list-group-item">
-                                <b>Address :</b>';
-		print_r( $addressInformationForPrint[0]["address"] . ',' );
-		print_r( $addressInformationForPrint[0]["state"] . ',' );
-		print_r( $addressInformationForPrint[0]["city"] . ',' );
-		print_r( $addressInformationForPrint[0]["country"] . ',' . 'zip code:' );
-		print_r( $addressInformationForPrint[0]["zip_code"] . '' );
+                                <b>Present Address :</b>';
+		print_r( $addressInformationForPrint[0]["present_address"] );
 		echo '
                             </li>
                             <li class="list-group-item">
-                                <b>Type :</b>';
-		print_r( $addressInformationForPrint[0]["type"] );
+                                <b>Permanent Address :</b>';
+		print_r( $addressInformationForPrint[0]["permanent_address"] . ','  );
+        print_r( $addressInformationForPrint[0]["state"] . ',' );
+        print_r( $addressInformationForPrint[0]["city"] . ',' );
+        print_r( $addressInformationForPrint[0]["country"] . ',' . 'zip code:' );
+        print_r( $addressInformationForPrint[0]["zip_code"] . '.' );
 		echo '
                             </li>
                             <li class="list-group-item">

@@ -33,7 +33,7 @@
                     </a>
                     <ul class="dropdown-menu">
                         <li><a href="user.php">Home</a></li>
-                        <li><a href="#">Profile</a></li>
+                        <li><a href="user-profile.php">visit Profile</a></li>
                         <li><a href="#">Activity</a></li>
                         <li class="divider"></li>
                         <li><a href="login.php">Log Out</a></li>
