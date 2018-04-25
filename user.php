@@ -1,3 +1,14 @@
+<?php
+include ('classes/DB.php');
+$result = DB::query('SELECT * FROM bank_users', array());
+
+for ($i = 0; $i < sizeof($result); $i++) {
+    $userIdForPrint = $result[$i]['user_id'];
+    print_r($userIdForPrint);
+    print_r($result[$i]['user_name']);
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -33,8 +44,8 @@
                     </a>
                     <ul class="dropdown-menu">
                         <li><a href="user.php">Home</a></li>
-                        <li><a href="user-profile.php">visit Profile</a></li>
-                        <li><a href="#">Activity</a></li>
+                        <li><a href="user-profile.php">Profile</a></li>
+                        <li><a href="user-activity.php">Activity</a></li>
                         <li class="divider"></li>
                         <li><a href="login.php">Log Out</a></li>
                     </ul>
