@@ -1,13 +1,6 @@
 <?php
 include('classes/DB.php');
 date_default_timezone_set( "Asia/Dhaka" );
-//$cookie_name = 'user_id';
-//if (!isset($_COOKIE[$cookie_name])) {
-//    echo "Cookie named '" . $cookie_name . "' is not set!";
-//} else {
-//    $user_id = $_COOKIE[$cookie_name];
-//    echo "$user_id";
-//}
 $userId =$_GET['id'];
 echo $userId . '<br/>';
 if (isset($_POST['submit'])) {

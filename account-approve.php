@@ -139,16 +139,20 @@ include( 'classes/DB.php' );
                             </li>
                             <li class="list-group-item">
                                 <b>Present Address :</b>';
-		print_r( $addressInformationForPrint[0]["present_address"] );
+		print_r( $addressInformationForPrint[0]["present_address"] . ',');
+        print_r( $addressInformationForPrint[0]["present_state"] . ',' );
+        print_r( $addressInformationForPrint[0]["present_city"] . ',' );
+        print_r( $addressInformationForPrint[0]["present_country"] . ',' . 'zip code:' );
+        print_r( $addressInformationForPrint[0]["present_zip_code"] . '.' );
 		echo '
                             </li>
                             <li class="list-group-item">
                                 <b>Permanent Address :</b>';
 		print_r( $addressInformationForPrint[0]["permanent_address"] . ','  );
-        print_r( $addressInformationForPrint[0]["state"] . ',' );
-        print_r( $addressInformationForPrint[0]["city"] . ',' );
-        print_r( $addressInformationForPrint[0]["country"] . ',' . 'zip code:' );
-        print_r( $addressInformationForPrint[0]["zip_code"] . '.' );
+        print_r( $addressInformationForPrint[0]["permanent_state"] . ',' );
+        print_r( $addressInformationForPrint[0]["permanent_city"] . ',' );
+        print_r( $addressInformationForPrint[0]["permanent_country"] . ',' . 'zip code:' );
+        print_r( $addressInformationForPrint[0]["permanent_zip_code"] . '.' );
 		echo '
                             </li>
                             <li class="list-group-item">
@@ -164,6 +168,11 @@ include( 'classes/DB.php' );
                             <li class="list-group-item">
                                 <b>Email :</b>';
 		print_r( $informationForPrint[0]["e_mail"] );
+		echo '
+</li>
+                            <li class="list-group-item">
+                                <b>NID :</b>';
+		print_r( $informationForPrint[0]["nid"] );
 		echo '
                             </li>
                         </ul>
@@ -219,6 +228,11 @@ include( 'classes/DB.php' );
                             <li class="list-group-item">
                                 <b>Date Of Birth :</b>';
 		print_r( $nomineeInformationForPrint[0]["date_of_birth"] );
+		echo '
+</li>
+                            <li class="list-group-item">
+                                <b>NID :</b>';
+		print_r( $nomineeInformationForPrint[0]["nid"] );
 		echo '
                             </li>
                         </ul>

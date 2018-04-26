@@ -1,7 +1,3 @@
-<?php
-include ('classes/DB.php');
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -37,7 +33,7 @@ include ('classes/DB.php');
                     </a>
                     <ul class="dropdown-menu">
                         <li><a href="user.php">Home</a></li>
-                        <li><a href="user-profile.php">Profile</a></li>
+                        <li><a href="user-profile.php">visit Profile</a></li>
                         <li><a href="user-activity.php">Activity</a></li>
                         <li class="divider"></li>
                         <li><a href="login.php">Log Out</a></li>
@@ -63,88 +59,88 @@ include ('classes/DB.php');
     </div>
 </div>
 <br/>
-    <div class="container">
-        <div class="container-fluid">
-            <div class="well well-lg">
-                <div class="row">
-                    <div class="col-md-7 ">
-                        <div class="panel panel-default">
-                            <div class="panel-heading"><h4 >User Profile</h4></div>
-                            <div class="panel-body">
-                                <div class="box box-info">
-                                    <div class="box-body">
-                                        <div class="col-sm-6">
-                                            <div  align="center"> <img alt="User Pic" src="" id="profile-image1" class="img-circle img-responsive">
-                                                <input id="profile-image-upload" class="hidden" type="file">
-                                                <div style="color:#999;" >click here to change profile image</div>
-                                                <!--Upload Image Js And Css-->
- </div>
-                                            <br>
-                                            <!-- /input-group -->
+<div class="container">
+    <div class="container-fluid">
+        <div class="well well-lg">
+            <div class="row">
+                <div class="col-md-7 ">
+                    <div class="panel panel-default">
+                        <div class="panel-heading"><h4 >User Profile</h4></div>
+                        <div class="panel-body">
+                            <div class="box box-info">
+                                <div class="box-body">
+                                    <div class="col-sm-6">
+                                        <div  align="center"> <img alt="User Pic" src="" id="profile-image1" class="img-circle img-responsive">
+                                            <input id="profile-image-upload" class="hidden" type="file">
+                                            <div style="color:#999;" >click here to change profile image</div>
+                                            <!--Upload Image Js And Css-->
                                         </div>
-                                        <div class="col-sm-6">
-                                            <h4 style="color:#00b1b1;">Rahul Prasad Joy</h4></span>
-                                            <span></span>
-                                        </div>
-                                        <div class="clearfix"></div>
-                                        <hr style="margin:5px 0 5px 0;">
-                                        <div class="col-sm-5 col-xs-6 tital " >First Name:</div>
-                                        <div class="col-sm-7 col-xs-6 ">Rahul</div>
-
-                                        <div class="clearfix"></div>
-                                        <div class="bot-border"></div>
-
-                                        <div class="col-sm-5 col-xs-6 tital " >Middle Name:</div>
-                                        <div class="col-sm-7">Prasad</div>
-
-                                        <div class="clearfix"></div>
-                                        <div class="bot-border"></div>
-
-                                        <div class="col-sm-5 col-xs-6 tital " >Last Name:</div>
-                                        <div class="col-sm-7">Joy</div>
-
-                                        <div class="clearfix"></div>
-                                        <div class="bot-border"></div>
-
-                                        <div class="clearfix"></div>
-                                        <div class="bot-border"></div>
-
-                                        <div class="col-sm-5 col-xs-6 tital " >Date Of Birth:</div>
-                                        <div class="col-sm-7">30/03/1992</div>
-
-                                        <div class="clearfix"></div>
-                                        <div class="bot-border"></div>
-
-                                        <div class="col-sm-5 col-xs-6 tital " >Address:</div>
-                                        <div class="col-sm-7">Attanibazar</div>
-
-                                        <div class="clearfix"></div>
-                                        <div class="bot-border"></div>
-
-                                        <div class="col-sm-5 col-xs-6 tital " >Country:</div>
-                                        <div class="col-sm-7">Bangladesh</div>
-
-                                        <div class="clearfix"></div>
-                                        <div class="bot-border"></div>
-
-                                        <div class="col-sm-5 col-xs-6 tital " >Gender:</div>
-                                        <div class="col-sm-7">male</div>
+                                        <br>
+                                        <!-- /input-group -->
                                     </div>
+                                    <div class="col-sm-6">
+                                        <h4 style="color:#00b1b1;">Rahul Prasad Joy</h4></span>
+                                        <span></span>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                    <hr style="margin:5px 0 5px 0;">
+                                    <div class="col-sm-5 col-xs-6 tital " >First Name:</div>
+                                    <div class="col-sm-7 col-xs-6 ">Rahul</div>
+
+                                    <div class="clearfix"></div>
+                                    <div class="bot-border"></div>
+
+                                    <div class="col-sm-5 col-xs-6 tital " >Middle Name:</div>
+                                    <div class="col-sm-7">Prasad</div>
+
+                                    <div class="clearfix"></div>
+                                    <div class="bot-border"></div>
+
+                                    <div class="col-sm-5 col-xs-6 tital " >Last Name:</div>
+                                    <div class="col-sm-7">Joy</div>
+
+                                    <div class="clearfix"></div>
+                                    <div class="bot-border"></div>
+
+                                    <div class="clearfix"></div>
+                                    <div class="bot-border"></div>
+
+                                    <div class="col-sm-5 col-xs-6 tital " >Date Of Birth:</div>
+                                    <div class="col-sm-7">30/03/1992</div>
+
+                                    <div class="clearfix"></div>
+                                    <div class="bot-border"></div>
+
+                                    <div class="col-sm-5 col-xs-6 tital " >Address:</div>
+                                    <div class="col-sm-7">Attanibazar</div>
+
+                                    <div class="clearfix"></div>
+                                    <div class="bot-border"></div>
+
+                                    <div class="col-sm-5 col-xs-6 tital " >Country:</div>
+                                    <div class="col-sm-7">Bangladesh</div>
+
+                                    <div class="clearfix"></div>
+                                    <div class="bot-border"></div>
+
+                                    <div class="col-sm-5 col-xs-6 tital " >Gender:</div>
+                                    <div class="col-sm-7">male</div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <script>
-                        $(function() {
-                            $('#profile-image1').on('click', function() {
-                                $('#profile-image-upload').click();
-                            });
+                </div>
+                <script>
+                    $(function() {
+                        $('#profile-image1').on('click', function() {
+                            $('#profile-image-upload').click();
                         });
-                    </script>
-</div>
+                    });
+                </script>
             </div>
         </div>
     </div>
+</div>
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->

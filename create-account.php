@@ -11,12 +11,17 @@ if (isset($_POST['submit'])) {
     $dateofbirth = $_POST['dateofbirth'];
     $contactnumber = $_POST['contactnumber'];
     $email = $_POST['email'];
+    $u_nidnumber = $_POST['u_nidnumber'];
     $u_presentaddress = $_POST['u_presentaddress'];
+    $presentstate = $_POST['presentstate'];
+    $presentcity = $_POST['presentcity'];
+    $presentcountry = $_POST['presentcountry'];
+    $presentzipcode = $_POST['presentzipcode'];
     $u_permanentaddress = $_POST['u_permanentaddress'];
-    $state = $_POST['state'];
-    $city = $_POST['city'];
-    $country = $_POST['country'];
-    $zipcode = $_POST['zipcode'];
+    $permanentstate = $_POST['permanentstate'];
+    $permanentcity = $_POST['permanentcity'];
+    $permanentcountry = $_POST['permanentcountry'];
+    $permanentzipcode = $_POST['permanentzipcode'];
     $fullname = $_POST['fullname'];
     $occupation = $_POST['occupation'];
     $relation = $_POST['relation'];
@@ -24,6 +29,7 @@ if (isset($_POST['submit'])) {
     $presentaddress = $_POST['presentaddress'];
     $permanentaddress = $_POST['permanentaddress'];
     $n_gender = $_POST['n_gender'];
+    $n_nidnumber = $_POST['n_nidnumber'];
     $n_dateofbirth = $_POST['n_dateofbirth'];
     //user image data collect
     $ufiletmp= $_FILES["uimage"]["tmp_name"];
@@ -59,21 +65,21 @@ if (isset($_POST['submit'])) {
      //echo $lastId;
 
     //  Insert nominee
-    DB::query(' INSERT INTO nominee_temps VALUES (\'\',:full_name,:occupation,:relationship,:office_address,:present_address,:permanent_address,:gender,:date_of_birth,:image,:picture_type, :picture_path,:user_id)',array(':full_name' => $fullname,':occupation' => $occupation,':relationship' => $relation,':office_address' => $officeaddress,':present_address' => $presentaddress,':permanent_address' => $permanentaddress,':gender' => $n_gender,':date_of_birth'=>$n_dateofbirth,':image' => $nfilename, ':picture_type' => $nfiletype,
-        ':picture_path' => $nfilepath,':user_id' => $lastId));
+    DB::query(' INSERT INTO nominee_temps VALUES (\'\',:full_name,:occupation,:relationship,:office_address,:present_address,:permanent_address,:gender,:date_of_birth,:image,:picture_type, :picture_path,:user_id,:nid)',array(':full_name' => $fullname,':occupation' => $occupation,':relationship' => $relation,':office_address' => $officeaddress,':present_address' => $presentaddress,':permanent_address' => $permanentaddress,':gender' => $n_gender,':date_of_birth'=>$n_dateofbirth,':image' => $nfilename, ':picture_type' => $nfiletype,
+        ':picture_path' => $nfilepath,':user_id' => $lastId,':nid' => $n_nidnumber));
     //nominee last insert id
     $nomineeLastId = DB::query('SELECT nominee_id FROM nominee_temps WHERE user_id=:user_id',array(':user_id'=>$lastId))[0]['nominee_id'];
    // echo $nomineeLastId;
 
     //address insert
-    DB::query(' INSERT INTO address_temps VALUES (\'\',:present_address,:permanent_address,:state,:city,:country,:zip_code,:user_id)',array(':present_address' => $u_presentaddress,':permanent_address' => $u_permanentaddress,':state' => $state,':city' => $city,':country' => $country,':zip_code' => $zipcode,':user_id' => $lastId));
+    DB::query(' INSERT INTO address_temps VALUES (\'\',:present_address,:present_state,:present_city,:present_country,:present_zip_code,:permanent_address,:permanent_state,:permanent_city,:permanent_country,:permanent_zip_code,:user_id)',array(':present_address' => $u_presentaddress,':present_state' => $presentstate,':present_city' => $presentcity,':present_country' => $presentcountry,':present_zip_code' => $presentzipcode,':permanent_address' => $u_permanentaddress,':permanent_state' => $permanentstate,':permanent_city' => $permanentcity,':permanent_country' => $permanentcountry,':permanent_zip_code' => $permanentzipcode,':user_id' => $lastId));
     //address last insert id
     $addressLastId = DB::query('SELECT address_id FROM address_temps WHERE user_id=:user_id',array(':user_id'=>$lastId))[0]['address_id'];
     //echo $addressLastId;
 
     //Insert user information
-    DB::query(' INSERT INTO user_information_temps VALUES (\'\',:first_name,:middle_name,:last_name,:e_mail,:contact_no,:gender,:date_of_birth,:image,:picture_type, :picture_path,:user_id,:nominee_id,:address_id)',array(':first_name' => $firstname,':middle_name' => $middlename,':last_name' => $lastname,':e_mail' => $email,':contact_no' => $contactnumber,':gender' => $gender,':date_of_birth' => $dateofbirth,':image' => $ufilename, ':picture_type' => $ufiletype,
-        ':picture_path' => $ufilepath,':user_id' => $lastId,':nominee_id' => $nomineeLastId,':address_id' => $addressLastId));
+    DB::query(' INSERT INTO user_information_temps VALUES (\'\',:first_name,:middle_name,:last_name,:e_mail,:contact_no,:gender,:date_of_birth,:image,:picture_type, :picture_path,:user_id,:nominee_id,:address_id,:nid)',array(':first_name' => $firstname,':middle_name' => $middlename,':last_name' => $lastname,':e_mail' => $email,':contact_no' => $contactnumber,':gender' => $gender,':date_of_birth' => $dateofbirth,':image' => $ufilename, ':picture_type' => $ufiletype,
+        ':picture_path' => $ufilepath,':user_id' => $lastId,':nominee_id' => $nomineeLastId,':address_id' => $addressLastId,':nid' => $u_nidnumber));
 
 
 }
@@ -184,6 +190,14 @@ if (isset($_POST['submit'])) {
                             </div>
                         </div><!--Contact Number-->
                         <div class="form-group">
+                            <label for="inputNIDNumber" class="col-lg-2 control-label">NID Number</label>
+                            <div class="col-lg-10">
+                                <input class="form-control" name="u_nidnumber" id="inputNIDNumber"
+                                       placeholder="NID Number"
+                                       type="text" required>
+                            </div>
+                        </div><!--NID Number-->
+                        <div class="form-group">
                             <label for="inputEmail" class="col-lg-2 control-label">Email</label>
                             <div class="col-lg-10">
                                 <input class="form-control" name="email" id="inputEmail" placeholder="Email"
@@ -201,51 +215,88 @@ if (isset($_POST['submit'])) {
                 </div>
                 <div id="collapse2" class="panel-collapse collapse">
                     <div class="panel-body">
-                        <div class="form-group">
-                            <label for="inputPresentAddress" class="col-lg-2 control-label">Present address</label>
-                            <div class="col-lg-10">
-                                <input class="form-control" name="u_presentaddress" id="inputPresentAddress"
-                                       placeholder="Present address"
-                                       type="text">
+                        <div class="well well-lg">
+                            <h4 class="panel-title"><strong>Present Address</strong></h4>
+                            <br/>
+                            <div class="form-group">
+                                <label for="inputPresentAddress" class="col-lg-2 control-label">Address</label>
+                                <div class="col-lg-10">
+                                    <input class="form-control" name="u_presentaddress" id="inputPresentAddress"
+                                           placeholder="Present address"
+                                           type="text">
+                                </div>
                             </div>
+                            <div class="form-group">
+                                <label for="inputState" class="col-lg-2 control-label">State</label>
+                                <div class="col-lg-10">
+                                    <input class="form-control" name="presentstate" id="inputState"
+                                           placeholder="State"
+                                           type="text">
+                                </div>
+                            </div><!--State-->
+                            <div class="form-group">
+                                <label for="inputCity" class="col-lg-2 control-label">City</label>
+                                <div class="col-lg-10">
+                                    <input class="form-control" name="presentcity" id="inputCity" placeholder="City"
+                                           type="text">
+                                </div>
+                            </div><!--City-->
+                            <div class="form-group">
+                                <label for="inputCountry" class="col-lg-2 control-label">Country</label>
+                                <div class="col-lg-10">
+                                    <input class="form-control" name="presentcountry" id="inputCountry" placeholder="Country"
+                                           type="text">
+                                </div>
+                            </div><!--Country-->
+                            <div class="form-group">
+                                <label for="inputZipCode" class="col-lg-2 control-label">Zip code</label>
+                                <div class="col-lg-10">
+                                    <input class="form-control" name="presentzipcode" id="inputZipCode" placeholder="Zip code"
+                                           type="text">
+                                </div>
+                            </div><!--Zip code-->
                         </div>
-                        <div class="form-group">
-                            <label for="inputPermanentAddress" class="col-lg-2 control-label">Permanent address</label>
-                            <div class="col-lg-10">
-                                <input class="form-control" name="u_permanentaddress" id="inputPermanentAddress"
-                                       placeholder="Permanent address"
-                                       type="text">
+                        <div class="well well-lg">
+                            <h4 class="panel-title"><strong>Permanent Address</strong></h4>
+                            <br/>
+                            <div class="form-group">
+                                <label for="inputPermanentAddress" class="col-lg-2 control-label">Address</label>
+                                <div class="col-lg-10">
+                                    <input class="form-control" name="u_permanentaddress" id="inputPermanentAddress"
+                                           placeholder="Permanent address"
+                                           type="text">
+                                </div>
                             </div>
+                            <div class="form-group">
+                                <label for="inputState" class="col-lg-2 control-label">State</label>
+                                <div class="col-lg-10">
+                                    <input class="form-control" name="permanentstate" id="inputState"
+                                           placeholder="State"
+                                           type="text">
+                                </div>
+                            </div><!--State-->
+                            <div class="form-group">
+                                <label for="inputCity" class="col-lg-2 control-label">City</label>
+                                <div class="col-lg-10">
+                                    <input class="form-control" name="permanentcity" id="inputCity" placeholder="City"
+                                           type="text">
+                                </div>
+                            </div><!--City-->
+                            <div class="form-group">
+                                <label for="inputCountry" class="col-lg-2 control-label">Country</label>
+                                <div class="col-lg-10">
+                                    <input class="form-control" name="permanentcountry" id="inputCountry" placeholder="Country"
+                                           type="text">
+                                </div>
+                            </div><!--Country-->
+                            <div class="form-group">
+                                <label for="inputZipCode" class="col-lg-2 control-label">Zip code</label>
+                                <div class="col-lg-10">
+                                    <input class="form-control" name="permanentzipcode" id="inputZipCode" placeholder="Zip code"
+                                           type="text">
+                                </div>
+                            </div><!--Zip code-->
                         </div>
-                        <div class="form-group">
-                            <label for="inputState" class="col-lg-2 control-label">State</label>
-                            <div class="col-lg-10">
-                                <input class="form-control" name="state" id="inputState"
-                                       placeholder="State"
-                                       type="text">
-                            </div>
-                        </div><!--State-->
-                        <div class="form-group">
-                            <label for="inputCity" class="col-lg-2 control-label">City</label>
-                            <div class="col-lg-10">
-                                <input class="form-control" name="city" id="inputCity" placeholder="City"
-                                       type="text">
-                            </div>
-                        </div><!--City-->
-                        <div class="form-group">
-                            <label for="inputCountry" class="col-lg-2 control-label">Country</label>
-                            <div class="col-lg-10">
-                                <input class="form-control" name="country" id="inputCountry" placeholder="Country"
-                                       type="text">
-                            </div>
-                        </div><!--Country-->
-                        <div class="form-group">
-                            <label for="inputZipCode" class="col-lg-2 control-label">Zip code</label>
-                            <div class="col-lg-10">
-                                <input class="form-control" name="zipcode" id="inputZipCode" placeholder="Zip code"
-                                       type="text">
-                            </div>
-                        </div><!--Zip code-->
                     </div>
                 </div>
             </div>
@@ -303,6 +354,14 @@ if (isset($_POST['submit'])) {
                                        type="text">
                             </div>
                         </div>
+                        <div class="form-group">
+                            <label for="inputNIDNumber" class="col-lg-2 control-label">NID Number</label>
+                            <div class="col-lg-10">
+                                <input class="form-control" name="n_nidnumber" id="inputNIDNumber"
+                                       placeholder="NID Number"
+                                       type="text" required>
+                            </div>
+                        </div><!--NID Number-->
                         <div class="form-group">
                             <label for="n_gender" class="col-lg-2 control-label">Gender</label>
                             <div class="col-lg-10">

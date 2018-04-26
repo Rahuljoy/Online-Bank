@@ -1,14 +1,13 @@
 <?php
 include ('classes/DB.php');
-$result = DB::query('SELECT * FROM bank_users', array());
-
-for ($i = 0; $i < sizeof($result); $i++) {
-    $userIdForPrint = $result[$i]['user_id'];
-    print_r($userIdForPrint);
-    print_r($result[$i]['user_name']);
+$cookie_name = 'user_name';
+if (!isset($_COOKIE[$cookie_name])) {
+    echo "Cookie named '" . $cookie_name . "' is not set!";
+} else {
+    $user_name = $_COOKIE[$cookie_name];
+//    echo $user_name;
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>

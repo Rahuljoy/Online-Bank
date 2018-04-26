@@ -13,6 +13,9 @@ if (isset($_POST['login'])) {
             if($type_idFromDB == 1) {
                 header("location: admin.php");
             } else if ($type_idFromDB == 2) {
+$cookie_name = "user_name";
+        $cookie_value = $username;
+        setcookie($cookie_name, $cookie_value, time() + (86400 * 30), "/");
                 header("location: user.php");
             }
         } else {
@@ -23,7 +26,6 @@ if (isset($_POST['login'])) {
     }
 }
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">

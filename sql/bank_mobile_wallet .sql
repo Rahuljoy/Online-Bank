@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 23, 2018 at 04:02 PM
+-- Generation Time: Apr 26, 2018 at 04:15 PM
 -- Server version: 10.1.30-MariaDB
 -- PHP Version: 7.2.1
 
@@ -31,11 +31,15 @@ SET time_zone = "+00:00";
 CREATE TABLE `addresses` (
   `address_id` int(11) NOT NULL,
   `present_address` varchar(255) NOT NULL,
+  `present_state` varchar(255) NOT NULL,
+  `present_city` varchar(255) NOT NULL,
+  `present_country` varchar(255) NOT NULL,
+  `present_zip_code` int(55) NOT NULL,
   `permanent_address` varchar(255) NOT NULL,
-  `state` varchar(255) NOT NULL,
-  `city` varchar(255) NOT NULL,
-  `country` varchar(255) NOT NULL,
-  `zip_code` int(11) NOT NULL,
+  `permanent_state` varchar(255) NOT NULL,
+  `permanent_city` varchar(255) NOT NULL,
+  `permanent_country` varchar(255) NOT NULL,
+  `permanent_zip_code` int(11) NOT NULL,
   `user_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -48,11 +52,15 @@ CREATE TABLE `addresses` (
 CREATE TABLE `address_temps` (
   `address_id` int(11) NOT NULL,
   `present_address` varchar(255) NOT NULL,
+  `present_state` varchar(255) NOT NULL,
+  `present_city` varchar(255) NOT NULL,
+  `present_country` varchar(255) NOT NULL,
+  `present_zip_code` int(55) NOT NULL,
   `permanent_address` varchar(255) NOT NULL,
-  `state` varchar(255) NOT NULL,
-  `city` varchar(255) NOT NULL,
-  `country` varchar(255) NOT NULL,
-  `zip_code` int(11) NOT NULL,
+  `permanent_state` varchar(255) NOT NULL,
+  `permanent_city` varchar(255) NOT NULL,
+  `permanent_country` varchar(255) NOT NULL,
+  `permanent_zip_code` int(11) NOT NULL,
   `user_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -90,8 +98,7 @@ CREATE TABLE `bank_users` (
 --
 
 INSERT INTO `bank_users` (`user_id`, `user_name`, `user_password`, `type_id`, `user_create_date`, `user_active`) VALUES
-(1, 'rahul', '123abc', 1, '2018-02-23 19:50:59', 1),
-(2, 'rafi', '456abc', 2, '2018-02-23 19:50:59', 1);
+(1, 'admin', '123abc', 1, '2018-02-23 19:50:59', 1);
 
 -- --------------------------------------------------------
 
@@ -163,7 +170,8 @@ CREATE TABLE `nominees` (
   `image` blob NOT NULL,
   `picture_type` varchar(255) NOT NULL,
   `picture_path` varchar(255) NOT NULL,
-  `user_id` int(11) NOT NULL
+  `user_id` int(11) NOT NULL,
+  `nid` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -185,7 +193,8 @@ CREATE TABLE `nominee_temps` (
   `image` blob,
   `picture_type` varchar(255) NOT NULL,
   `picture_path` varchar(255) NOT NULL,
-  `user_id` int(11) NOT NULL
+  `user_id` int(11) NOT NULL,
+  `nid` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -244,7 +253,8 @@ CREATE TABLE `user_informations` (
   `picture_path` varchar(255) NOT NULL,
   `user_id` int(11) NOT NULL,
   `nominee_id` int(11) NOT NULL,
-  `address_id` int(11) NOT NULL
+  `address_id` int(11) NOT NULL,
+  `nid` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -267,7 +277,8 @@ CREATE TABLE `user_information_temps` (
   `picture_path` varchar(255) NOT NULL,
   `user_id` int(11) NOT NULL,
   `nominee_id` int(11) NOT NULL,
-  `address_id` int(11) NOT NULL
+  `address_id` int(11) NOT NULL,
+  `nid` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -363,13 +374,13 @@ ALTER TABLE `user_information_temps`
 -- AUTO_INCREMENT for table `addresses`
 --
 ALTER TABLE `addresses`
-  MODIFY `address_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `address_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `address_temps`
 --
 ALTER TABLE `address_temps`
-  MODIFY `address_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `address_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT for table `balances`
@@ -381,19 +392,19 @@ ALTER TABLE `balances`
 -- AUTO_INCREMENT for table `bank_users`
 --
 ALTER TABLE `bank_users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `bank_user_temps`
 --
 ALTER TABLE `bank_user_temps`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 
 --
 -- AUTO_INCREMENT for table `cards`
 --
 ALTER TABLE `cards`
-  MODIFY `card_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `card_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `logs`
@@ -405,13 +416,13 @@ ALTER TABLE `logs`
 -- AUTO_INCREMENT for table `nominees`
 --
 ALTER TABLE `nominees`
-  MODIFY `nominee_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `nominee_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `nominee_temps`
 --
 ALTER TABLE `nominee_temps`
-  MODIFY `nominee_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `nominee_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- AUTO_INCREMENT for table `transactions`
@@ -429,13 +440,13 @@ ALTER TABLE `types`
 -- AUTO_INCREMENT for table `user_informations`
 --
 ALTER TABLE `user_informations`
-  MODIFY `user_informations_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `user_informations_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `user_information_temps`
 --
 ALTER TABLE `user_information_temps`
-  MODIFY `user_informations_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `user_informations_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

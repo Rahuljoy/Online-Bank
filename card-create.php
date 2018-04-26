@@ -64,9 +64,6 @@ include('classes/DB.php');
     for ($i = 0; $i < sizeof($result); $i++) {
         echo '<tr> <td>';
         $userIdForPrint = $result[$i]['user_id'];
-//        $cookie_name = "user_id";
-//        $cookie_value = $userIdForPrint;
-//        setcookie($cookie_name, $cookie_value, time() + (86400 * 30), "/");
         print_r($userIdForPrint);
 
         echo '</td>
