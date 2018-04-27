@@ -81,15 +81,16 @@ include('classes/DB.php');
                             <div class="box box-info">
                                 <div class="box-body">';
 
-                                    $addressForPrint = DB::query('SELECT * FROM addresses WHERE user_id= :user_id', array('user_id' => $user_id));
-                                                                        $nomineeForPrint = DB::query( 'SELECT * FROM nominees WHERE user_id= :user_id', array( 'user_id' =>$user_id ) );
-                                    $informationForPrint = DB::query('SELECT * FROM user_informations WHERE user_id= :user_id', array('user_id' => $user_id));
-                                    echo '
+                        $addressForPrint = DB::query('SELECT * FROM addresses WHERE user_id= :user_id', array('user_id' => $user_id));
+                        $nomineeForPrint = DB::query('SELECT * FROM nominees WHERE user_id= :user_id', array('user_id' => $user_id));
+                        $informationForPrint = DB::query('SELECT * FROM user_informations WHERE user_id= :user_id', array('user_id' => $user_id));
+                        $cardForPrint = DB::query('SELECT * FROM cards WHERE user_id= :user_id', array('user_id' => $user_id));
+                        echo '
                                     <div class="col-sm-6">
                                         <div  align="center"> <img alt="User Pic" src="';
-                                    echo($informationForPrint[0]['picture_path']);
-                                    echo '" id="profile-image1" class="img-circle img-responsive">';
-                                    echo '
+                        echo($informationForPrint[0]['picture_path']);
+                        echo '" id="profile-image1" class="img-circle img-responsive">';
+                        echo '
                                             <!--Upload Image Js And Css-->
                                         </div>
                                         <br>
@@ -97,68 +98,75 @@ include('classes/DB.php');
                                     </div>
                                     <div class="col-sm-6">
                                         <h4 style="color:#00b1b1;">';
-                                    print_r($informationForPrint[0]['first_name'] . ' ');
-                                    print_r($informationForPrint[0]['middle_name'] . ' ');
-                                    print_r($informationForPrint[0]['last_name'] . ' ');
-                                    echo '</h4></span>
+                        print_r($informationForPrint[0]['first_name'] . ' ');
+                        print_r($informationForPrint[0]['middle_name'] . ' ');
+                        print_r($informationForPrint[0]['last_name'] . ' ');
+                        echo '</h4></span>
                                         <span></span>
                                     </div>
                                     <div class="clearfix"></div>
                                     <hr style="margin:5px 0 5px 0;">
                                     <div class="col-sm-5 col-xs-6 tital " >User Name:</div>
                                     <div class="col-sm-7 col-xs-6 ">';
-                                    print_r($userForPrint[0]['user_name']);
-                                    echo '</div>
+                        print_r($userForPrint[0]['user_name']);
+                        echo '</div>
 
                                     <div class="clearfix"></div>
                                     <div class="bot-border"></div>
 
                                     <div class="col-sm-5 col-xs-6 tital " >Gender:</div>
                                     <div class="col-sm-7">';
-                                    print_r($informationForPrint[0]['gender']);
-                                    echo '</div>
+                        print_r($informationForPrint[0]['gender']);
+                        echo '</div>
 
                                     <div class="clearfix"></div>
                                     <div class="bot-border"></div>
 
                                     <div class="col-sm-5 col-xs-6 tital " >Address:</div>
                                     <div class="col-sm-7">';
-                                    print_r($addressForPrint[0]['present_address'].',');
-                                    print_r($addressForPrint[0]['present_state'].',');
-                                    print_r($addressForPrint[0]['present_city']);
-                                    echo '</div>
+                        print_r($addressForPrint[0]['present_address'] . ',');
+                        print_r($addressForPrint[0]['present_state'] . ',');
+                        print_r($addressForPrint[0]['present_city']);
+                        echo '</div>
 
                                     <div class="clearfix"></div>
                                     <div class="bot-border"></div>
 
                                     <div class="col-sm-5 col-xs-6 tital " >Date Of Birth:</div>
                                     <div class="col-sm-7">';
-                                    print_r($informationForPrint[0]['date_of_birth']);
-                                    echo '</div>
+                        print_r($informationForPrint[0]['date_of_birth']);
+                        echo '</div>
 
                                     <div class="clearfix"></div>
                                     <div class="bot-border"></div>
 
                                     <div class="col-sm-5 col-xs-6 tital " >Country:</div>
                                     <div class="col-sm-7">';
-                                    print_r($addressForPrint[0]['present_country']);
-                                    echo '</div>
+                        print_r($addressForPrint[0]['present_country']);
+                        echo '</div>
 
                                     <div class="clearfix"></div>
                                     <div class="bot-border"></div>
 
                                     <div class="col-sm-5 col-xs-6 tital " >NID Number:</div>
                                     <div class="col-sm-7">';
-                                    print_r($informationForPrint[0]['nid']);
-                                    echo '</div>
+                        print_r($informationForPrint[0]['nid']);
+                        echo '</div>
 
                                     <div class="clearfix"></div>
                                     <div class="bot-border"></div>
 
-                                    <div class="col-sm-5 col-xs-6 tital " >Nominee name:</div>
+                                    <div class="col-sm-5 col-xs-6 tital " >Nominee Name:</div>
                                     <div class="col-sm-7">';
-                                    print_r($nomineeForPrint[0]['full_name']);
-                                    echo '</div>
+                        print_r($nomineeForPrint[0]['full_name']);
+                        echo '</div>
+<div class="clearfix"></div>
+                                    <div class="bot-border"></div>
+
+                                    <div class="col-sm-5 col-xs-6 tital " >Card Number:</div>
+                                    <div class="col-sm-7">';
+                        print_r($cardForPrint[0]['card_no']);
+                        echo '
                                 </div>
                             </div>
                                 </div>
@@ -167,7 +175,7 @@ include('classes/DB.php');
                     </div>
                 </div>
             </div>';
-                                    ?>
+                        ?>
         </div>
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
