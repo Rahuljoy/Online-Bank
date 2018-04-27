@@ -4,18 +4,27 @@ include('classes/DB.php');
 if (isset($_POST['login'])) {
     $username = $_POST['username'];
     $password = $_POST['password'];
-    $type_id ="";
+    $type_id = "";
 
-    if (DB::query('SELECT user_name FROM bank_users WHERE user_name=:username', array(':username'=>$username))) {
-        $passwordFromDB = DB::query('SELECT user_password FROM bank_users WHERE user_name=:username', array(':username'=>$username))[0]['user_password'];
+    if (DB::query('SELECT user_name FROM bank_users WHERE user_name=:username', array(':username' => $username))) {
+        $passwordFromDB = DB::query('SELECT user_password FROM bank_users WHERE user_name=:username', array(':username' => $username))[0]['user_password'];
         if ($password == $passwordFromDB) {
-            $type_idFromDB = DB::query('SELECT type_id FROM bank_users WHERE user_name=:username', array(':username'=>$username))[0]['type_id'];
-            if($type_idFromDB == 1) {
+            $type_idFromDB = DB::query('SELECT type_id FROM bank_users WHERE user_name=:username', array(':username' => $username))[0]['type_id'];
+            if ($type_idFromDB == 1) {
                 header("location: admin.php");
             } else if ($type_idFromDB == 2) {
-$cookie_name = "user_name";
-        $cookie_value = $username;
-        setcookie($cookie_name, $cookie_value, time() + (86400 * 30), "/");
+
+                $user_id = DB::query('SELECT user_id FROM bank_users WHERE user_name=:username', array(':username' => $username))[0]['user_id'];
+
+                $cookie_name = "user_name";
+                $cookie_value = $username;
+                setcookie($cookie_name, $cookie_value, time() + (86400 * 30), "/");
+
+
+                $cookie_name = "user_id";
+                $cookie_value = $user_id;
+                setcookie($cookie_name, $cookie_value, time() + (86400 * 30), "/");
+
                 header("location: user.php");
             }
         } else {
@@ -43,7 +52,8 @@ $cookie_name = "user_name";
 <nav class="navbar navbar-default">
     <div class="container-fluid">
         <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-2">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-2">
                 <span class="sr-only">Toggle navigation</span>
             </button>
             <a href="#"><img src="assets/images/logo.png" height="50px" width="150px"></a>
@@ -51,7 +61,7 @@ $cookie_name = "user_name";
 
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
             <ul class="nav navbar-nav">
-                <li ><a href="index.php">Home</a></li>
+                <li><a href="index.php">Home</a></li>
                 <li><a href="service.php">Services</a></li>
                 <li><a href="contactUs.php">Contact Us</a></li>
             </ul>
@@ -77,10 +87,10 @@ $cookie_name = "user_name";
                 <input class="form-control" name="password" id="inputPassword" placeholder="Password" type="password">
             </div>
         </div>
-            <div class="col-lg-10 col-lg-offset-2">
-                <button type="reset" class="btn btn-default">Cancel</button>
-                <button type="submit" class="btn btn-primary" name="login">LogIn</button>
-            </div>
+        <div class="col-lg-10 col-lg-offset-2">
+            <button type="reset" class="btn btn-default">Cancel</button>
+            <button type="submit" class="btn btn-primary" name="login">LogIn</button>
+        </div>
     </fieldset>
 </form>
 

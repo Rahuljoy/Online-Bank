@@ -47,7 +47,7 @@
     <div class="row">
         <div style="text-align: center;">
             <figure>
-                <img src="assets/images/admin/admin.gif" height="750px" width="100%">
+                <img src="assets/images/admin/my.gif" height="750px" width="100%">
             </figure>
         </div>
     </div>

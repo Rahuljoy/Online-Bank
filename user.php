@@ -1,12 +1,5 @@
 <?php
-include ('classes/DB.php');
-$cookie_name = 'user_name';
-if (!isset($_COOKIE[$cookie_name])) {
-    echo "Cookie named '" . $cookie_name . "' is not set!";
-} else {
-    $user_name = $_COOKIE[$cookie_name];
-//    echo $user_name;
-}
+include('classes/DB.php');
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -24,7 +17,8 @@ if (!isset($_COOKIE[$cookie_name])) {
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
         <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-2">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-2">
                 <span class="sr-only">Toggle navigation</span>
             </button>
             <a href="#"><img src="assets/images/logo.png" height="50px" width="150px"></a>
@@ -37,9 +31,14 @@ if (!isset($_COOKIE[$cookie_name])) {
                 <li><a href="contactUs.php">Contact Us</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li class="dropdown">
-                    <a class="dropdown-toggle" href="#"  data-toggle="dropdown"  aria-expanded="false">
-                        User <span class="caret"></span>
+                <?php
+                $cookie_name = 'user_id';
+                $user_id = $_COOKIE[$cookie_name];
+                $userForPrint = DB::query('SELECT * FROM bank_users WHERE user_id= :user_id', array('user_id' => $user_id));
+                echo '<li class="dropdown">
+                    <a class="dropdown-toggle" href="#" data-toggle="dropdown" aria-expanded="false">';
+               print_r($userForPrint[0]['user_name']);
+                        echo '<span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu">
                         <li><a href="user.php">Home</a></li>
@@ -48,29 +47,36 @@ if (!isset($_COOKIE[$cookie_name])) {
                         <li class="divider"></li>
                         <li><a href="login.php">Log Out</a></li>
                     </ul>
-                </li>
+                </li>';
+                ?>
             </ul>
         </div>
     </div>
 </nav>
-    <br/>
-    <div class="row">
-        <div style="text-align: center;">
-            <figure>
-                <img src="assets/images/user/user.gif" height="450px" width="950px">
-            </figure>
-        </div>
+<br/>
+<div class="row">
+    <div style="text-align: center;">
+        <figure>
+            <img src="assets/images/user/user.gif" height="450px" width="950px">
+        </figure>
     </div>
-    <br/>
-    <div class="row">
-        <div style="text-align: center;">
-            <i><h2 style="color: #204d74">"For Existing Users"</h2></i>
-            <p1>Here we can provide you all of your Online Bank Statement.Here you can access all of your activity .</p1>
-        </div>
+</div>
+<br/>
+<div class="row">
+    <div style="text-align: center;">
+        <i><h2 style="color: #204d74">"For Existing Users"</h2></i>
+        <p1>Here we can provide you all of your Online Bank Statement.Here you can access all of your activity .</p1>
     </div>
-        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-        <!-- Include all compiled plugins (below), or include individual files as needed -->
-        <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+</div>
+<br/>
+<div>
+    <h5>
+
+    </h5>
+</div>
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="assets/bootstrap/js/bootstrap.min.js"></script>
 </body>
 </html>

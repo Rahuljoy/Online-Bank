@@ -1,3 +1,7 @@
+<?php
+include('classes/DB.php');
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,7 +18,8 @@
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
         <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-2">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-2">
                 <span class="sr-only">Toggle navigation</span>
             </button>
             <a href="#"><img src="assets/images/logo.png" height="50px" width="150px"></a>
@@ -28,8 +33,14 @@
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
-                    <a class="dropdown-toggle" href="#"  data-toggle="dropdown"  aria-expanded="false">
-                        User <span class="caret"></span>
+                    <a class="dropdown-toggle" href="#" data-toggle="dropdown" aria-expanded="false">
+                        <?php
+                        $cookie_name = 'user_id';
+                        $user_id = $_COOKIE[$cookie_name];
+                        //echo $user_id;
+                        $userForPrint = DB::query('SELECT * FROM bank_users WHERE user_id= :user_id', array('user_id' => $user_id));
+                        print_r($userForPrint[0]['user_name']);
+                        echo '<span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu">
                         <li><a href="user.php">Home</a></li>
@@ -65,85 +76,102 @@
             <div class="row">
                 <div class="col-md-7 ">
                     <div class="panel panel-default">
-                        <div class="panel-heading"><h4 >User Profile</h4></div>
+                        <div class="panel-heading"><h4>Your Profile</h4></div>
                         <div class="panel-body">
                             <div class="box box-info">
-                                <div class="box-body">
+                                <div class="box-body">';
+
+                                    $addressForPrint = DB::query('SELECT * FROM addresses WHERE user_id= :user_id', array('user_id' => $user_id));
+                                                                        $nomineeForPrint = DB::query( 'SELECT * FROM nominees WHERE user_id= :user_id', array( 'user_id' =>$user_id ) );
+                                    $informationForPrint = DB::query('SELECT * FROM user_informations WHERE user_id= :user_id', array('user_id' => $user_id));
+                                    echo '
                                     <div class="col-sm-6">
-                                        <div  align="center"> <img alt="User Pic" src="" id="profile-image1" class="img-circle img-responsive">
-                                            <input id="profile-image-upload" class="hidden" type="file">
-                                            <div style="color:#999;" >click here to change profile image</div>
+                                        <div  align="center"> <img alt="User Pic" src="';
+                                    echo($informationForPrint[0]['picture_path']);
+                                    echo '" id="profile-image1" class="img-circle img-responsive">';
+                                    echo '
                                             <!--Upload Image Js And Css-->
                                         </div>
                                         <br>
                                         <!-- /input-group -->
                                     </div>
                                     <div class="col-sm-6">
-                                        <h4 style="color:#00b1b1;">Rahul Prasad Joy</h4></span>
+                                        <h4 style="color:#00b1b1;">';
+                                    print_r($informationForPrint[0]['first_name'] . ' ');
+                                    print_r($informationForPrint[0]['middle_name'] . ' ');
+                                    print_r($informationForPrint[0]['last_name'] . ' ');
+                                    echo '</h4></span>
                                         <span></span>
                                     </div>
                                     <div class="clearfix"></div>
                                     <hr style="margin:5px 0 5px 0;">
-                                    <div class="col-sm-5 col-xs-6 tital " >First Name:</div>
-                                    <div class="col-sm-7 col-xs-6 ">Rahul</div>
-
-                                    <div class="clearfix"></div>
-                                    <div class="bot-border"></div>
-
-                                    <div class="col-sm-5 col-xs-6 tital " >Middle Name:</div>
-                                    <div class="col-sm-7">Prasad</div>
-
-                                    <div class="clearfix"></div>
-                                    <div class="bot-border"></div>
-
-                                    <div class="col-sm-5 col-xs-6 tital " >Last Name:</div>
-                                    <div class="col-sm-7">Joy</div>
-
-                                    <div class="clearfix"></div>
-                                    <div class="bot-border"></div>
-
-                                    <div class="clearfix"></div>
-                                    <div class="bot-border"></div>
-
-                                    <div class="col-sm-5 col-xs-6 tital " >Date Of Birth:</div>
-                                    <div class="col-sm-7">30/03/1992</div>
-
-                                    <div class="clearfix"></div>
-                                    <div class="bot-border"></div>
-
-                                    <div class="col-sm-5 col-xs-6 tital " >Address:</div>
-                                    <div class="col-sm-7">Attanibazar</div>
-
-                                    <div class="clearfix"></div>
-                                    <div class="bot-border"></div>
-
-                                    <div class="col-sm-5 col-xs-6 tital " >Country:</div>
-                                    <div class="col-sm-7">Bangladesh</div>
+                                    <div class="col-sm-5 col-xs-6 tital " >User Name:</div>
+                                    <div class="col-sm-7 col-xs-6 ">';
+                                    print_r($userForPrint[0]['user_name']);
+                                    echo '</div>
 
                                     <div class="clearfix"></div>
                                     <div class="bot-border"></div>
 
                                     <div class="col-sm-5 col-xs-6 tital " >Gender:</div>
-                                    <div class="col-sm-7">male</div>
+                                    <div class="col-sm-7">';
+                                    print_r($informationForPrint[0]['gender']);
+                                    echo '</div>
+
+                                    <div class="clearfix"></div>
+                                    <div class="bot-border"></div>
+
+                                    <div class="col-sm-5 col-xs-6 tital " >Address:</div>
+                                    <div class="col-sm-7">';
+                                    print_r($addressForPrint[0]['present_address'].',');
+                                    print_r($addressForPrint[0]['present_state'].',');
+                                    print_r($addressForPrint[0]['present_city']);
+                                    echo '</div>
+
+                                    <div class="clearfix"></div>
+                                    <div class="bot-border"></div>
+
+                                    <div class="col-sm-5 col-xs-6 tital " >Date Of Birth:</div>
+                                    <div class="col-sm-7">';
+                                    print_r($informationForPrint[0]['date_of_birth']);
+                                    echo '</div>
+
+                                    <div class="clearfix"></div>
+                                    <div class="bot-border"></div>
+
+                                    <div class="col-sm-5 col-xs-6 tital " >Country:</div>
+                                    <div class="col-sm-7">';
+                                    print_r($addressForPrint[0]['present_country']);
+                                    echo '</div>
+
+                                    <div class="clearfix"></div>
+                                    <div class="bot-border"></div>
+
+                                    <div class="col-sm-5 col-xs-6 tital " >NID Number:</div>
+                                    <div class="col-sm-7">';
+                                    print_r($informationForPrint[0]['nid']);
+                                    echo '</div>
+
+                                    <div class="clearfix"></div>
+                                    <div class="bot-border"></div>
+
+                                    <div class="col-sm-5 col-xs-6 tital " >Nominee name:</div>
+                                    <div class="col-sm-7">';
+                                    print_r($nomineeForPrint[0]['full_name']);
+                                    echo '</div>
+                                </div>
+                            </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <script>
-                    $(function() {
-                        $('#profile-image1').on('click', function() {
-                            $('#profile-image-upload').click();
-                        });
-                    });
-                </script>
-            </div>
+            </div>';
+                                    ?>
         </div>
-    </div>
-</div>
-<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="assets/bootstrap/js/bootstrap.min.js"></script>
+        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <!-- Include all compiled plugins (below), or include individual files as needed -->
+        <script src="assets/bootstrap/js/bootstrap.min.js"></script>
 </body>
 </html>
