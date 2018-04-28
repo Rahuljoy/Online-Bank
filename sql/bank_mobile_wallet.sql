@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 26, 2018 at 04:15 PM
+-- Generation Time: Apr 28, 2018 at 10:15 AM
 -- Server version: 10.1.30-MariaDB
 -- PHP Version: 7.2.1
 
@@ -98,7 +98,7 @@ CREATE TABLE `bank_users` (
 --
 
 INSERT INTO `bank_users` (`user_id`, `user_name`, `user_password`, `type_id`, `user_create_date`, `user_active`) VALUES
-(1, 'admin', '123abc', 1, '2018-02-23 19:50:59', 1);
+(1, 'admin', '123abc', 1, '2018-04-26 14:38:22', 1);
 
 -- --------------------------------------------------------
 
@@ -164,7 +164,15 @@ CREATE TABLE `nominees` (
   `relationship` varchar(255) NOT NULL,
   `office_address` varchar(255) DEFAULT NULL,
   `present_address` varchar(255) NOT NULL,
+  `present_city` varchar(255) NOT NULL,
+  `present_state` varchar(255) NOT NULL,
+  `present_country` varchar(255) NOT NULL,
+  `present_zip_code` varchar(255) NOT NULL,
   `permanent_address` varchar(255) NOT NULL,
+  `permanent_city` varchar(255) NOT NULL,
+  `permanent_state` varchar(255) NOT NULL,
+  `permanent_country` varchar(255) NOT NULL,
+  `permanent_zip_code` varchar(255) NOT NULL,
   `gender` varchar(255) NOT NULL,
   `date_of_birth` date NOT NULL,
   `image` blob NOT NULL,
@@ -187,7 +195,15 @@ CREATE TABLE `nominee_temps` (
   `relationship` varchar(255) NOT NULL,
   `office_address` varchar(255) DEFAULT NULL,
   `present_address` varchar(255) NOT NULL,
+  `present_city` varchar(255) NOT NULL,
+  `present_state` varchar(255) NOT NULL,
+  `present_country` varchar(255) NOT NULL,
+  `present_zip_code` varchar(255) NOT NULL,
   `permanent_address` varchar(255) NOT NULL,
+  `permanent_city` varchar(255) NOT NULL,
+  `permanent_state` varchar(255) NOT NULL,
+  `permanent_country` varchar(255) NOT NULL,
+  `permanent_zip_code` varchar(255) NOT NULL,
   `gender` varchar(255) NOT NULL,
   `date_of_birth` date NOT NULL,
   `image` blob,
@@ -380,7 +396,7 @@ ALTER TABLE `addresses`
 -- AUTO_INCREMENT for table `address_temps`
 --
 ALTER TABLE `address_temps`
-  MODIFY `address_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `address_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `balances`
@@ -392,13 +408,13 @@ ALTER TABLE `balances`
 -- AUTO_INCREMENT for table `bank_users`
 --
 ALTER TABLE `bank_users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `bank_user_temps`
 --
 ALTER TABLE `bank_user_temps`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `cards`
@@ -422,7 +438,7 @@ ALTER TABLE `nominees`
 -- AUTO_INCREMENT for table `nominee_temps`
 --
 ALTER TABLE `nominee_temps`
-  MODIFY `nominee_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+  MODIFY `nominee_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `transactions`
@@ -446,7 +462,7 @@ ALTER TABLE `user_informations`
 -- AUTO_INCREMENT for table `user_information_temps`
 --
 ALTER TABLE `user_information_temps`
-  MODIFY `user_informations_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `user_informations_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

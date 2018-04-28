@@ -202,12 +202,20 @@ include( 'classes/DB.php' );
                             </li>
                             <li class="list-group-item">
                                 <b>Present Address :</b>';
-		print_r( $nomineeInformationForPrint[0]["present_address"] );
+        print_r( $nomineeInformationForPrint[0]["present_address"] . ',' );
+        print_r( $nomineeInformationForPrint[0]["present_state"] . ',' );
+        print_r( $nomineeInformationForPrint[0]["present_city"] . ',' );
+        print_r( $nomineeInformationForPrint[0]["present_country"] . ',' . 'zip code:' );
+        print_r( $nomineeInformationForPrint[0]["present_zip_code"] . '.' );
 		echo '
                             </li>
                             <li class="list-group-item">
                                 <b>Permanent Address :</b>';
-		print_r( $nomineeInformationForPrint[0]["permanent_address"] );
+        print_r( $nomineeInformationForPrint[0]["permanent_address"] . ',' );
+        print_r( $nomineeInformationForPrint[0]["permanent_state"] . ',' );
+        print_r( $nomineeInformationForPrint[0]["permanent_city"] . ',' );
+        print_r( $nomineeInformationForPrint[0]["permanent_country"] . ',' . 'zip code:' );
+        print_r( $nomineeInformationForPrint[0]["permanent_zip_code"] . '.' );
 		echo '
                             </li>
                             <li class="list-group-item">

@@ -26,8 +26,16 @@ if (isset($_POST['submit'])) {
     $occupation = $_POST['occupation'];
     $relation = $_POST['relation'];
     $officeaddress = $_POST['officeaddress'];
-    $presentaddress = $_POST['presentaddress'];
-    $permanentaddress = $_POST['permanentaddress'];
+    $presentaddress = $_POST['n_presentaddress'];
+    $n_presentstate = $_POST['n_presentstate'];
+    $n_presentcity = $_POST['n_presentcity'];
+    $n_presentcountry = $_POST['n_presentcountry'];
+    $n_presentzipcode = $_POST['n_presentzipcode'];
+    $permanentaddress = $_POST['n_permanentaddress'];
+    $n_permanentstate = $_POST['n_permanentstate'];
+    $n_permanentcity = $_POST['n_permanentcity'];
+    $n_permanentcountry = $_POST['n_permanentcountry'];
+    $n_permanentzipcode = $_POST['n_permanentzipcode'];
     $n_gender = $_POST['n_gender'];
     $n_nidnumber = $_POST['n_nidnumber'];
     $n_dateofbirth = $_POST['n_dateofbirth'];
@@ -65,7 +73,7 @@ if (isset($_POST['submit'])) {
      //echo $lastId;
 
     //  Insert nominee
-    DB::query(' INSERT INTO nominee_temps VALUES (\'\',:full_name,:occupation,:relationship,:office_address,:present_address,:permanent_address,:gender,:date_of_birth,:image,:picture_type, :picture_path,:user_id,:nid)',array(':full_name' => $fullname,':occupation' => $occupation,':relationship' => $relation,':office_address' => $officeaddress,':present_address' => $presentaddress,':permanent_address' => $permanentaddress,':gender' => $n_gender,':date_of_birth'=>$n_dateofbirth,':image' => $nfilename, ':picture_type' => $nfiletype,
+    DB::query(' INSERT INTO nominee_temps VALUES (\'\',:full_name,:occupation,:relationship,:office_address,:present_address,:present_city,:present_state,:present_country,:present_zip_code,:permanent_address,:permanent_city,:permanent_state,:permanent_country,:permanent_zip_code,:gender,:date_of_birth,:image,:picture_type, :picture_path,:user_id,:nid)',array(':full_name' => $fullname,':occupation' => $occupation,':relationship' => $relation,':office_address' => $officeaddress,':present_address' => $presentaddress,':present_city' => $n_presentcity,':present_state' => $n_presentstate,':present_country' => $n_presentcountry,':present_zip_code' => $n_presentzipcode,':permanent_address' => $permanentaddress,':permanent_city' => $n_permanentcity,':permanent_state' => $n_permanentstate,':permanent_country' => $n_permanentcountry,':permanent_zip_code' => $n_permanentzipcode,':gender' => $n_gender,':date_of_birth'=>$n_dateofbirth,':image' => $nfilename, ':picture_type' => $nfiletype,
         ':picture_path' => $nfilepath,':user_id' => $lastId,':nid' => $n_nidnumber));
     //nominee last insert id
     $nomineeLastId = DB::query('SELECT nominee_id FROM nominee_temps WHERE user_id=:user_id',array(':user_id'=>$lastId))[0]['nominee_id'];
@@ -135,7 +143,7 @@ if (isset($_POST['submit'])) {
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h4 class="panel-title">
-                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">User Info</a>
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">User Information</a>
                     </h4>
                 </div>
                 <div id="collapse1" class="panel-collapse collapse in">
@@ -145,14 +153,14 @@ if (isset($_POST['submit'])) {
                             <div class="col-lg-10">
                                 <input class="form-control" name="firstname" id="inputFirstName"
                                        placeholder="First Name"
-                                       type="text">
+                                       type="text" required>
                             </div>
                         </div><!--First Name-->
                         <div class="form-group">
                             <label for="inputMiddleName" class="col-lg-2 control-label">Middle name</label>
                             <div class="col-lg-10">
                                 <input class="form-control" name="middlename" id="inputMiddleName"
-                                       placeholder="Middle Name"
+                                       placeholder="Middle Name (Optional)"
                                        type="text">
                             </div>
                         </div><!--Middle Name-->
@@ -160,7 +168,7 @@ if (isset($_POST['submit'])) {
                             <label for="inputLastName" class="col-lg-2 control-label">Last name</label>
                             <div class="col-lg-10">
                                 <input class="form-control" name="lastname" id="inputLastName" placeholder="Last Name"
-                                       type="text">
+                                       type="text" required>
                             </div>
                         </div><!--Last Name-->
                         <div class="form-group">
@@ -177,7 +185,7 @@ if (isset($_POST['submit'])) {
                             <label for="dateOfBirth" class="col-lg-2 control-label">Date of Birth</label>
                             <div class='col-lg-10'>
                                 <input name="dateofbirth" type='date' class="form-control"
-                                       placeholder="Input Date of Birth"/>
+                                       placeholder="Input Date of Birth" required>
 
                             </div>
                         </div><!--Date of Birth-->
@@ -223,7 +231,7 @@ if (isset($_POST['submit'])) {
                                 <div class="col-lg-10">
                                     <input class="form-control" name="u_presentaddress" id="inputPresentAddress"
                                            placeholder="Present address"
-                                           type="text">
+                                           type="text" required>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -231,28 +239,28 @@ if (isset($_POST['submit'])) {
                                 <div class="col-lg-10">
                                     <input class="form-control" name="presentstate" id="inputState"
                                            placeholder="State"
-                                           type="text">
+                                           type="text" required>
                                 </div>
                             </div><!--State-->
                             <div class="form-group">
                                 <label for="inputCity" class="col-lg-2 control-label">City</label>
                                 <div class="col-lg-10">
                                     <input class="form-control" name="presentcity" id="inputCity" placeholder="City"
-                                           type="text">
+                                           type="text" required>
                                 </div>
                             </div><!--City-->
                             <div class="form-group">
                                 <label for="inputCountry" class="col-lg-2 control-label">Country</label>
                                 <div class="col-lg-10">
                                     <input class="form-control" name="presentcountry" id="inputCountry" placeholder="Country"
-                                           type="text">
+                                           type="text" required>
                                 </div>
                             </div><!--Country-->
                             <div class="form-group">
-                                <label for="inputZipCode" class="col-lg-2 control-label">Zip code</label>
+                                <label for="inputZipCode" class="col-lg-2 control-label">Zip Code</label>
                                 <div class="col-lg-10">
                                     <input class="form-control" name="presentzipcode" id="inputZipCode" placeholder="Zip code"
-                                           type="text">
+                                           type="text" required>
                                 </div>
                             </div><!--Zip code-->
                         </div>
@@ -264,7 +272,7 @@ if (isset($_POST['submit'])) {
                                 <div class="col-lg-10">
                                     <input class="form-control" name="u_permanentaddress" id="inputPermanentAddress"
                                            placeholder="Permanent address"
-                                           type="text">
+                                           type="text" required>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -272,28 +280,28 @@ if (isset($_POST['submit'])) {
                                 <div class="col-lg-10">
                                     <input class="form-control" name="permanentstate" id="inputState"
                                            placeholder="State"
-                                           type="text">
+                                           type="text" required>
                                 </div>
                             </div><!--State-->
                             <div class="form-group">
                                 <label for="inputCity" class="col-lg-2 control-label">City</label>
                                 <div class="col-lg-10">
                                     <input class="form-control" name="permanentcity" id="inputCity" placeholder="City"
-                                           type="text">
+                                           type="text" required>
                                 </div>
                             </div><!--City-->
                             <div class="form-group">
                                 <label for="inputCountry" class="col-lg-2 control-label">Country</label>
                                 <div class="col-lg-10">
                                     <input class="form-control" name="permanentcountry" id="inputCountry" placeholder="Country"
-                                           type="text">
+                                           type="text" required>
                                 </div>
                             </div><!--Country-->
                             <div class="form-group">
-                                <label for="inputZipCode" class="col-lg-2 control-label">Zip code</label>
+                                <label for="inputZipCode" class="col-lg-2 control-label">Zip Code</label>
                                 <div class="col-lg-10">
                                     <input class="form-control" name="permanentzipcode" id="inputZipCode" placeholder="Zip code"
-                                           type="text">
+                                           type="text" required>
                                 </div>
                             </div><!--Zip code-->
                         </div>
@@ -303,7 +311,7 @@ if (isset($_POST['submit'])) {
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h4 class="panel-title">
-                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">Nominee Info</a>
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">Nominee Information</a>
                     </h4>
                 </div>
                 <div id="collapse3" class="panel-collapse collapse">
@@ -312,7 +320,7 @@ if (isset($_POST['submit'])) {
                             <label for="inputFullName" class="col-lg-2 control-label">Full name</label>
                             <div class="col-lg-10">
                                 <input class="form-control" name="fullname" id="inputFullName" placeholder="Full name"
-                                       type="text">
+                                       type="text" required>
                             </div>
                         </div>
                         <div class="form-group">
@@ -320,37 +328,21 @@ if (isset($_POST['submit'])) {
                             <div class="col-lg-10">
                                 <input class="form-control" name="occupation" id="inputOccupation"
                                        placeholder="Occupation"
-                                       type="text">
+                                       type="text" required>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="inputRelation" class="col-lg-2 control-label">Relation</label>
                             <div class="col-lg-10">
                                 <input class="form-control" name="relation" id="inputRelation" placeholder="Relation"
-                                       type="text">
+                                       type="text" required>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="inputOfficeAddress" class="col-lg-2 control-label">Office address</label>
+                            <label for="inputOfficeAddress" class="col-lg-2 control-label">Office Address</label>
                             <div class="col-lg-10">
                                 <input class="form-control" name="officeaddress" id="inputOfficeAddress"
-                                       placeholder="Office address"
-                                       type="text">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="inputPresentAddress" class="col-lg-2 control-label">Present address</label>
-                            <div class="col-lg-10">
-                                <input class="form-control" name="presentaddress" id="inputPresentAddress"
-                                       placeholder="Present address"
-                                       type="text">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="inputPermanentAddress" class="col-lg-2 control-label">Permanent address</label>
-                            <div class="col-lg-10">
-                                <input class="form-control" name="permanentaddress" id="inputPermanentAddress"
-                                       placeholder="Permanent address"
+                                       placeholder="Office address (Optional)"
                                        type="text">
                             </div>
                         </div>
@@ -376,7 +368,7 @@ if (isset($_POST['submit'])) {
                             <label for="n_dateOfBirth" class="col-lg-2 control-label">Date of Birth</label>
                             <div class='col-lg-10'>
                                 <input name="n_dateofbirth" type='date' class="form-control"
-                                       placeholder="Input Date of Birth"/>
+                                       placeholder="Input Date of Birth" required>
                         </div>
                     </div>
                 </div>
@@ -385,10 +377,103 @@ if (isset($_POST['submit'])) {
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h4 class="panel-title">
-                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse4">Upload Images</a>
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse4">Nominee Address</a>
                     </h4>
                 </div>
                 <div id="collapse4" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <div class="well well-lg">
+                            <h4 class="panel-title"><strong>Present Address</strong></h4>
+                            <br/>
+                            <div class="form-group">
+                                <label for="inputPresentAddress" class="col-lg-2 control-label">Address</label>
+                                <div class="col-lg-10">
+                                    <input class="form-control" name="n_presentaddress" id="inputPresentAddress"
+                                           placeholder="Present address"
+                                           type="text" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputState" class="col-lg-2 control-label">State</label>
+                                <div class="col-lg-10">
+                                    <input class="form-control" name="n_presentstate" id="inputState"
+                                           placeholder="State"
+                                           type="text" required>
+                                </div>
+                            </div><!--State-->
+                            <div class="form-group">
+                                <label for="inputCity" class="col-lg-2 control-label">City</label>
+                                <div class="col-lg-10">
+                                    <input class="form-control" name="n_presentcity" id="inputCity" placeholder="City"
+                                           type="text" required>
+                                </div>
+                            </div><!--City-->
+                            <div class="form-group">
+                                <label for="inputCountry" class="col-lg-2 control-label">Country</label>
+                                <div class="col-lg-10">
+                                    <input class="form-control" name="n_presentcountry" id="inputCountry" placeholder="Country"
+                                           type="text" required>
+                                </div>
+                            </div><!--Country-->
+                            <div class="form-group">
+                                <label for="inputZipCode" class="col-lg-2 control-label">Zip code</label>
+                                <div class="col-lg-10">
+                                    <input class="form-control" name="n_presentzipcode" id="inputZipCode" placeholder="Zip code"
+                                           type="text" required>
+                                </div>
+                            </div><!--Zip code-->
+                        </div>
+                        <div class="well well-lg">
+                            <h4 class="panel-title"><strong>Permanent Address</strong></h4>
+                            <br/>
+                            <div class="form-group">
+                                <label for="inputPermanentAddress" class="col-lg-2 control-label">Address</label>
+                                <div class="col-lg-10">
+                                    <input class="form-control" name="n_permanentaddress" id="inputPermanentAddress"
+                                           placeholder="Permanent address"
+                                           type="text" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputState" class="col-lg-2 control-label">State</label>
+                                <div class="col-lg-10">
+                                    <input class="form-control" name="n_permanentstate" id="inputState"
+                                           placeholder="State"
+                                           type="text" required>
+                                </div>
+                            </div><!--State-->
+                            <div class="form-group">
+                                <label for="inputCity" class="col-lg-2 control-label">City</label>
+                                <div class="col-lg-10">
+                                    <input class="form-control" name="n_permanentcity" id="inputCity" placeholder="City"
+                                           type="text" required>
+                                </div>
+                            </div><!--City-->
+                            <div class="form-group">
+                                <label for="inputCountry" class="col-lg-2 control-label">Country</label>
+                                <div class="col-lg-10">
+                                    <input class="form-control" name="n_permanentcountry" id="inputCountry" placeholder="Country"
+                                           type="text" required>
+                                </div>
+                            </div><!--Country-->
+                            <div class="form-group">
+                                <label for="inputZipCode" class="col-lg-2 control-label">Zip code</label>
+                                <div class="col-lg-10">
+                                    <input class="form-control" name="n_permanentzipcode" id="inputZipCode" placeholder="Zip code"
+                                           type="text" required>
+                                </div>
+                            </div><!--Zip code-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse5">Upload Images</a>
+                    </h4>
+                </div>
+                <div id="collapse5" class="panel-collapse collapse">
                     <div class="panel-body">
                         <div class="form-group">
                             <label for="inputImage" class="col-lg-2 control-label">Your Image</label>
@@ -411,10 +496,10 @@ if (isset($_POST['submit'])) {
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h4 class="panel-title">
-                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse5">provide User & Password</a>
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse6">User Name & Password</a>
                     </h4>
                 </div>
-                <div id="collapse5" class="panel-collapse collapse">
+                <div id="collapse6" class="panel-collapse collapse">
                     <div class="panel-body">
                         <div class="form-group">
                             <label for="inputUserName" class="col-lg-2 control-label">User name</label>

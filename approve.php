@@ -20,7 +20,15 @@ $occupation = $nomineeInformationForPrint[0]["occupation"];
 $relationship = $nomineeInformationForPrint[0]["relationship"];
 $office_address = $nomineeInformationForPrint[0]["office_address"];
 $present_address = $nomineeInformationForPrint[0]["present_address"];
+$n_present_state = $nomineeInformationForPrint[0]["present_state"];
+$n_present_city = $nomineeInformationForPrint[0]["present_city"];
+$n_present_country = $nomineeInformationForPrint[0]["present_country"];
+$n_present_zip_code = $nomineeInformationForPrint[0]["present_zip_code"];
 $permanent_address = $nomineeInformationForPrint[0]["permanent_address"];
+$n_permanent_state = $nomineeInformationForPrint[0]["permanent_state"];
+$n_permanent_city = $nomineeInformationForPrint[0]["permanent_city"];
+$n_permanent_country = $nomineeInformationForPrint[0]["permanent_country"];
+$n_permanent_zip_code = $nomineeInformationForPrint[0]["permanent_zip_code"];
 $nominee_gender = $nomineeInformationForPrint[0]["gender"];
 $nominee_date_of_birth = $nomineeInformationForPrint[0]["date_of_birth"];
 $nominee_nid = $nomineeInformationForPrint[0]["nid"];
@@ -78,7 +86,7 @@ $lastId = DB::query('SELECT user_id FROM bank_users WHERE user_name=:user_name',
 //echo $lastId;
 
 //  Insert nominee
-DB::query(' INSERT INTO nominees VALUES (\'\',:full_name,:occupation,:relationship,:office_address,:present_address,:permanent_address,:gender,:date_of_birth,:image,:picture_type, :picture_path,:user_id,:nid)',array(':full_name' => $full_name,':occupation' => $occupation,':relationship' => $relationship,':office_address' => $office_address,':present_address' => $present_address,':permanent_address' => $permanent_address,':gender' => $nominee_gender,':date_of_birth'=>$nominee_date_of_birth,':image' => $nfilename, ':picture_type' => $nfiletype,
+DB::query(' INSERT INTO nominees VALUES (\'\',:full_name,:occupation,:relationship,:office_address,:present_address,:present_city,:present_state,:present_country,:present_zip_code,:permanent_address,:permanent_city,:permanent_state,:permanent_country,:permanent_zip_code,:gender,:date_of_birth,:image,:picture_type, :picture_path,:user_id,:nid)',array(':full_name' => $full_name,':occupation' => $occupation,':relationship' => $relationship,':office_address' => $office_address,':present_address' => $present_address,':present_city' => $n_present_city,':present_state' => $n_present_state,':present_country' => $n_present_country,':present_zip_code' => $n_present_zip_code,':permanent_address' => $permanent_address,':permanent_city' => $n_permanent_city,':permanent_state' => $n_permanent_state,':permanent_country' => $n_permanent_country,':permanent_zip_code' => $n_permanent_zip_code,':gender' => $nominee_gender,':date_of_birth'=>$nominee_date_of_birth,':image' => $nfilename, ':picture_type' => $nfiletype,
     ':picture_path' => $nfilepath,':user_id' => $lastId,':nid' => $nominee_nid));
 //nominee last insert id
 $nomineeLastId = DB::query('SELECT nominee_id FROM nominees WHERE user_id=:user_id',array(':user_id'=>$lastId))[0]['nominee_id'];
