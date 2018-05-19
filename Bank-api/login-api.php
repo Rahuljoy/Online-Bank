@@ -5,10 +5,20 @@ $request=$_SERVER['REQUEST_METHOD'];
 
 switch ($request){
     case 'GET':
-        echo '{"result": "get receive"}';
+        getDataForLoginUser();
         break;
 
     default:
-        echo '{"result": "not found"}';
+        echo '{"result": "data not found"}';
         break;
+}
+
+function getDataForLoginUser(){
+   $loginId= DB::query( 'SELECT * FROM bank_users', array());
+    if ($loginId){
+        
+        echo json_encode($loginId);
+    }else{
+        echo '{"result": "not found"}';
+    }
 }
