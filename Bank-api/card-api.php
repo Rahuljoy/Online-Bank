@@ -1,7 +1,23 @@
 <?php
-/**
- * Created by IntelliJ IDEA.
- * User: rj
- * Date: 5/17/18
- * Time: 11:52 PM
- */
+include ('../classes/DB.php');
+header("Content-type: application/json");
+$request=$_SERVER['REQUEST_METHOD'];
+
+switch ($request){
+    case 'GET':
+        getDataForLoginUser();
+        break;
+
+    default:
+        echo '{"result": "data not found"}';
+        break;
+}
+
+function getDataForLoginUser(){
+    $loginId= DB::query( 'SELECT user_name , user_password FROM bank_users', array());
+    if ($loginId){
+        echo json_encode($loginId);
+    }else{
+        echo '{"result": "not found"}';
+    }
+}
