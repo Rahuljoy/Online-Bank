@@ -16,7 +16,8 @@ switch ($request){
 function getDataForLoginUser(){
    $loginId= DB::query( 'SELECT user_name , user_password FROM bank_users', array());
     if ($loginId){
-        echo json_encode($loginId);
+        print_r(json_encode($loginId));
+       // echo json_encode($loginId);
     }else{
         echo '{"result": "not found"}';
     }
