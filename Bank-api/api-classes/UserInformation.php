@@ -2,7 +2,7 @@
 class UserInformation
 {
 // database connection and table name
-    private $conn;
+    private $connection;
     private $table_name = "bank_users";
 
     // bank_users properties
@@ -12,7 +12,7 @@ class UserInformation
 
     // constructor with $db as database connection
     public function __construct($db){
-        $this->conn = $db;
+        $this->connection = $db;
     }
 
 
@@ -31,7 +31,7 @@ class UserInformation
                 p.user_password DESC";
 
         // prepare query statement
-        $stmt = $this->conn->prepare($query);
+        $stmt = $this->connection->prepare($query);
 
         // execute query
         $stmt->execute();
@@ -57,7 +57,7 @@ class UserInformation
                 0,1";
 
         // prepare query statement
-        $stmt = $this->conn->prepare( $query );
+        $stmt = $this->connection->prepare( $query );
 
         // bind id of product to be updated
         $stmt->bindParam(1, $this->user_id);
@@ -72,6 +72,36 @@ class UserInformation
         $this->user_id = $row['user_id'];
         $this->user_name= $row['user_name'];
         $this->user_password = $row['user_password'];
+
+    }
+
+
+    // create product
+    function create(){
+
+        // query to insert record
+        $query = "SELECT user_name , user_password  FROM
+                " . $this->table_name . "
+            WHERE
+                user_name = :user_name";
+
+        // prepare query
+        $stmt = $this->connection->prepare($query);
+
+        // sanitize
+        $this->user_name=htmlspecialchars(strip_tags($this->user_name));
+        $this->user_password=htmlspecialchars(strip_tags($this->user_password));
+
+        // bind values
+        $stmt->bindParam(":user_name", $this->user_name);
+        $stmt->bindParam(":user_password", $this->user_password);
+
+        // execute query
+        if($stmt->execute()){
+            return true;
+        }
+
+        return false;
 
     }
 }
