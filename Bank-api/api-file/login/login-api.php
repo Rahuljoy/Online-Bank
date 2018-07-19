@@ -21,20 +21,15 @@ $userInformation = new UserInformation($db);
 // get posted data
 $data = json_decode(file_get_contents("php://input"));
 
-// set product property values
-$userInformation->user_name = $data->user_name;
-$userInformation->user_password = $data->user_password;
+// read the details of user to be edited
+$userInformation->login();
 
-// create the product
-if($userInformation->create()){
-    echo '{';
-    echo '"message": "user was matched."';
-    echo '}';
-}
+// create array
+$userInformation_arr = array(
+    "user id" =>  $userInformation->user_id,
+    "user active" => $userInformation->user_active
 
-// if unable to create the product, tell the user
-else{
-    echo '{';
-    echo '"message": "Unable to user & password."';
-    echo '}';
-}
+);
+
+// make it json format
+print_r(json_encode($userInformation_arr));

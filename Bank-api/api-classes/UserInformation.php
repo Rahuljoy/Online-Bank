@@ -9,6 +9,7 @@ class UserInformation
     public $user_id;
     public $user_name;
     public $user_password;
+    public $user_active;
 
     // constructor with $db as database connection
     public function __construct($db){
@@ -77,31 +78,28 @@ class UserInformation
 
 
     // create product
-    function create(){
+    function login(){
 
-        // query to insert record
-        $query = "SELECT user_name , user_password  FROM
-                " . $this->table_name . "
-            WHERE
-                user_name = :user_name";
+        $this->user_name = $_POST['user_name'];
+        $this->user_password = $_POST['user_password'];
+        // query to select
+        $query = "SELECT user_id ,user_active FROM " . $this->table_name . " WHERE  user_name = ? &&  user_password = ?";
 
         // prepare query
         $stmt = $this->connection->prepare($query);
 
-        // sanitize
-        $this->user_name=htmlspecialchars(strip_tags($this->user_name));
-        $this->user_password=htmlspecialchars(strip_tags($this->user_password));
-
         // bind values
-        $stmt->bindParam(":user_name", $this->user_name);
-        $stmt->bindParam(":user_password", $this->user_password);
+        $stmt->bindParam(1, $this->user_name);
+        $stmt->bindParam(2, $this->user_password);
 
         // execute query
-        if($stmt->execute()){
-            return true;
-        }
+        $stmt->execute();
 
-        return false;
+        // get retrieved row
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
+        // set values to object properties
+        $this->user_id = $row['user_id'];
+        $this->user_active= $row['user_active'];
     }
 }
