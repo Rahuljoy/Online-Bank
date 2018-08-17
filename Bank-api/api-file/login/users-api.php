@@ -24,7 +24,7 @@ if($num>0){
 
     // userInformation array
     $userInformation_arr=array();
-        $userInformation_arr["users records"]=array();
+        $userInformation_arr["users_records"]=array();
 
     // retrieve our table contents
     // fetch() is faster than fetchAll()
@@ -36,20 +36,19 @@ if($num>0){
         extract($row);
 
         $userInformation_item=array(
-            "user id" => $user_id,
-            "user name" => $user_name,
-            "user password" => $user_password,
+            "user_id" => $user_id,
+            "user_name" => $user_name,
+            "user_password" => $user_password,
+            "type_id" => $type_id,
+            "user_create_date" => $user_create_date,
+            "user_active" => $user_active,
+
         );
 
-        array_push($userInformation_arr["users records"], $userInformation_item);
+        array_push($userInformation_arr["users_records"], $userInformation_item);
     }
 
-    echo json_encode($userInformation_arr);
+    print_r(json_encode($userInformation_arr)) ;
 }
 
-else{
-    echo json_encode(
-        array("message" => "No user found.")
-    );
-}
 

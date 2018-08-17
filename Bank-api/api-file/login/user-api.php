@@ -26,9 +26,9 @@ $userInformation->readOne();
 
 // create array
 $userInformation_arr = array(
-    "user id" =>  $userInformation->user_id,
-    "user name" => $userInformation->user_name,
-    "user password" => $userInformation->user_password
+    "user_id" =>  $userInformation->user_id,
+    "user_name" => $userInformation->user_name,
+    "user_password" => $userInformation->user_password
 
 );
 

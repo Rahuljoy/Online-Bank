@@ -22,7 +22,7 @@ class UserInformation
 
         // select all query
         $query = "SELECT
-                c.user_name as user_name, p.user_id, p.user_name, p.user_password
+                c.user_name as user_name, p.user_id, p.user_name, p.user_password, p.type_id, p.user_create_date, p.user_active
             FROM
                 " . $this->table_name . " p
                 LEFT JOIN
