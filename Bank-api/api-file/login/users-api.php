@@ -6,17 +6,19 @@ header("Content-Type: application/json; charset=UTF-8");
 
 // include database and api-classes files
 include_once '../../configuration/Database.php';
-include_once '../../api-classes/UserInformation.php';
 
 // instantiate database and user information object
 $database = new Database();
 $db = $database->getConnection();
 
-// initialize object
-$userInformation = new UserInformation($db);
+$query = "SELECT user_id, user_name, user_password, type_id, user_create_date, user_active FROM bank_users ";
+
+// prepare query statement
+$stmt = $db->prepare($query);
+// execute query
+$stmt->execute();
 
 // query userInformation
-$stmt = $userInformation->read();
 $num = $stmt->rowCount();
 
 // check if more than 0 record found

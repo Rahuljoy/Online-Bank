@@ -9,14 +9,10 @@ header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
 
 // include database and api classes files
 include_once '../../configuration/Database.php';
-//include_once '../../api-classes/UserInformation.php';
 
 // instantiate database and user information object
 $database = new Database();
 $db = $database->getConnection();
-
-// initialize object
-//$userInformation = new UserInformation($db);
 
 // get posted data
 $data = json_decode(file_get_contents("php://input"));
@@ -39,9 +35,6 @@ $stmt->execute();
 
 // get retrieved row
 $row = $stmt->fetch(PDO::FETCH_ASSOC);
-
-// read the details of user to be edited
-//$userInformation->login();
 
 // create array
 $userInformation_arr = array(
