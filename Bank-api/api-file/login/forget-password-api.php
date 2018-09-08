@@ -1,5 +1,6 @@
 <?php
 // required headers
+
 header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
 header("Access-Control-Allow-Methods: POST");
@@ -36,14 +37,8 @@ $user_name=htmlspecialchars(strip_tags($user_name));
 $stmt->bindParam(':user_password', $user_password);
 $stmt->bindParam(':user_name', $user_name);
 
-if($stmt->execute()){
+$stmt->execute();
 
-    echo '"message": "Password was updated."';
-}else{
-
-    echo '"message": "Password updated error."';
-
-}
 
 $selectidquery = "SELECT user_id FROM bank_users WHERE  user_name = :user_name";
 
@@ -55,9 +50,10 @@ $userInformation_arr = array(
     "user_id" =>$row['user_id']
 );
 
-print_r($userInformation_arr);
+//print_r($userInformation_arr);
 
 $user_id = $userInformation_arr ["user_id"];
+
 
 $selectquery = "SELECT e_mail FROM user_informations WHERE  user_id = :user_id";
 
@@ -72,8 +68,7 @@ $stmt->execute();
     $row = $stmt->fetch(PDO::FETCH_ASSOC);
     $userInformation_item = array(
         "e_mail" => $e_mail = $row['e_mail']
+
     );
-    print_r(json_encode($userInformation_item));
-
-
-
+print_r(json_encode($userInformation_item));
+//print_r(json_encode($userInformation_arr));
