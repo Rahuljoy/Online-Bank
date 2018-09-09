@@ -76,11 +76,8 @@ if (isset($_POST['submit'])) {
                     <div class="col-lg-10">
                         <select name="type" class="form-control" id="select">
                             <option>Select One</option>
-                            <option style="color: indigo">Visa => (4.....)</option>
-                            <option style="color: royalblue">MasterCard => (5{1,2,3,4,5}.....)</option>
-                            <option style="color: lightskyblue">Discover => (6011.....)</option>
-                            <option style="color: darkslategray">American Express => (37.....)</option>
-                            <option style="color: darkorange">JCB => (35.....)</option>
+                            <option style="color: indigo">Visa</option>
+                            <option style="color: royalblue">MasterCard</option>
                         </select>
                     </div>
                 </div>

@@ -103,6 +103,6 @@ DB::query(' INSERT INTO user_informations VALUES (\'\',:first_name,:middle_name,
     ':picture_path' => $ufilepath,':user_id' => $lastId,':nominee_id' => $nomineeLastId,':address_id' => $addressLastId,':nid' => $user_nid));
 
 
-Mail::sendMail('Welcome to The Online Bank!', 'Your account has been created!'.'Account Name:'.$user_name.','.'Account Id:'.$userId,$e_mail);
+Mail::sendMail('Welcome to The Online Bank!', 'Your account has been created!'.'Account Name:'.$user_name.','.'Account Id:'.$lastId,$e_mail);
 
 ?>
