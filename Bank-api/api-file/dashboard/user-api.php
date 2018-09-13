@@ -15,7 +15,7 @@ $db = $database->getConnection();
 // set ID property of user to be edited
 $user_id = isset($_GET['user_id']) ? $_GET['user_id'] : die();
 
-$userquery = "SELECT user_name,user_active FROM bank_users WHERE user_id = ?";
+$userquery = "SELECT user_name,user_active,user_account_no FROM bank_users WHERE user_id = ?";
 // prepare query statement
 $stmt = $db->prepare( $userquery );
 // bind id of product to be updated
@@ -31,10 +31,12 @@ $row = $stmt->fetch(PDO::FETCH_ASSOC);
 $userInformation_arr=array(
     "user_name" => $row['user_name'],
     "user_active" => $row['user_active'],
+    "user_account_no" => $row['user_account_no'],
 
 );
 $user_name = $userInformation_arr ["user_name"];
 $user_active = $userInformation_arr ["user_active"];
+$user_account_no = $userInformation_arr ["user_account_no"];
 
 //print_r(json_encode($userInformation_arr));
 
@@ -59,16 +61,30 @@ $image = $userInformation_item ["image"];
 $picture_type = $userInformation_item ["picture_type"];
 $picture_path = $userInformation_item ["picture_path"];
 
-//$userInformation_store=array();
-//$userInformation_store["users_records"]=array();
+$balancequery = "SELECT balance FROM cards WHERE user_id = ?";
+// prepare query statement
+$stmt = $db->prepare( $balancequery );
+// bind id of product to be updated
+$stmt->bindParam(1, $user_id);
+// execute query
+$stmt->execute();
+// get retrieved row
+$row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+$userInformation_balance=array(
+    "balance" =>$row['balance']
+);
+$balance = $userInformation_balance ["balance"];
 
 $userInformation_all=array(
     "user_name" => $user_name,
     "user_active" => $user_active,
+    "user_account_no" =>$user_account_no,
     "contact_no" => $contact_no,
     "image" => $image,
     "picture_type" => $picture_type,
     "picture_path" => $picture_path,
+    "balance" => $balance,
 
 );
 

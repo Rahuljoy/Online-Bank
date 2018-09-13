@@ -77,10 +77,15 @@ $ufilepath= $informationForPrint[0]["picture_path"];
 //
 //move_uploaded_file($ufiletmp,$ufilepath);
 
+$user_account_no = rand();
+//$account_no = $accountForPrint[0]["account_no"];
+//echo $account_no;
+
+
 // Insert user
 DB::query(' INSERT INTO bank_users  VALUES (\'\', :user_name, :user_password, :type_id,
-        :user_create_date, :user_active)', array(':user_name' => $user_name, ':user_password' => $user_password,
-    ':type_id' => 2, ':user_create_date' => $time, ':user_active' => true));
+        :user_create_date, :user_active,:user_account_no)', array(':user_name' => $user_name, ':user_password' => $user_password,
+    ':type_id' => 2, ':user_create_date' => $time, ':user_active' => true, ':user_account_no' => $user_account_no));
 // user last insert id
 $lastId = DB::query('SELECT user_id FROM bank_users WHERE user_name=:user_name', array(':user_name' => $user_name))[0]['user_id'];
 //echo $lastId;
@@ -103,6 +108,6 @@ DB::query(' INSERT INTO user_informations VALUES (\'\',:first_name,:middle_name,
     ':picture_path' => $ufilepath,':user_id' => $lastId,':nominee_id' => $nomineeLastId,':address_id' => $addressLastId,':nid' => $user_nid));
 
 
-Mail::sendMail('Welcome to The Online Bank!', 'Your account has been created!'.'Account Name:'.$user_name.','.'Account Id:'.$lastId,$e_mail);
+Mail::sendMail('Welcome to The Online Bank!', 'Your account has been created!'.'Account Name:'.$user_name.','.'Account Id:'.$lastId.','.'Account No:'.$user_account_no,$e_mail);
 
 ?>
