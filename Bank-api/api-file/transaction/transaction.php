@@ -41,3 +41,6 @@ $stmt->bindParam(':user_name', $user_name);
 
 $stmt->execute();
 
+print_r(json_encode($userInformation_item));
+
+
