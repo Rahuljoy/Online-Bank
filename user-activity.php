@@ -73,8 +73,8 @@
                                     <th>Transaction ID</th>
                                     <th>Transaction Type</th>
                                     <th>Web Url</th>
-                                    <th>Shop Name</th>
-                                    <th>ATM Place</th>
+                                    <th>Fund Transfer</th>
+                                    <th>Mobile Recharge</th>
                                     <th>Transaction Amount</th>
                                     <th>Transaction Date</th>
                                 </tr>
