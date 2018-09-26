@@ -18,166 +18,192 @@ $data = json_decode(file_get_contents("php://input"));
 
 $user_id = isset($_GET['user_id']) ? $_GET['user_id'] : die();
 
-$contact_no = $data-> contact_no;
-$transactionAmount = $data-> transaction_amount;
-
-
-$accountnoquery="SELECT user_account_no FROM bank_users WHERE  user_id= ?";
-$stmt = $db->prepare( $accountnoquery);
-// bind id of product to be updated
+//beneficiaty contact no check
+$chckbeneficiatycontactnoquery = "SELECT contact_no FROM beneficiaries WHERE  user_id= ?";
+$stmt=$db->prepare($chckbeneficiatycontactnoquery);
 $stmt->bindParam(1, $user_id);
-// execute query
-$stmt->execute();
-// get retrieved row
-$row = $stmt->fetch(PDO::FETCH_ASSOC);
-$userAccountnoInformation_item=array(
-    "transaction_domination" =>$row['user_account_no']
-);
-$transaction_domination  = $userAccountnoInformation_item["transaction_domination"];
-$transactiondominationquery = "INSERT INTO transaction_temps SET user_id=:user_id , transactions_domination=:transaction_domination";
-$stmt = $db->prepare( $transactiondominationquery );
-$user_id=htmlspecialchars(strip_tags($user_id));
-$transaction_domination =htmlspecialchars(strip_tags($transaction_domination ));
-
-$stmt->bindParam(':user_id', $user_id);
-$stmt->bindParam(':transaction_domination', $transaction_domination);
-$stmt->execute();
-
-$receveraccountnamequary="SELECT account_name FROM beneficiaries WHERE  contact_no= ?";
-$stmt = $db->prepare( $receveraccountnamequary);
-$stmt->bindParam(1, $contact_no);
 $stmt->execute();
 $row = $stmt->fetch(PDO::FETCH_ASSOC);
-$userAccountnameInformation_item=array(
-"account_name" =>$row['account_name ']
-);
-$account_name  = $userAccountnameInformation_item["account_name"];
-$accountnamequery = "INSERT INTO transaction_temps SET user_id=:user_id , account_name=:account_name";
-$stmt = $db->prepare( $accountnamequery );
-$user_id=htmlspecialchars(strip_tags($user_id));
-$transaction_domination =htmlspecialchars(strip_tags($accountnamequery ));
+$beneficiaty_contact_no=$row['contact_no'];
 
-$stmt->bindParam(':user_id', $user_id);
-$stmt->bindParam(':account_name', $account_name);
-$stmt->execute();
-//$receiveraccountidquary = "SELECT user_id FROM bank_users WHERE  user_name=:account_name";
-//$stmt = $db->prepare( $receiveraccountidquary);
-//$stmt->bindParam(":account_name", $account_name);
-//$stmt->execute();
-//$row = $stmt->fetch(PDO::FETCH_ASSOC);
-//$receiverAccountidInformation_item=array(
-//    "receiver_account_id" =>$row['account_name ']
-//);
-////$user_id = $data-> user_id;
+
+$to_mobile_no = $data-> contact_no;
+$transactions_amount = $data-> transactions_amount;
+
+$user_provide_password = $data-> user_password;
+
+//if ($to_mobile_no=$beneficiaty_contact_no) {
+
+//from mobile no
+    $usermobilenoquery = "SELECT contact_no FROM user_informations WHERE  user_id= ?";
+    $stmt = $db->prepare($usermobilenoquery);
+    $stmt->bindParam(1, $user_id);
+    $stmt->execute();
+    $row = $stmt->fetch(PDO::FETCH_ASSOC);
+    $from_mobile_no = $row['contact_no'];
+
+//from account no
+    $fromaccountnoquery = "SELECT user_account_no FROM bank_users WHERE  user_id= ?";
+    $stmt = $db->prepare($fromaccountnoquery);
+    $stmt->bindParam(1, $user_id);
+    $stmt->execute();
+    $row = $stmt->fetch(PDO::FETCH_ASSOC);
+    $from_account = $row['user_account_no'];
+
+//to user id
+    $touseridquery = "SELECT user_id FROM user_informations WHERE  contact_no= ?";
+    $stmt = $db->prepare($touseridquery);
+    $stmt->bindParam(1, $to_mobile_no);
+    $stmt->execute();
+    $row = $stmt->fetch(PDO::FETCH_ASSOC);
+    $to_user_id = $row['user_id'];
+
+//to account no
+    $toaccountnoquery = "SELECT user_account_no FROM bank_users WHERE  user_id= ?";
+    $stmt = $db->prepare($toaccountnoquery);
+    $stmt->bindParam(1, $to_user_id);
+    $stmt->execute();
+    $row = $stmt->fetch(PDO::FETCH_ASSOC);
+    $to_account = $row['user_account_no'];
+
+//from amount
+    $fromamountquery = "SELECT balance FROM cards WHERE  user_id= ?";
+    $stmt = $db->prepare($fromamountquery);
+    $stmt->bindParam(1, $user_id);
+    $stmt->execute();
+    $row = $stmt->fetch(PDO::FETCH_ASSOC);
+    $from_account_balance = $row['balance'];
+
+//to amount
+    $toamountquery = "SELECT balance FROM cards WHERE  user_id= ?";
+    $stmt = $db->prepare($toamountquery);
+    $stmt->bindParam(1, $to_user_id);
+    $stmt->execute();
+    $row = $stmt->fetch(PDO::FETCH_ASSOC);
+    $to_account_balance = $row['balance'];
+
+//transaction Calculation
+    if ($from_account_balance >= $transactions_amount) {
+        $newUser_balance = $from_account_balance - $transactions_amount;
+        $newReceiver_balance = $to_account_balance + $transactions_amount;
+    }
+//insert transaction temp
+    $transactiontempquery = "INSERT INTO transaction_temps SET from_account=:from_account,to_account=:to_account,to_mobile_no=:to_mobile_no,from_mobile_no=:from_mobile_no,transactions_amount=:transactions_amount,transaction_status='Pending',transaction_type='A/C Transfer'";
+    $stmt = $db->prepare($transactiontempquery);
+
+    $from_account = htmlspecialchars(strip_tags($from_account));
+    $to_account = htmlspecialchars(strip_tags($to_account));
+    $to_mobile_no = htmlspecialchars(strip_tags($to_mobile_no));
+    $from_mobile_no = htmlspecialchars(strip_tags($from_mobile_no));
+    $transactions_amount = htmlspecialchars(strip_tags($transactions_amount));
+
+    $stmt->bindParam(':from_account', $from_account);
+    $stmt->bindParam(':to_account', $to_account);
+    $stmt->bindParam(':to_mobile_no', $to_mobile_no);
+    $stmt->bindParam(':from_mobile_no', $from_mobile_no);
+    $stmt->bindParam(':transactions_amount', $transactions_amount);
+
+    $stmt->execute();
+
+    $selecttransactionquery = "SELECT transactions_id FROM transaction_temps WHERE  from_mobile_no = :from_mobile_no";
+    $stmt = $db->prepare($selecttransactionquery);
+    $stmt->bindParam(':from_mobile_no', $from_mobile_no);
+    $stmt->execute();
+    $row = $stmt->fetch(PDO::FETCH_ASSOC);
+    $transaction_temp_id = $row['transactions_id'];
+
+//password
+    $userpasswordquery = "SELECT user_password FROM bank_users WHERE  user_id= ?";
+    $stmt = $db->prepare($userpasswordquery);
+    $stmt->bindParam(1, $user_id);
+    $stmt->execute();
+    $row = $stmt->fetch(PDO::FETCH_ASSOC);
+    $user_password = $row['user_password'];
+
+    if ($user_provide_password == $user_password) {
+//transaction
+        $transactionquery = "INSERT INTO transactions SET from_account=:from_account,to_account=:to_account,to_mobile_no=:to_mobile_no,from_mobile_no=:from_mobile_no,transactions_amount=:transactions_amount,transaction_status='Successfully',transaction_type='A/C Transfer'";
+        $stmt = $db->prepare($transactionquery);
+
+        $from_account = htmlspecialchars(strip_tags($from_account));
+        $to_account = htmlspecialchars(strip_tags($to_account));
+        $to_mobile_no = htmlspecialchars(strip_tags($to_mobile_no));
+        $from_mobile_no = htmlspecialchars(strip_tags($from_mobile_no));
+        $transactions_amount = htmlspecialchars(strip_tags($transactions_amount));
+
+        $stmt->bindParam(':from_account', $from_account);
+        $stmt->bindParam(':to_account', $to_account);
+        $stmt->bindParam(':to_mobile_no', $to_mobile_no);
+        $stmt->bindParam(':from_mobile_no', $from_mobile_no);
+        $stmt->bindParam(':transactions_amount', $transactions_amount);
+        $stmt->execute();
+
+    } else {
+        echo "Error";
+    }
+//update from balance query
+    $selectfromaccountquery = "SELECT user_id FROM user_informations WHERE  contact_no = :from_mobile_no";
+    $stmt = $db->prepare($selectfromaccountquery);
+    $stmt->bindParam(':from_mobile_no', $from_mobile_no);
+    $stmt->execute();
+    $row = $stmt->fetch(PDO::FETCH_ASSOC);
+    $user_id = $row['user_id'];
+
+    $frombalanceupdatequery = "UPDATE cards SET balance = :newUser_balance WHERE user_id= :user_id";
+    $stmt = $db->prepare($frombalanceupdatequery);
+
+    $newUser_balance = htmlspecialchars(strip_tags($newUser_balance));
+    $user_id = htmlspecialchars(strip_tags($user_id));
+
+    $stmt->bindParam(':newUser_balance', $newUser_balance);
+    $stmt->bindParam(':user_id', $user_id);
+
+    $stmt->execute();
+
+//update to balance query
+
+    $selecttoaccountquery = "SELECT user_id FROM user_informations WHERE  contact_no =?";
+    $stmt = $db->prepare($selecttoaccountquery);
+    $stmt->bindParam(1, $to_mobile_no);
+    $stmt->execute();
+    $row = $stmt->fetch(PDO::FETCH_ASSOC);
+    $to_user_id = $row['user_id'];
+
+    $tobalanceupdatequery = "UPDATE cards SET balance = :newReceiver_balance WHERE user_id= :to_user_id";
+    $stmt = $db->prepare($tobalanceupdatequery);
+
+    $newReceiver_balance = htmlspecialchars(strip_tags($newReceiver_balance));
+    $to_user_id = htmlspecialchars(strip_tags($to_user_id));
+
+    $stmt->bindParam(':newReceiver_balance', $newReceiver_balance);
+    $stmt->bindParam(':to_user_id', $to_user_id);
+    $stmt->execute();
+
+//insert balance table query
+    $insertbalancetablequery = "INSERT INTO balances SET balance=:newUser_balance,last_transaction_balance=:transactions_amount,user_id=:user_id";
+    $stmt = $db->prepare($insertbalancetablequery);
+
+    $newUser_balance = htmlspecialchars(strip_tags($newUser_balance));
+    $transactions_amount = htmlspecialchars(strip_tags($transactions_amount));
+    $user_id = htmlspecialchars(strip_tags($user_id));
+
+    $stmt->bindParam(':newUser_balance', $newUser_balance);
+    $stmt->bindParam(':transactions_amount', $transactions_amount);
+    $stmt->bindParam(':user_id', $user_id);
+    $stmt->execute();
 //
-//$userbalancequery="SELECT balance FROM cards WHERE  user_id= ?";
+    $selecttransactionstatusquery = "SELECT transaction_status FROM transactions WHERE  to_mobile_no = :to_mobile_no";
 //
-//$stmt = $db->prepare( $userbalancequery );
-//// bind id of product to be updated
-//$stmt->bindParam(1, $user_id);
-//// execute query
-//$stmt->execute();
-//// get retrieved row
-//$row = $stmt->fetch(PDO::FETCH_ASSOC);
-//$userBalanceInformation_item=array(
-//    "sender balance" =>$row['balance']
-//);
-//$user_balance = $userBalanceInformation_item["sender balance"];
-//
-//
-//$contactnoidquery="SELECT user_id FROM user_informations WHERE  contact_no = ? ";
-//$stmt = $db->prepare( $contactnoidquery );
-//// bind id of product to be updated
-//$stmt->bindParam(1, $contact_no);
-//// execute query
-//$stmt->execute();
-//// get retrieved row
-//$row = $stmt->fetch(PDO::FETCH_ASSOC);
-//$contactnoidInformation_item=array(
-//    "Receiver_user_id" =>$row['user_id']
-//);
-//$user_id = $contactnoidInformation_item["Receiver_user_id"];
-//
-//
-//$contactNoAccountNamequery = "SELECT account_name FROM beneficiaries WHERE  contact_no = ? ";
-//$stmt = $db->prepare($contactNoAccountNamequery);
-//$stmt->bindParam(1, $contact_no);
-//$stmt->execute();
-//// get retrieved row
-//$row = $stmt->fetch(PDO::FETCH_ASSOC);
-//$contactnoaccountnameInformation_item=array(
-//    "account_name" =>$row['account_name']
-//);
-//$account_name = $contactnoaccountnameInformation_item["account_name"];
-//
-//
-//$selectreceiveraccountNoquery = "SELECT user_account_no FROM bank_users WHERE  user_id = :user_id";
-//$stmt = $db->prepare($selectreceiveraccountNoquery);
-//$stmt->bindParam(':user_id', $user_id);
-//$stmt->execute();
-//$row = $stmt->fetch(PDO::FETCH_ASSOC);
-//$receiveraccountnoInformation_item = array(
-//    "receiver_account_no" =>$row['user_account_no']
-//);
-//$receiver_account_no = $receiveraccountnoInformation_item["receiver_account_no"];
-//
-//
-//$selectquery = "SELECT balance FROM cards WHERE  user_id = :user_id";
-//
-//$stmt = $db->prepare($selectquery);
-//$stmt->bindParam(':user_id', $user_id);
-//$stmt->execute();
-//// get retrieved row
-//$row = $stmt->fetch(PDO::FETCH_ASSOC);
-//$balanceInformation_item = array(
-//    "receiver_balance" =>$row['balance']
-//);
-//$receiver_balance = $balanceInformation_item["receiver_balance"];
-//
-//$total_balance = ($user_balance+$receiver_balance);
-//$totalbalanceInformation_item = array(
-//    "total_balance" =>['total_balance']
-//);
-//
-//if ($user_balance>=$transactionAmount){
-//    $newUser_balance=$user_balance-$transactionAmount;
-//    $newReceiver_balance=$receiver_balance+$transactionAmount;
+    $stmt = $db->prepare($selecttransactionstatusquery);
+    $stmt->bindParam(':to_mobile_no', $to_mobile_no);
+    $stmt->execute();
+    $row = $stmt->fetch(PDO::FETCH_ASSOC);
+    $transactionstatusInformation_arr = array(
+//    "transaction_status " =>$row['transaction_status ']
+        "transaction_status" => $transaction_status = $row['transaction_status']
+    );
+
+//else{
+    print_r(json_encode($transactionstatusInformation_arr));
 //}
-//$userInformation_all=array(
-//    "user_account_no" => $user_account_no,
-////    "sender balance" => $user_balance,
-////    "Receiver_user_id" => $user_id,
-////    "account_name" => $account_name,
-////    "Receiver_account_no" => $receiver_account_no,
-////    "receiver_balance" => $receiver_balance,
-////    "total_balance" => $total_balance,
-////    "newUserBalance" =>$newUser_balance,
-////    "newReceiverBalance" => $newReceiver_balance,
-////
-//);
-//
-//$user_account_no =$data->user_account_no;
-//$receiver_account_no=$data->receiver_account_no;
-//$account_name=$data->account_name;
-//$transactionAmount = $data-> transaction_amount;
-//$user_id =$data->user_id;
-//
-//$query="INSERT INTO transaction_temps SET transactions_domination=:user_account_no , fund_transfer = :receiver_account_no , transactions_amount= :transaction_amount , account_name = :account_name , user_id=:user_id";
-//$stmt = $db->prepare( $query );
-//
-//$user_account_no=htmlspecialchars(strip_tags($user_account_no));
-//$receiver_account_no=htmlspecialchars(strip_tags($receiver_account_no));
-//$transactionAmount=htmlspecialchars(strip_tags($transactionAmount));
-//$account_name=htmlspecialchars(strip_tags($account_name));
-//$user_id=htmlspecialchars(strip_tags($user_id));
-//
-//
-//$stmt->bindParam(':user_account_no', $user_account_no);
-//$stmt->bindParam(':receiver_account_no', $receiver_account_no);
-//$stmt->bindParam(':transactionAmount', $transactionAmount);
-//$stmt->bindParam(':account_name', $account_name);
-//$stmt->bindParam(':user_id', $user_id);
-//
-//$stmt->execute();
-//
-//print_r(json_encode($user_account_no));
+//echo ();

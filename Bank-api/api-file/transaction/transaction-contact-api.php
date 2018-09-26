@@ -28,27 +28,20 @@ $stmt->execute();
 $num = $stmt->rowCount();
 if($num>0) {
 
-    // userInformation array
-//    $userContactInformation_arr = array();
-//    $userContactInformation_arr["contact_no"]=array() ;
+    $userInformation_arr=array();
+    $userInformation_arr["contactno"]=array();
 
     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
 
         extract($row);
 //
         $userContactInformation_item = array(
-//            "contact_no" => $contact_no,
-            "contact_no" =>$row['contact_no']
-        );
-        $contact_no = $userContactInformation_item ["contact_no"];
-
-        $userInformation_all=array(
+//            $row['contact_no'],
             "contact_no" => $contact_no,
-
         );
-
-        print_r(json_encode($userInformation_all));
+        array_push($userInformation_arr["contactno"],$userContactInformation_item);
     }
+    print_r(json_encode($userInformation_arr));
 }
 
 
